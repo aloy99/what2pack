@@ -1,20 +1,23 @@
 import { useState } from 'react'
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import StartPresenter from './reactjs/startPresenter.jsx';
-import SignInPresenter from './reactjs/signInPresenter.jsx';
+import LoginPresenter from './reactjs/LoginPresenter.jsx';
 import DetailsPresenter from './reactjs/detailsPresenter.jsx';
 import ProfilePresenter from './reactjs/profilePresenter.jsx';
+import What2PackModel from './What2PackModel';
 import './App.css'
+
+const myModel = new What2PackModel();
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<StartPresenter></StartPresenter>}></Route>
-        <Route path='/start' element={<StartPresenter></StartPresenter>}></Route>
-        <Route path='/signin' element={<SignInPresenter></SignInPresenter>}></Route>
-        <Route path='/details' element={<DetailsPresenter></DetailsPresenter>}></Route>
-        <Route path='/profile' element={<ProfilePresenter></ProfilePresenter>}></Route>
+        <Route path='/' element={<StartPresenter model={myModel}/>}></Route>
+        <Route path='/start' element={<StartPresenter model={myModel}/>}></Route>
+        <Route path='/login' element={<LoginPresenter model={myModel}/>}></Route>
+        <Route path='/details' element={<DetailsPresenter model={myModel}/>}></Route>
+        <Route path='/profile' element={<ProfilePresenter model={myModel}/>}></Route>
       </Routes>
     </BrowserRouter>
     

@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+.input-destination {
+  width: 30%;
+}
+
+.div-profile {
+  display: flex;
+}
+
+.text-center {
+  text-align: center;
+}
