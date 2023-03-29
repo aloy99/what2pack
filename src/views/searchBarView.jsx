@@ -38,7 +38,7 @@ function SearchBarView(props){
     };
     return (
     <div>
-        <SearchCompleteView onChange={destChangeACB) />
+        <SearchCompleteView onChange={destChangeACB} />
         <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>
         <Button id="button-search-bar" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
             Search
