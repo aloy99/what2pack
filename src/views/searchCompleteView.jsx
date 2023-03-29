@@ -3,7 +3,7 @@ import React from "react";
 import { Input, List } from 'antd'
 import { GMAPS_BASE_URL, GMAPS_API_KEY   } from "../apiConfig.jsx";
 
-function SearchCompleteView(){
+function SearchCompleteView(props){
     const {
         ready,
         value,
@@ -19,6 +19,7 @@ function SearchCompleteView(){
 
     function inputChangeCB(e){
         setValue(e.target.value);
+        props.onChange(e);
     }
 
     function onLocationClickCB({description}) {
