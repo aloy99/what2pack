@@ -1,8 +1,12 @@
 import React from "react";
+import {useState} from "react";
 import dayjs from 'dayjs';
 import { Input, DatePicker, Button} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import SearchCompleteView from './searchCompleteView'
 const { RangePicker } = DatePicker;
+
+
 
 function SearchBarView(props){
     function clickSearchACB(evt){
@@ -24,10 +28,10 @@ function SearchBarView(props){
         return current < dayjs().startOf('day');
     };
     return (
-    <div>
-        <Input placeholder="Destination" className="input-destination"/>
-        <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} />
-        <Button id="button-search-bar" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
+    <div className='search-bar'>
+        <SearchCompleteView/>
+        <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} className="date-picker"/>
+        <Button id="button-search-bar" className="date-picker" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
             Search
         </Button>
     </div>
