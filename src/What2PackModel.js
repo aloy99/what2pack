@@ -1,28 +1,41 @@
+import resolvePromise from './resolvePromise';
+
+const PLAN_EXAMPLE = {
+    destination: "Paris", 
+    startDate: "2023-03-28", 
+    endDate: "2023-04-01"
+}
+
 class What2PackModel {
-    constructor() {
-        this.plans = [];
+    constructor(plans = []) {
+        this.plans = plans;
         this.currentPlan = null;
         this.observers = [];
+        this.searchParams = {};
+        this.searchResultsPromiseState = {};
+        this.currentPlanPromiseState = {};
     }
 
-    setCurrentPlan(destination, startDate, endDate) {
-        this.currentPlan = {"destination": destination, "startDate": startDate, "endDate": endDate};
-    }
-
-    addPlan(destination, startDate, endDate) {
-        const planToAdd = {"destination": destination, "startDate": startDate, "endDate": endDate};
-        if (!this.plans.some(e => e === planToAdd)){
-            this.plans = [...this.plans, plan];
-            this.notifyObservers({"planToAdd": planToAdd});
+    setCurrentPlan(plan) {
+        const oldPlan = this.currentPlan;
+        this.currentPlan = plan;
+        if (plan !== oldPlan){
+            this.notifyObservers({currentPlan: plan});
         }
     }
 
-    removePlan(destination, startDate, endDate) {
-        const planToRemove = {"destination": destination, "startDate": startDate, "endDate": endDate};
+    addPlan(planToAdd) {
+        if (!this.plans.some(e => e === planToAdd)){
+            this.plans = [...this.plans, planToAdd];
+            this.notifyObservers({planToAdd: planToAdd});
+        }
+    }
+
+    removePlan(planToRemove) {
         const oldPlans = this.plans;
         this.plans = this.plans.filter(p => p !== planToRemove);
         if (this.plans.length !== oldPlans.length)
-            this.notifyObservers();
+            this.notifyObservers({planToRemove: planToRemove});
     }
     
     addObserver(callback){
@@ -46,6 +59,22 @@ class What2PackModel {
             }
         }
         this.observers.forEach(invokeObserverCB);
+    }
+
+    setSearchDestination(dest){
+        this.searchParams.destination = dest;
+    }
+
+    setSearchDateRange(startDate, endDate){
+        this.searchParams.startDate = startDate;
+        this.searchParams.endDate = endDate;
+    }
+
+    doSearch(searchParams){
+        if(destination in searchParams && dateRange in searchParams){
+            // TODO: need API functions
+            // resolvePromise
+        }
     }
 }
 
