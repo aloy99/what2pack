@@ -42,7 +42,7 @@
 }
 
 .input-destination {
-  width: 30%;
+  width: 100%;
 }
 
 .div-profile {
@@ -51,4 +51,26 @@
 
 .text-center {
   text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-suggestions {
+  background-color: rgba(255, 255, 255, 0.87);
+  position: relative;
+  display:block;
+}
+
+.country-search {
+  display: flex;
+  min-width: 500px;
+  margin: 0;
+  padding: 0;
+}
+
+.date-picker {
+  display: flex;  
 }
