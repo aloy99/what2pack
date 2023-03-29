@@ -23,15 +23,24 @@ function SearchBarView(props){
         else
             props.onSearchInput(destination, startDate, endDate);
     }
+    function destChangeACB(evt){
+        props.onDestChanged(evt.target.value);
+    }
+    function rangeChangeACB(range){
+        const startDate = range[0].format('YYYY-MM-DD');
+        const endDate = range[1].format('YYYY-MM-DD');
+        props.onRangeChanged(startDate, endDate);
+    }
+
     const disabledDate = (current) => {
         // Can not select days before today
         return current < dayjs().startOf('day');
     };
     return (
-    <div className='search-bar'>
-        <SearchCompleteView/>
-        <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} className="date-picker"/>
-        <Button id="button-search-bar" className="date-picker" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
+    <div>
+        <SearchCompleteView onChange={destChangeACB) />
+        <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>
+        <Button id="button-search-bar" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
             Search
         </Button>
     </div>

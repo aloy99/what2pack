@@ -1,28 +1,34 @@
 import React from "react";
-import { Button } from 'antd';
 import { useNavigate } from "react-router-dom";
-import { UserOutlined } from '@ant-design/icons';
 import SearchBarView from "./searchBarView";
+import UserIconView from './userIconView';
 
 function StartView(props){
     const navigate = useNavigate();
-    function handleSearchInput(destination, startDate, endDate){
+    function passSearchInputACB(destination, startDate, endDate){
         console.log("search input: ",destination, startDate, endDate);
-        props.model.setCurrentPlan(destination, startDate, endDate);
+        props.onSearchInput(destination, startDate, endDate);
         navigate("/details");
     }
+    function passDestACB(dest){
+        props.onDestChanged(dest);
+    }
+    function passRangeACB(startDate, endDate){
+        props.onRangeChanged(startDate, endDate);
+    }
     function clickLoginACB(){
-        navigate("/profile");
+        navigate("/login");
     }
     return (
     <>
-        <div onClick={clickLoginACB} className="div-profile">
-            <Button id="button-profile-start" type="primary" shape="circle" icon={<UserOutlined/>}/>
-            <p className="text-center">Login</p>
-        </div>
+        <UserIconView onIconClicked={clickLoginACB}/>
         <h1>What to pack?</h1>
         <h3>Pack the insights into your holidays</h3>
-        <SearchBarView id="search-bar-start" onSearchInput={handleSearchInput}/>
+        <SearchBarView 
+            id="search-bar-start" 
+            onSearchInput={passSearchInputACB} 
+            onDestChanged={passDestACB} 
+            onRangeChanged={passRangeACB}/>
     </>);
 }   
 
