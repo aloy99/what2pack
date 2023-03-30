@@ -18,7 +18,7 @@ class What2PackModel {
 
     setCurrentPlan(plan) {
         if (this.currentPlan == null
-            ||plan.destination !== this.currentPlan.destination 
+            || plan.destination !== this.currentPlan.destination 
             || plan.startDate !== this.currentPlan.startDate
             || plan.endDate !== this.currentPlan.endDate){
             this.currentPlan = plan;

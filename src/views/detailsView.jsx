@@ -1,6 +1,7 @@
 import React from "react";
-import SearchBarView from "./searchBarView";
 import dayjs from 'dayjs';
+import UserIconView from './userIconView';
+import SearchBarView from "./searchBarView";
 
 function DetailsView(props){
     const currentPlan = props.model.currentPlan;
@@ -23,8 +24,12 @@ function DetailsView(props){
     function passRangeACB(startDate, endDate){
         props.onRangeChanged(startDate, endDate);
     }
+    function clickLoginACB(){
+        navigate("/login");
+    }
     return (
     <div>
+        <UserIconView onIconClicked={clickLoginACB}/>
         <p id="msg-details">{msg}</p>
         <SearchBarView 
             id="search-bar-details" 
