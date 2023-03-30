@@ -17,18 +17,25 @@ class What2PackModel {
     }
 
     setCurrentPlan(plan) {
-        const oldPlan = this.currentPlan;
-        this.currentPlan = plan;
-        if (plan !== oldPlan){
+        if (this.currentPlan == null
+            ||plan.destination !== this.currentPlan.destination 
+            || plan.startDate !== this.currentPlan.startDate
+            || plan.endDate !== this.currentPlan.endDate){
+            this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});
         }
     }
 
     addPlan(planToAdd) {
-        if (!this.plans.some(e => e === planToAdd)){
-            this.plans = [...this.plans, planToAdd];
-            this.notifyObservers({planToAdd: planToAdd});
+        for (const p of this.plans){
+            if(p.destination === planToAdd.destination 
+                && p.startDate === planToAdd.startDate 
+                && p.endDate === planToAdd.endDate){
+                    return;
+                }
         }
+        this.plans = [...this.plans, planToAdd];
+        this.notifyObservers({planToAdd: planToAdd});
     }
 
     removePlan(planToRemove) {
@@ -51,6 +58,7 @@ class What2PackModel {
 
     notifyObservers(payload)
     {
+        // console.log(payload);
         function invokeObserverCB(obs){
             try{
                 obs(payload);

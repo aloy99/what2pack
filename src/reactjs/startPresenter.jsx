@@ -10,9 +10,11 @@ function StartPresenter(props){
     }
     function handleDestACB(dest){
         props.model.setSearchDestination(dest);
+        console.log(props.model);
     }
     function handleRangeACB(startDate, endDate){
         props.model.setSearchDateRange(startDate, endDate);
+        console.log(props.model);
     }
     return <StartView   
             model={props.model} 

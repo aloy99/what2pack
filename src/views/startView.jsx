@@ -26,6 +26,7 @@ function StartView(props){
         <h3>Pack the insights into your holidays</h3>
         <SearchBarView 
             id="search-bar-start" 
+            defaultRange={["",""]}
             onSearchInput={passSearchInputACB} 
             onDestChanged={passDestACB} 
             onRangeChanged={passRangeACB}/>

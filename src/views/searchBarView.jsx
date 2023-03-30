@@ -3,10 +3,8 @@ import {useState} from "react";
 import dayjs from 'dayjs';
 import { Input, DatePicker, Button} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import SearchCompleteView from './searchCompleteView'
+import SearchCompleteView from './searchCompleteView';
 const { RangePicker } = DatePicker;
-
-
 
 function SearchBarView(props){
     function clickSearchACB(evt){
@@ -23,13 +21,22 @@ function SearchBarView(props){
         else
             props.onSearchInput(destination, startDate, endDate);
     }
-    function destChangeACB(evt){
-        props.onDestChanged(evt.target.value);
+    function destChangeACB(){
+        let destination = document.querySelector(".input-destination").value;
+        console.log(destination);
+        props.onDestChanged(destination);
     }
     function rangeChangeACB(range){
+        if(range === null){
+            props.onRangeChanged("", "");
+            return;
+        }
         const startDate = range[0].format('YYYY-MM-DD');
         const endDate = range[1].format('YYYY-MM-DD');
         props.onRangeChanged(startDate, endDate);
+    }
+    function locationClickedACB(dest){
+        props.onDestChanged(dest);
     }
 
     const disabledDate = (current) => {
@@ -38,8 +45,8 @@ function SearchBarView(props){
     };
     return (
     <div>
-        <SearchCompleteView onChange={destChangeACB} />
-        <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>
+        <SearchCompleteView onChange={destChangeACB} onLocationClicked={locationClickedACB} defaultDest={props.defaultDest}/>
+        <RangePicker id="range-picker-search-bar" defaultValue={props.defaultRange} disabledDate={disabledDate} onChange={rangeChangeACB}/>
         <Button id="button-search-bar" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
             Search
         </Button>
