@@ -1,11 +1,17 @@
-import React from "react";
-import DetailsView from "../views/detailsView";
+import React, { useState, useEffect } from 'react';
+import useModelProp from './useModelProp.jsx';
+import useRerender from './useRerender.jsx';
+import DetailsView from "../views/detailsView.jsx";
 
 function DetailsPresenter(props){
-    function handleSearchInput(destination, startDate, endDate){
+    const rerenderACB = useRerender();
+    const currentDestination = useModelProp(props.model, "searchParams");
+    console.log(currentDestination)
+    function handleSearchInputACB(destination, startDate, endDate){
         const plan = {destination: destination, startDate: startDate, endDate: endDate};
         props.model.setCurrentPlan(plan);
         props.model.addPlan(plan);
+        this.model.doSearch(this.model.searchParams);
         console.log(props.model);
     }
     function handleDestACB(dest){
@@ -18,7 +24,7 @@ function DetailsPresenter(props){
     }
     return <DetailsView 
             model={props.model} 
-            onSearchInput={handleSearchInput}
+            onSearchInput={handleSearchInputACB}
             onDestChanged={handleDestACB}
             onRangeChanged={handleRangeACB}/>;
 }

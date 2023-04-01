@@ -14,7 +14,6 @@ function DetailsView(props){
     function passSearchInputACB(destination, startDate, endDate){
         // console.log("search input: ",destination, startDate, endDate);
         msg = makeMsg(destination, startDate, endDate);
-        console.log(document.getElementById("msg-details"));
         document.getElementById("msg-details").innerText = msg;
         props.onSearchInput(destination, startDate, endDate);
     }
@@ -27,6 +26,16 @@ function DetailsView(props){
     function clickLoginACB(){
         navigate("/login");
     }
+    function itemInfoCB(item){
+        return(
+            <tr key={item.name}>
+                <td>{item.name}</td>
+                <td>{item.amount}</td>
+                <td>{item.remark}</td>
+            </tr>
+        )
+    }
+    console.log(props.model.currentItems)
     return (
     <div>
         <UserIconView onIconClicked={clickLoginACB}/>
@@ -39,12 +48,11 @@ function DetailsView(props){
             onDestChanged={passDestACB} 
             onRangeChanged={passRangeACB}
         />
-        <p>something to bring</p>
-        <p>something to bring</p>
-        <p>something to bring</p>
-        <p>something to bring</p>
-        <p>something to bring</p>
-        <p>something to bring</p>
+        <table className="items-table-details">
+            <tbody>
+                {props.model.currentItems.map(itemInfoCB)}
+            </tbody>
+        </table>
     </div>);
 }
 

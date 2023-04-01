@@ -6,10 +6,17 @@ const PLAN_EXAMPLE = {
     endDate: "2023-04-01"
 }
 
+const ITEM_EXAMPLE = {
+    name: "SPF 50 Sunscreen",
+    amount: "1",
+    remark: "It's going to be very sunny at the beach"
+}
+
 class What2PackModel {
     constructor(plans = []) {
         this.plans = plans;
         this.currentPlan = null;
+        this.currentItems = [];
         this.observers = [];
         this.searchParams = {};
         this.searchResultsPromiseState = {};
@@ -23,6 +30,14 @@ class What2PackModel {
             || plan.endDate !== this.currentPlan.endDate){
             this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});
+        }
+    }
+
+    setCurrentItems(items){
+        const oldItems = this.currentItems;
+        this.currentItems = items;
+        if (this.currentItems !== oldItems){
+            this.notifyObservers({currentItems: items});
         }
     }
 
@@ -79,9 +94,21 @@ class What2PackModel {
     }
 
     doSearch(searchParams){
-        if(destination in searchParams && dateRange in searchParams){
+        if('destination' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
             // TODO: need API functions
             // resolvePromise
+            this.currentItems = [
+                {
+                    name: "SPF 50 Sunscreen",
+                    amount: "1",
+                    remark: "It's going to be very sunny at the beach of " + searchParams.destination
+                },
+                {
+                    name: "Umbrella",
+                    amount: "1",
+                    remark: "It's going to rain a lot in " + searchParams.destination
+                }
+            ]
         }
     }
 }

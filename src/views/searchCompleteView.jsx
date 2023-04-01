@@ -58,7 +58,7 @@ function SearchCompleteView(props){
         return (<List.item>{main_text}</List.item>);
         
     }
-    
+    console.log(props.defaultDest)
     return (
         <div className="country-search">
             <Input
@@ -68,7 +68,6 @@ function SearchCompleteView(props){
                 ng-disabled="'@ViewBag.EditaConteudo'"
                 className="input-destination"
                 defaultValue={props.defaultDest}
-                // defaultValue={"props.defaultDest"}
                 value={value}
                 onChange={inputChangeACB}
             />
