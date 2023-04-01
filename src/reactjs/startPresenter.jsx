@@ -3,7 +3,7 @@ import useModelProp from './useModelProp.jsx';
 import StartView from '../views/startView.jsx';
 
 function StartPresenter(props){
-    const currentDestination = useModelProp(props.model, "searchParams");
+    useModelProp(props.model, ["currentPlan"])
     function handleSearchInputACB(destination, startDate, endDate){
         const plan = {destination: destination, startDate: startDate, endDate: endDate};
         props.model.setCurrentPlan(plan);
@@ -21,6 +21,7 @@ function StartPresenter(props){
     }
     return <StartView   
             model={props.model} 
+            currentPlan={props.model.currentPlan}
             onSearchInput={handleSearchInputACB}
             onDestChanged={handleDestACB}
             onRangeChanged={handleRangeACB}/>;
