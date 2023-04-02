@@ -28,7 +28,7 @@ function StartView(props){
     return (
     <>
         <img className="logo"
-            src="public\assets\images\logo.jpg" 
+            src="assets\images\logo.jpg" 
             alt="What2Pack" 
             width="100" 
             height="100"

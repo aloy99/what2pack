@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useModelProp from './useModelProp.jsx';
 import DetailsView from "../views/detailsView.jsx";
 
 function DetailsPresenter(props){
     useModelProp(props.model, ["currentPlan", "currentItems", "plans"]);
-    function handleSearchInputACB(destination, startDate, endDate){
-        const plan = {destination: destination, startDate: startDate, endDate: endDate};
-        props.model.setCurrentPlan(plan);
-        this.model.doSearch(this.model.searchParams);
-        console.log(props.model);
+    const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
+    function ifPlanAdded(planToAdd, plans){
+        for (const p of plans){
+            if(p.destination === planToAdd.destination 
+                && p.startDate === planToAdd.startDate 
+                && p.endDate === planToAdd.endDate){
+                    return true;
+                }
+            }
+        return false;
     }
     function handleDestACB(dest){
         props.model.setSearchDestination(dest);
@@ -18,10 +23,21 @@ function DetailsPresenter(props){
         props.model.setSearchDateRange(startDate, endDate);
         console.log(props.model);
     }
+    function handleSearchInputACB(destination, startDate, endDate){
+        const plan = {destination: destination, startDate: startDate, endDate: endDate};
+        props.model.setCurrentPlan(plan);
+        setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
+        this.model.doSearch(this.model.searchParams);
+        console.log(props.model);
+    }
     function handleAddPlanACB(){
-        const currentPlan = this.model.currentPlan;
-        props.model.addPlan(currentPlan);
-        
+        props.model.addPlan(this.model.currentPlan);
+        setCurrentPlanAdded(true);
+        console.log(props.model);
+    }
+    function handleDeletePlanACB(){
+        props.model.removePlan(this.model.currentPlan);
+        setCurrentPlanAdded(false);
         console.log(props.model);
     }
     return <DetailsView 
@@ -29,10 +45,12 @@ function DetailsPresenter(props){
             plans={props.model.plans}
             currentPlan={props.model.currentPlan}
             currentItems={props.model.currentItems}
+            currentPlanAdded={currentPlanAdded}
             onSearchInput={handleSearchInputACB}
             onDestChanged={handleDestACB}
             onRangeChanged={handleRangeACB}
-            onAddPlan={handleAddPlanACB}/>;
+            onAddPlan={handleAddPlanACB}
+            onDeletePlan={handleDeletePlanACB}/>;
 }
 
 export default DetailsPresenter;

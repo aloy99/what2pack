@@ -7,7 +7,6 @@ function StartPresenter(props){
     function handleSearchInputACB(destination, startDate, endDate){
         const plan = {destination: destination, startDate: startDate, endDate: endDate};
         props.model.setCurrentPlan(plan);
-        props.model.addPlan(plan);
         this.model.doSearch(this.model.searchParams);
         console.log(props.model);
     }

@@ -19,6 +19,7 @@ class What2PackModel {
         this.currentItems = [];
         this.observers = [];
         this.searchParams = {};
+        // this.currentPlanAdded = false;
         this.searchResultsPromiseState = {};
         this.currentPlanPromiseState = {};
     }

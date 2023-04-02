@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
 import SearchBarView from "./searchBarView";
 import UserIconView from './userIconView';
-import { PlusOutlined, CheckOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import AddButtonView from './addButtonView';
+import { Popconfirm } from 'antd';
+import { func } from "prop-types";
 
 function DetailsView(props){
     const currentPlan = props.currentPlan;
-    const plans = props.plans;
+    const currentPlanAdded = props.currentPlanAdded;
+    // const plans = props.plans;
+    const [open, setOpen] = useState(false);
+    const showPopconfirm = () => {
+        setOpen(true);
+    };
+    const closePopconfirm = () => {
+        setOpen(false);
+    };
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
     const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate), dayjs(currentPlan.endDate)];
     const navigate = useNavigate();
@@ -17,9 +26,6 @@ function DetailsView(props){
         return "Packing suggestions for " + dest + " from " + start + " to " + end;
     }
     function passSearchInputACB(destination, startDate, endDate){
-        const isPlanAdded = ifPlanAdded(currentPlan, plans);
-        console.log(isPlanAdded);
-        setButtonAddToPlan(isPlanAdded);
         msg = makeMsg(destination, startDate, endDate);
         document.getElementById("msg-details").innerText = msg;
         props.onSearchInput(destination, startDate, endDate);
@@ -36,41 +42,24 @@ function DetailsView(props){
     function clickLogoACB(){
         navigate("/");
     }
-    function setButtonAddToPlan(isPlanAdded){
-        const buttonAddToPlan = document.querySelector(".button-add-to-plan-detail");
-        if(buttonAddToPlan !== null){
-            if (isPlanAdded){
-                buttonAddToPlan.icon = <CheckOutlined/>;
-                buttonAddToPlan.innerText = "Already in my plans";
-            }
-            else{
-                buttonAddToPlan.icon = <PlusOutlined/>;
-                buttonAddToPlan.innerText = "Add to my plans";
-            }
+    function clickAddToPlanACB(){
+        if(!currentPlanAdded){
+            if (currentPlan.destination !== null 
+                && currentPlan.startDate !== null 
+                && currentPlan.endDate !== null){
+                    props.onAddPlan();
+                }
         }
     }
-    function ifPlanAdded(planToAdd, plans){
-        console.log(planToAdd);
-        console.log(plans);
-        for (const p of plans){
-            if(p.destination === planToAdd.destination 
-                && p.startDate === planToAdd.startDate 
-                && p.endDate === planToAdd.endDate){
-                    return true;
-                }
-            }
-        return false;
+    function clickRemoveFromPlanACB(){
+        showPopconfirm();
     }
-    function clickAddToPlanACB(){
-        console.log("Add to my plans:", currentPlan);
-        if (currentPlan.destination !== null 
-            && currentPlan.startDate !== null 
-            && currentPlan.endDate !== null){
-                props.onAddPlan();
-                const isPlanAdded = ifPlanAdded(currentPlan, plans);
-                console.log(isPlanAdded);
-                setButtonAddToPlan(isPlanAdded);
-            }
+    function confirmDeleteACB(){
+        props.onDeletePlan();
+        closePopconfirm();
+    }
+    function cancelDeleteACB(){
+        closePopconfirm();
     }
     function itemInfoCB(item){
         return(
@@ -84,7 +73,7 @@ function DetailsView(props){
     return (
     <>
         <img className="logo"
-            src="public\assets\images\logo.jpg" 
+            src="assets\images\logo.jpg" 
             alt="What2Pack" 
             width="100" 
             height="100"
@@ -112,13 +101,21 @@ function DetailsView(props){
                 {props.currentItems.map(itemInfoCB)}
             </tbody>
         </table>
-        <Button 
-            className="button-add-to-plan-detail"
-            type="primary" 
-            icon={<PlusOutlined />} 
-            onClick={clickAddToPlanACB} >
-            Add to my plans
-        </Button>
+        <Popconfirm
+            title="Are you sure to delete this plan?"
+            description=""
+            onConfirm={confirmDeleteACB}
+            onCancel={cancelDeleteACB}
+            okText="Yes"
+            cancelText="No"
+            disabled={!currentPlanAdded}
+            open={open}
+            >
+            <AddButtonView 
+                currentPlanAdded={currentPlanAdded}
+                onDeletePlan={clickRemoveFromPlanACB}
+                onAddPlan={clickAddToPlanACB}/>
+        </Popconfirm>
     </>
     );
 }
