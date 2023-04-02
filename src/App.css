@@ -47,14 +47,15 @@
 
 .div-profile {
   display: flex;
+  flex-direction: row;
 }
 
 .text-center {
-  text-align: center;
+  /* text-align: center; */
+  vertical-align: middle;
 }
 
 .search-bar {
-  margin: 0 20 0 0px;
   display: flex;
   flex-direction: row;
 }
@@ -75,3 +76,4 @@
 .date-picker {
   display: flex;  
 }
+

@@ -50,7 +50,7 @@ h1 {
 }
 
 button {
-  border-radius: 1px;
+  border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -81,7 +81,7 @@ button:focus-visible {
   }
 }
 
-.flex {
+.flex-row {
   display: flex;
   /* margin: 50px; */
   /* height: 300px; */
@@ -89,9 +89,23 @@ button:focus-visible {
   flex-direction: row;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-right {
+  background-color: #b2b5ec;
+  margin-right: 0px;
+  margin-left: auto; 
+}
+
 .item {
-  flex: 1;
-  margin: 0px 0px 0px 40px;
+  /* flex: 1; */
+  margin-left: 40px;
+  /* margin-top: 40px; */
   justify-content: center;
   align-items: center;
+  background-color: #edc4bd;
 }
+
