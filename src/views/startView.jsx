@@ -20,7 +20,9 @@ function StartView(props){
         navigate("/login");
     }
     return (
-    <>
+     <div class="flex item">
+            <img src="/images/travel.jpg" alt="travel" width={"500"}></img>
+        <div class="item">  
         <UserIconView onIconClicked={clickLoginACB}/>
         <h1>What to pack?</h1>
         <h3>Pack the insights into your holidays</h3>
@@ -29,7 +31,8 @@ function StartView(props){
             onSearchInput={passSearchInputACB} 
             onDestChanged={passDestACB} 
             onRangeChanged={passRangeACB}/>
-    </>);
+        </div>   
+        </div>);
 }   
 
 export default StartView;

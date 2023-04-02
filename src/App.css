@@ -54,6 +54,7 @@
 }
 
 .search-bar {
+  margin: 0 20 0 0px;
   display: flex;
   flex-direction: row;
 }
