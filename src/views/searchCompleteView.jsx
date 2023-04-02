@@ -64,7 +64,7 @@ function SearchCompleteView(props){
                 className="input-destination"
                 value={value}
                 onChange={inputChangeCB}
-                disabled={!ready}
+                disabled={ready}
             />
             <div className="search-suggestions">
             {status === "OK" && <List

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import StartView from '../views/startView.jsx';
 
 function StartPresenter(props){
@@ -8,12 +8,15 @@ function StartPresenter(props){
         props.model.addPlan(plan);
         console.log(props.model);
     }
+
     function handleDestACB(dest){
         props.model.setSearchDestination(dest);
     }
+
     function handleRangeACB(startDate, endDate){
         props.model.setSearchDateRange(startDate, endDate);
     }
+
     return <StartView   
             model={props.model} 
             onSearchInput={handleSearchInputACB}
