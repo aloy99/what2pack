@@ -77,3 +77,16 @@
   display: flex;  
 }
 
+
+input[type="search"].input-destination {
+  -webkit-appearance: searchfield;
+}
+
+input[type="search"].input-destination::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+}
+
+.logo {
+  cursor: pointer;
+}
+

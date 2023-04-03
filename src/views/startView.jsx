@@ -1,12 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import dayjs from 'dayjs';
 import SearchBarView from "./searchBarView";
 import UserIconView from './userIconView';
 
 function StartView(props){
+    const currentPlan = props.currentPlan;
+    const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
+    const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate), dayjs(currentPlan.endDate)];
     const navigate = useNavigate();
     function passSearchInputACB(destination, startDate, endDate){
-        console.log("search input: ",destination, startDate, endDate);
         props.onSearchInput(destination, startDate, endDate);
         navigate("/details");
     }
@@ -18,6 +21,9 @@ function StartView(props){
     }
     function clickLoginACB(){
         navigate("/login");
+    }
+    function clickLogoACB(){
+        navigate("/");
     }
     return (
      <div class="flex-row">

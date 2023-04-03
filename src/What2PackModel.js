@@ -6,29 +6,52 @@ const PLAN_EXAMPLE = {
     endDate: "2023-04-01"
 }
 
+const ITEM_EXAMPLE = {
+    name: "SPF 50 Sunscreen",
+    amount: "1",
+    remark: "It's going to be very sunny at the beach"
+}
+
 class What2PackModel {
     constructor(plans = []) {
         this.plans = plans;
         this.currentPlan = null;
+        this.currentItems = [];
         this.observers = [];
         this.searchParams = {};
+        // this.currentPlanAdded = false;
         this.searchResultsPromiseState = {};
         this.currentPlanPromiseState = {};
     }
 
     setCurrentPlan(plan) {
-        const oldPlan = this.currentPlan;
-        this.currentPlan = plan;
-        if (plan !== oldPlan){
+        if (this.currentPlan == null
+            || plan.destination !== this.currentPlan.destination 
+            || plan.startDate !== this.currentPlan.startDate
+            || plan.endDate !== this.currentPlan.endDate){
+            this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});
         }
     }
 
-    addPlan(planToAdd) {
-        if (!this.plans.some(e => e === planToAdd)){
-            this.plans = [...this.plans, planToAdd];
-            this.notifyObservers({planToAdd: planToAdd});
+    setCurrentItems(items){
+        const oldItems = this.currentItems;
+        this.currentItems = items;
+        if (this.currentItems !== oldItems){
+            this.notifyObservers({currentItems: items});
         }
+    }
+
+    addPlan(planToAdd) {
+        for (const p of this.plans){
+            if(p.destination === planToAdd.destination 
+                && p.startDate === planToAdd.startDate 
+                && p.endDate === planToAdd.endDate){
+                    return;
+                }
+        }
+        this.plans = [...this.plans, planToAdd];
+        this.notifyObservers({planToAdd: planToAdd});
     }
 
     removePlan(planToRemove) {
@@ -51,6 +74,7 @@ class What2PackModel {
 
     notifyObservers(payload)
     {
+        // console.log(payload);
         function invokeObserverCB(obs){
             try{
                 obs(payload);
@@ -71,9 +95,21 @@ class What2PackModel {
     }
 
     doSearch(searchParams){
-        if(destination in searchParams && dateRange in searchParams){
+        if('destination' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
             // TODO: need API functions
             // resolvePromise
+            this.currentItems = [
+                {
+                    name: "SPF 50 Sunscreen",
+                    amount: "1",
+                    remark: "It's going to be very sunny at the beach of " + searchParams.destination
+                },
+                {
+                    name: "Umbrella",
+                    amount: "1",
+                    remark: "It's going to rain a lot in " + searchParams.destination
+                }
+            ]
         }
     }
 }
