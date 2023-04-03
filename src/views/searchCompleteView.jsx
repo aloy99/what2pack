@@ -73,6 +73,8 @@ function SearchCompleteView(props){
                 defaultValue={props.defaultDest}
                 value={value}
                 onChange={inputChangeACB}
+                // disabled={ready}
+
             />
             <div className="search-suggestions">
             {status === "OK" && <List

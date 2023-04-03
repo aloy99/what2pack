@@ -22,7 +22,7 @@ function DetailsView(props){
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
     const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate), dayjs(currentPlan.endDate)];
     const navigate = useNavigate();
-    let msg = "Packing suggestions for " + currentPlan.destination + " from " + currentPlan.startDate + " to " + currentPlan.endDate;
+    let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
     function makeMsg(dest, start, end){
         return "Packing suggestions for " + dest + " from " + start + " to " + end;
     }
