@@ -9,6 +9,7 @@ import { func } from "prop-types";
 
 function DetailsView(props){
     const currentPlan = props.currentPlan;
+    console.log(props.currentPlan)
     const currentPlanAdded = props.currentPlanAdded;
     // const plans = props.plans;
     const [open, setOpen] = useState(false);
