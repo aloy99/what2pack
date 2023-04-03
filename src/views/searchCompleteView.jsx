@@ -68,7 +68,7 @@ function SearchCompleteView(props){
                 className="input-destination"
                 defaultValue={props.defaultDest}
                 value={value}
-                onChange={inputChangeCB}
+                onChange={inputChangeACB}
                 // disabled={ready}
 
             />
