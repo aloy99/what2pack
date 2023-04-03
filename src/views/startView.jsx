@@ -26,25 +26,25 @@ function StartView(props){
         navigate("/");
     }
     return (
-    <>
-        <img className="logo"
-            src="assets\images\logo.jpg" 
-            alt="What2Pack" 
-            width="100" 
-            height="100"
-            onClick={clickLogoACB}>    
-        </img>
-        <UserIconView onIconClicked={clickLoginACB}/>
-        <h1>What to pack?</h1>
-        <h3>Pack the insights into your holidays</h3>
-        <SearchBarView 
-            id="search-bar-start" 
-            defaultDest={defaultDest}
-            defaultRange={defaultRange}
-            onSearchInput={passSearchInputACB} 
-            onDestChanged={passDestACB} 
-            onRangeChanged={passRangeACB}/>
-    </>);
+     <div class="flex-row">
+        <div> 
+        <img src="/images/travel.jpg" alt="travel" width={"520"}></img>
+        </div>
+        <div class="flex-column">  
+            <div class="align-right">
+            <UserIconView onIconClicked={clickLoginACB}/>
+            </div>
+            <div class="item">
+                <h1>What to pack?</h1>
+                <h3>Pack the insights into your holidays</h3>
+                    <SearchBarView 
+                id="search-bar-start" 
+                onSearchInput={passSearchInputACB} 
+                onDestChanged={passDestACB} 
+                onRangeChanged={passRangeACB}/>
+            </div>
+        </div>   
+    </div>);
 }   
 
 export default StartView;

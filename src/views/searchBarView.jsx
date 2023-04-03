@@ -56,12 +56,18 @@ function SearchBarView(props){
     };
     return (
     <div>
+        <div class="search-bar">
+        <SearchCompleteView onChange={destChangeACB} />
+        <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>
+        </div>
+        <div>
+
         {contextHolder}
-        <SearchCompleteView onChange={destChangeACB} onLocationClicked={locationClickedACB} defaultDest={props.defaultDest}/>
-        <RangePicker id="range-picker-search-bar" defaultValue={props.defaultRange} disabledDate={disabledDate} onChange={rangeChangeACB}/>
+      
         <Button id="button-search-bar" type="primary" icon={<SearchOutlined />} onClick={clickSearchACB}>
             Search
         </Button>
+        </div>
     </div>
     );
 }
