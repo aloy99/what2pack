@@ -86,10 +86,9 @@ class What2PackModel {
         this.observers.forEach(invokeObserverCB);
     }
 
-    setSearchDestination(latlong){
-        this.searchParams.destination = latlong.destination;
-        this.searchParams.lat = latlong.lat;
-        this.searchParams.lng = latlong.lng;
+    setSearchDestination(info){
+        this.searchParams.destination = info.description;
+        this.searchParams.latlng = info.latlng;
     }
 
     setSearchDateRange(startDate, endDate){
@@ -98,10 +97,10 @@ class What2PackModel {
     }
 
     doSearch(searchParams){
-        if('lat' in searchParams && 'lng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
+        if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
             
-            resolvePromise(getWeatherDetails(searchParams), this.searchResultsPromiseState)
-            console.log(this.searchResultsPromiseState)
+            resolvePromise(getWeatherDetails(searchParams), this.searchResultsPromiseState);
+            console.log(this.searchResultsPromiseState);
             // TODO: need API functions
             // resolvePromise
             this.currentItems = [

@@ -26,11 +26,10 @@ function SearchCompleteView(props){
         return () => {
             setValue(description, false);
             clearSuggestions();
-
+            console.log
             getGeocode({ address: description }).then((results) => {
                 const { lat, lng } = getLatLng(results[0]);
-                console.log({description, lat, lng});
-                props.onLocationClicked({description, lat, lng});
+                props.onLocationClicked({description, 'latlng':{'latitude':lat, 'longitude':lng}});
             })    
         }
     }
