@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+
 import {useEffect, useState} from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,7 +27,6 @@ const auth = getAuth(app);
 const db = getFirestore();
 
 export { auth, db};
-
 //Costum Hook
 export function useAuth(){
   const [currentUser, setCurrentUser] = useState();
