@@ -38,7 +38,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
   /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
@@ -81,31 +81,37 @@ button:focus-visible {
   }
 }
 
-.flex-row {
+.start-container {
   display: flex;
-  /* margin: 50px; */
-  /* height: 300px; */
-  /* padding: 30px; */
   flex-direction: row;
+  height: 100%;
+  /* background-color: #22c52d; */
+}
+.start-container>div {
+  width: 50%;
 }
 
-.flex-column {
+.startR-container {
   display: flex;
   flex-direction: column;
+  /* padding: 30px; */
+  /* height: 100%; */
+  /* width: 50%; */
+  background-color: #ecd8b2;
 }
 
-.align-right {
+.login-item {
   /* background-color: #b2b5ec; */
   margin-right: 0px;
   margin-left: auto; 
+  padding: 40px;
 }
 
-.item {
-  flex: 1;
-  margin-left: 40px;
-  margin-top: 100px;
-  justify-content: center;
+.searchblock-item {
+  /* padding: 50px; */
+  /* margin: 60px; */
+  /* margin-top: 100px; */
+  /* justify-content: space-between; */
   align-items: center;
-  /* background-color: #edc4bd; */
 }
 
