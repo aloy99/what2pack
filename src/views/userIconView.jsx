@@ -7,9 +7,13 @@ function UserIconView(props){
     }
     return (      
     <>
-        <div onClick={passIconClickedACB} className="div-profile">
-            <Button id="button-profile-start" type="primary" shape="circle" icon={<UserOutlined/>}/>
+        <div onClick={passIconClickedACB} class="profile-container">
+            <div class="login-icon">
+            <Button id="button-profile-start" type="default" shape="circle" icon={<UserOutlined/>}/>
+            </div>
+            <div>
             <p className="text-center">Login/ Create account</p>
+            </div>
         </div>
     </>
     );

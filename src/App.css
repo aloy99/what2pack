@@ -51,9 +51,16 @@ he} */
   width: 100%;
 }
 
-.div-profile {
+.profile-container{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  /* height: 100px; */
+}
+
+
+.profile-container>div{
+  margin-left: 10px;
 }
 
 /* .text-center {
@@ -73,6 +80,7 @@ he} */
 
 .search-item {
   margin-top: 20px;
+  /* background-color: #c83939; */
 }
 .search-suggestions {
   background-color: rgba(255, 255, 255, 0.87);
