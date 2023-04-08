@@ -98,6 +98,7 @@ button:focus-visible {
   /* height: 100%; */
   /* width: 50%; */
   background-color: #ecd8b2;
+    /* width: 500px; */
 }
 
 .login-item {
@@ -107,8 +108,25 @@ button:focus-visible {
   padding: 40px;
 }
 
+.logo-item {
+  /* background-color: #b2b5ec; */
+  /* margin-right: 0px;
+  margin-left: auto;  */
+  padding: 40px;
+}
+
+.search-detail-item {
+  padding: 15px;
+}
+
 .searchblock-item {
   margin: 60px;
   align-items: center;
+  width: 500px;
 }
 
+
+.logo-login-container{
+  display: flex;
+  flex-direction: row;
+}

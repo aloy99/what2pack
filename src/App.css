@@ -70,8 +70,14 @@ he} */
 
 .search-bar-container {
   display: flex;
-  flex-direction: column;
-  /* width: 50%; */
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* background-color: aqua; */
+  /* width: 500px; */
+}
+
+.search-bar-container>div{
+    margin-top: 20px;
 }
 
 .destination-container {
@@ -79,7 +85,7 @@ he} */
 }
 
 .search-item {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   /* background-color: #c83939; */
 }
 .search-suggestions {
