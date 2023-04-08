@@ -44,7 +44,8 @@ function StartView(props){
                 onRangeChanged={passRangeACB}/>
             </div>
         </div>   
-    </div>);
+    </div>
+    );
 }   
 
 export default StartView;
