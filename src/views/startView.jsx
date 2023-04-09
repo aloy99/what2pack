@@ -28,7 +28,7 @@ function StartView(props){
     return (
      <div class="flex-row">
         <div> 
-        <img src="/images/travel.jpg" alt="travel" width={"520"}></img>
+        <img src="/travel.jpg" alt="travel" width={"520"}></img>
         </div>
         <div class="flex-column">  
             <div class="align-right">
