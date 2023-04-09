@@ -1,4 +1,4 @@
-Welkom to the What2Pack Website!
+Welcome to the What2Pack Website!
 On this website you can find information and prepare yourself for your next planned trip.
 Bases on you destination and travel dates. 
 The websites gives you:
