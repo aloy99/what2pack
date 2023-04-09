@@ -73,7 +73,7 @@ function DetailsView(props){
     return (
     <>
         <img className="logo"
-            src="assets\images\logo.jpg" 
+            src="/logov1.png" 
             alt="What2Pack" 
             width="100" 
             height="100"

@@ -38,10 +38,10 @@ const SignIn = (props) =>{
 
     return (
         <div class="container">
-        <img onClick={clickLogoACB} src="/images/logov1.png" alt="logov1" width={"180"}></img>
+        <img onClick={clickLogoACB} src="/logov1.png" alt="logov1" width={"180"}></img>
         <div class="flex-row">
         <div> 
-        <img src="/images/suitcases.png" alt="suitcases" width={"420"}></img>
+        <img src="/suitcases.png" alt="suitcases" width={"420"}></img>
         </div>
         <div class="flex-column">  
             <div class="align-right">
