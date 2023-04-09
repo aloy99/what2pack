@@ -1,6 +1,6 @@
-Welcome to the What2Pack Website!
-On this website you can find information and prepare yourself for your next planned trip.
-Bases on you destination and travel dates. 
+Welcome to What2Pack!
+Here, you can find information and prepare yourself for your next planned trip.
+Simply provide your destination and travel dates. 
 The websites gives you:
 1. Packing advices based on the weather (API)
 2. The Holidays that are happening during you planed trip (API)
