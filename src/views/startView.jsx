@@ -26,15 +26,15 @@ function StartView(props){
         navigate("/");
     }
     return (
-     <div class="flex-row">
+     <div className="flex-row">
         <div> 
         <img src="/travel.jpg" alt="travel" width={"520"}></img>
         </div>
-        <div class="flex-column">  
-            <div class="align-right">
+        <div className="flex-column">  
+            <div className="align-right">
             <UserIconView onIconClicked={clickLoginACB}/>
             </div>
-            <div class="item">
+            <div className="item">
                 <h1>What to pack?</h1>
                 <h3>Pack the insights into your holidays</h3>
                     <SearchBarView 

@@ -24,6 +24,7 @@ function DetailsPresenter(props){
         console.log(props.model);
     }
     function handleSearchInputACB(destination, startDate, endDate){
+        console.log(destination);
         const plan = {destination: destination, startDate: startDate, endDate: endDate};
         props.model.setCurrentPlan(plan);
         setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
