@@ -13,7 +13,7 @@ const ITEM_EXAMPLE = {
     remark: "It's going to be very sunny at the beach"
 }
 
-class What2PackModel {
+class What2PackModel{
     constructor(plans = []) {
         this.plans = plans;
         this.currentPlan = null;
@@ -24,7 +24,7 @@ class What2PackModel {
         this.currentPlanPromiseState = {};
     }
 
-    setCurrentPlan(plan) {
+    setCurrentPlan(plan){
         if (this.currentPlan == null
             || plan.destination !== this.currentPlan.destination 
             || plan.startDate !== this.currentPlan.startDate
@@ -42,7 +42,7 @@ class What2PackModel {
         }
     }
 
-    addPlan(planToAdd) {
+    addPlan(planToAdd){
         for (const p of this.plans){
             if(p.destination === planToAdd.destination 
                 && p.startDate === planToAdd.startDate 
@@ -54,7 +54,7 @@ class What2PackModel {
         this.notifyObservers({planToAdd: planToAdd});
     }
 
-    removePlan(planToRemove) {
+    removePlan(planToRemove){
         const oldPlans = this.plans;
         this.plans = this.plans.filter(p => p !== planToRemove);
         if (this.plans.length !== oldPlans.length)
@@ -72,8 +72,7 @@ class What2PackModel {
         this.observers = this.observers.filter(checkCallbackCB);
     }
 
-    notifyObservers(payload)
-    {
+    notifyObservers(payload){
         console.log(payload);
         function invokeObserverCB(obs){
             try{
