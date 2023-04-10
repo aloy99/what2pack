@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import useModelProp from './useModelProp.jsx';
 import DetailsView from "../views/detailsView.jsx";
+import promiseNoData from "../views/promiseNoData.jsx";
 
 function DetailsPresenter(props){
+    const suggestedItems = props.model.searchResultsPromiseState.data;
     useModelProp(props.model, ["currentPlan", "currentItems", "plans"]);
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
@@ -45,18 +47,21 @@ function DetailsPresenter(props){
         props.model.setCurrentPlan(null);
         console.log(props.model);
     }
-    return <DetailsView 
-            model={props.model} 
-            plans={props.model.plans}
-            currentPlan={props.model.currentPlan}
-            currentItems={props.model.currentItems}
-            currentPlanAdded={currentPlanAdded}
-            onSearchInput={handleSearchInputACB}
-            onDestChanged={handleDestACB}
-            onRangeChanged={handleRangeACB}
-            onAddPlan={handleAddPlanACB}
-            onDeletePlan={handleDeletePlanACB}
-            onClickLogo={handleClickedLogoACB}/>;
+    return (
+        <>
+            {   promiseNoData(props.model.searchResultsPromiseState) ||
+                <DetailsView 
+                plans={props.model.plans}
+                currentPlan={props.model.currentPlan}
+                currentItems={suggestedItems}
+                currentPlanAdded={currentPlanAdded}
+                onSearchInput={handleSearchInputACB}
+                onDestChanged={handleDestACB}
+                onRangeChanged={handleRangeACB}
+                onAddPlan={handleAddPlanACB}
+                onDeletePlan={handleDeletePlanACB}
+                onClickLogo={handleClickedLogoACB}/>}
+        </>);
 }
 
 export default DetailsPresenter;

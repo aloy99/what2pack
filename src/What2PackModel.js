@@ -1,5 +1,6 @@
 import resolvePromise from './resolvePromise';
 import { getWeatherDetails } from './weatherSource';
+import { suggestFromTemperature, suggestFromWind, suggestFromPrecipitation } from './utils';
 
 const PLAN_EXAMPLE = {
     destination: "Paris", 
@@ -96,23 +97,28 @@ class What2PackModel{
 
     doSearch(searchParams){
         if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
-            
             resolvePromise(getWeatherDetails(searchParams), this.searchResultsPromiseState);
-            console.log(this.searchResultsPromiseState);
-            // TODO: need API functions
-            // resolvePromise
-            this.currentItems = [
-                {
-                    name: "SPF 50 Sunscreen",
-                    amount: "1",
-                    remark: "It's going to be very sunny at the beach of " + searchParams.destination
-                },
-                {
-                    name: "Umbrella",
-                    amount: "1",
-                    remark: "It's going to rain a lot in " + searchParams.destination
-                }
-            ]
+            const data = this.searchResultsPromiseState;
+            console.log(data);
+            const temps_max = data.apparent_temperature_max;
+            const temps_min = data.apparent_temperature_min;
+            const winds = data.windspeed_10m_max;
+            const precipitations = data.precipitation_sum;
+            // this.currentItems = [
+            //     {
+            //         name: "SPF 50 Sunscreen",
+            //         amount: "1",
+            //         remark: "It's going to be very sunny at the beach of " + searchParams.destination
+            //     },
+            //     {
+            //         name: "Umbrella",
+            //         amount: "1",
+            //         remark: "It's going to rain a lot in " + searchParams.destination
+            //     }
+            // ]
+            this.currentItems = [...new Set([...suggestFromTemperature(temps_max, temps_min, searchParams),
+                                             ...suggestFromWind(winds, searchParams),
+                                             ...suggestFromPrecipitation(precipitations, searchParams)])];
         }
     }
 }
