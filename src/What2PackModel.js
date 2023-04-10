@@ -20,7 +20,6 @@ class What2PackModel {
         this.currentItems = [];
         this.observers = [];
         this.searchParams = {};
-        // this.currentPlanAdded = false;
         this.searchResultsPromiseState = {};
         this.currentPlanPromiseState = {};
     }
@@ -75,7 +74,7 @@ class What2PackModel {
 
     notifyObservers(payload)
     {
-        // console.log(payload);
+        console.log(payload);
         function invokeObserverCB(obs){
             try{
                 obs(payload);

@@ -19,13 +19,13 @@ function SearchBarView(props){
         let rangePickers = document.querySelectorAll(".ant-picker-input");
         let startDate = rangePickers[0].children[0].value;
         let endDate = rangePickers[1].children[0].value;
-        if(destination == null || destination == ""){
+        if(destination === null || destination === ""){
             openNotificationWithIcon('warning','Please select a destination.','');
         }
-        else if(startDate == null || startDate == ""){
+        else if(startDate === null || startDate === ""){
             openNotificationWithIcon('warning','Please select a start date.','');
         }
-        else if(endDate == null || endDate == ""){
+        else if(endDate === null || endDate === ""){
             openNotificationWithIcon('warning','Please select an end date.','');
         }
         else{

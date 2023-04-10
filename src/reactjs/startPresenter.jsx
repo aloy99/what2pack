@@ -10,23 +10,25 @@ function StartPresenter(props){
         this.model.doSearch(this.model.searchParams);
         console.log(props.model);
     }
-
     function handleDestACB(dest){
         props.model.setSearchDestination(dest);
         console.log(props.model);
     }
-
     function handleRangeACB(startDate, endDate){
         props.model.setSearchDateRange(startDate, endDate);
         console.log(props.model);
     }
-
+    function handleClickedLogoACB(){
+        props.model.setCurrentPlan(null);
+        console.log(props.model);
+    }
     return <StartView   
             model={props.model} 
             currentPlan={props.model.currentPlan}
             onSearchInput={handleSearchInputACB}
             onDestChanged={handleDestACB}
-            onRangeChanged={handleRangeACB}/>;
+            onRangeChanged={handleRangeACB}
+            onClickLogo={handleClickedLogoACB}/>;
 }
 
 export default StartPresenter;

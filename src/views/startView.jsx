@@ -7,7 +7,7 @@ import UserIconView from './userIconView';
 function StartView(props){
     const currentPlan = props.currentPlan;
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
-    const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate), dayjs(currentPlan.endDate)];
+    const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
     const navigate = useNavigate();
     function passSearchInputACB(destination, startDate, endDate){
         props.onSearchInput(destination, startDate, endDate);
@@ -23,6 +23,7 @@ function StartView(props){
         navigate("/login");
     }
     function clickLogoACB(){
+        props.onClickLogo();
         navigate("/");
     }
     return (

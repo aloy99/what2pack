@@ -20,7 +20,7 @@ function DetailsView(props){
         setOpen(false);
     };
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
-    const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate).format('YYYY-MM-DD'), dayjs(currentPlan.endDate).format('YYYY-MM-DD')];
+    const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
     const navigate = useNavigate();
     let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
     function makeMsg(dest, start, end){
@@ -41,6 +41,7 @@ function DetailsView(props){
         navigate("/login");
     }
     function clickLogoACB(){
+        props.onClickLogo();
         navigate("/");
     }
     function clickAddToPlanACB(){

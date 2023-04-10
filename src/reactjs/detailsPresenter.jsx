@@ -41,6 +41,10 @@ function DetailsPresenter(props){
         setCurrentPlanAdded(false);
         console.log(props.model);
     }
+    function handleClickedLogoACB(){
+        props.model.setCurrentPlan(null);
+        console.log(props.model);
+    }
     return <DetailsView 
             model={props.model} 
             plans={props.model.plans}
@@ -51,7 +55,8 @@ function DetailsPresenter(props){
             onDestChanged={handleDestACB}
             onRangeChanged={handleRangeACB}
             onAddPlan={handleAddPlanACB}
-            onDeletePlan={handleDeletePlanACB}/>;
+            onDeletePlan={handleDeletePlanACB}
+            onClickLogo={handleClickedLogoACB}/>;
 }
 
 export default DetailsPresenter;
