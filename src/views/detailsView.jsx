@@ -10,7 +10,10 @@ function DetailsView(props){
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
     const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
     const navigate = useNavigate();
-    // const plans = props.plans;
+    let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
+    function makeMsg(dest, start, end){
+        return "Packing suggestions for " + dest + " from " + start + " to " + end;
+    }
     function passSearchInputACB(destination, startDate, endDate){
         msg = makeMsg(destination, startDate, endDate);
         document.getElementById("msg-details").innerText = msg;

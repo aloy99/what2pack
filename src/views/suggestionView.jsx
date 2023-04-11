@@ -4,7 +4,6 @@ import { Popconfirm } from 'antd';
 
 function SuggestionView(props){
     const currentPlan = props.currentPlan;
-    console.log(props.currentPlan);
     const currentPlanAdded = props.currentPlanAdded;
     const [open, setOpen] = useState(false);
     const showPopconfirm = () => {

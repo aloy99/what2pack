@@ -21,7 +21,10 @@ function StartPresenter(props){
         props.model.doSearch(props.model.searchParams);
         resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
         if(props.model.searchResultsPromiseState.promise){
-            props.model.searchResultsPromiseState.promise.then(rerenderACB).then(updateCurrentItemsACB).then(updateCurrentPlanACB).catch(rerenderACB);
+            props.model.searchResultsPromiseState.promise.then(rerenderACB)
+                                                         .then(updateCurrentItemsACB)
+                                                         .then(updateCurrentPlanACB)
+                                                         .catch(rerenderACB);
         }
     }
     function handleDestACB(dest){

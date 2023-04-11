@@ -86,7 +86,6 @@ class What2PackModel{
     doSearch(searchParams){
         if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
             resolvePromise(getWeatherDetails(searchParams).then(suggestACB), this.searchResultsPromiseState);
-            console.log(this.searchResultsPromiseState);
         }
     }
 }

@@ -60,7 +60,7 @@ function suggestFromTemperature(temps_max, temps_min){
                     name: "T-shirt",
                     // amount: countDaysBetween(searchParams.startDate, searchParams.endDate).toString(),
                     amount: 1,
-                    remark: "Nice temperature."
+                    remark: "Not too hot, not too warm."
                 }
             ]);
     }
@@ -70,11 +70,16 @@ function suggestFromTemperature(temps_max, temps_min){
             {
                 name: "Jacket",
                 amount: 1,
-                remark: "It's going to be a bit chilly."
+                remark: "Comfortable temperature."
+            },
+            {
+                name: "T-shirt",
+                amount: 1,
+                remark: "Stay cozy."
             }
         ]);
     }
-    else if(temp_min_mean > 0){
+    else if(temp_max_mean > 0){
         return(
         [
             {
@@ -297,7 +302,6 @@ function suggestACB(weather_data){
                         ...suggestFromWind(winds),
                         ...suggestFromUV(uvs),
                         ...suggestFromPrecipitation(precipitations)])];
-    console.log(suggestions);
     return suggestions;
 }
 
