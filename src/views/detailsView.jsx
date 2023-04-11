@@ -9,6 +9,7 @@ import { func } from "prop-types";
 
 function DetailsView(props){
     const currentPlan = props.currentPlan;
+    console.log(props.currentPlan)
     const currentPlanAdded = props.currentPlanAdded;
     // const plans = props.plans;
     const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ function DetailsView(props){
         setOpen(false);
     };
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
-    const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate), dayjs(currentPlan.endDate)];
+    const defaultRange = (currentPlan === null) ? ["",""] : [dayjs(currentPlan.startDate).format('YYYY-MM-DD'), dayjs(currentPlan.endDate).format('YYYY-MM-DD')];
     const navigate = useNavigate();
     let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
     function makeMsg(dest, start, end){
@@ -86,6 +87,7 @@ function DetailsView(props){
 
             <div class="search-detail-item">
             <SearchBarView 
+
             id="search-bar-details" 
             defaultDest={defaultDest}
             defaultRange={defaultRange}

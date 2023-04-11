@@ -1,35 +1,37 @@
 import React from "react";
+import AuthDetails from '../views/AuthDetails.jsx';
+import { useNavigate } from "react-router-dom";
 
 function ProfileView(props){
+    const navigate = useNavigate();
+
+    function clickLoginACB(){
+        navigate("/profile");
+    }
+
+    function clickLogoACB(){
+        navigate("/start");
+    }
+
     return (
-    <div id="login">
-        <div class="header">
-            <h1>Create User With Email And Password</h1>
+        <div class="container">
+        <img onClick={clickLogoACB} src="/logov1.png" alt="logov1" width={"180"}></img>
+        <div class="flex-row">
+        <div> 
+        {/* <img src="/images/travel.jpg" alt="travel" width={"520"}></img> */}
         </div>
-        <form>    
-            <div class="group">
-                <input id="full_name" type="text"></input>
-                <label>Full Name</label>
+        <div class="flex-column">  
+            <div class="align-right">
+            <AuthDetails onIconClicked={clickLoginACB}/>
             </div>
-            <div class="group">
-                <input id="email" type="email"></input>
-                <label>Email</label>
+            <div class="item">
+                <div className="profile-container">
+                <h1>Hello on profile page!</h1>
+                </div>
             </div>
-            <div class="group">
-                <input id="txtPassword" type="password"></input>
-                <label>Password</label>
-            </div>
-            <div id="button_container">
-                <button onclick="login()">Login</button>
-                <button onclick="register()">Register</button>
-            </div>
-             
-        </form>
-
-
+        </div>   
     </div>
-    
-    
+    </div>
     );
 
 }

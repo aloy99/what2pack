@@ -1,9 +1,15 @@
 import React from "react";
-import useModelProp from './useModelProp.jsx';
-import LoginView from '../views/LoginView.jsx';
+import SignIn from '../views/SignIn.jsx';
 
 function LoginPresenter(props){
-    return <LoginView model={props.model}/>;
+    // return <LoginView model={props.model}/>;
+
+
+    return (
+        <div className="App">
+            <SignIn />
+        </div>
+    );
 }
 
 export default LoginPresenter;

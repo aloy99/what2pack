@@ -35,6 +35,7 @@ function StartView(props){
             <UserIconView onIconClicked={clickLoginACB}/>
             </div>
             <div class="searchblock-item">
+
                 <h1>What to pack?</h1>
                 <h3>Pack the insights into your holidays</h3>
                 <SearchBarView 
@@ -44,7 +45,8 @@ function StartView(props){
                 onRangeChanged={passRangeACB}/>
             </div>
         </div>   
-    </div>);
+    </div>
+    );
 }   
 
 export default StartView;
