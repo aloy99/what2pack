@@ -29,19 +29,20 @@ function DetailsPresenter(props){
         console.log(props.model);
     }
     function handleSearchInputACB(destination, startDate, endDate){
-        console.log(destination);
-        //TODO: add items into plan
-        const plan = {destination: destination, startDate: startDate, endDate: endDate};
-        props.model.setCurrentPlan(plan);
-        setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
-        //TODO: (fix) render suggested items
+        function updateCurrentItemsACB(){
+            props.model.setCurrentItems(props.model.searchResultsPromiseState.data);
+        }
+        function updateCurrentPlanACB(){
+            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.currentItems};
+            props.model.setCurrentPlan(plan);
+            setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
+            console.log(props.model);
+        }
         props.model.doSearch(props.model.searchParams);
         resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
         if(props.model.searchResultsPromiseState.promise){
-            props.model.searchResultsPromiseState.promise.then(rerenderACB).catch(rerenderACB);
-            rerenderACB();
+            props.model.searchResultsPromiseState.promise.then(rerenderACB).then(updateCurrentItemsACB).then(updateCurrentPlanACB).catch(rerenderACB);
         }
-        console.log(props.model);
     }
     function handleAddPlanACB(){
         props.model.addPlan(props.model.currentPlan);
