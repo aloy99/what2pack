@@ -107,16 +107,66 @@ function suggestFromTemperature(temps_max, temps_min){
 }
 
 function suggestFromWind(winds){
-    //TODO: complete the rules.
-    return (
-        [
-            {
-                name: "Windproof jacket",
-                amount: 1,
-                remark: "It's going to be very windy."
-            }
-        ]
-    );
+    const winds_max = maxIfNotNull(winds);
+    if (winds_max < 15){
+        return (
+            [
+                {
+                    name: "No need for windproof clothing",
+                    amount: 1,
+                    remark: "No wind during this period."
+                }
+            ]
+        );
+    }
+    else if (winds_max < 30){
+        return (
+            [
+                {
+                    name: "Hat",
+                    amount: 1,
+                    remark: "A bit windy."
+                }
+            ]
+        );
+    }
+    else if (winds_max < 45){
+        return (
+            [
+                {
+                    name: "Hat",
+                    amount: 1,
+                    remark: "Moderate winds."
+                },
+                {
+                    name: "Windproof jacket",
+                    amount: 1,
+                    remark: "Protect yourself against the wind."
+                }
+            ]
+        );
+    }
+    else {
+        return (
+            [
+                {
+                    name: "Hat",
+                    amount: 1,
+                    remark: "Strong winds coming."
+                },
+                {
+                    name: "Windproof jacket",
+                    amount: 1,
+                    remark: "Protect yourself against the wind."
+                },
+                {
+                    name: "Scarf",
+                    amount: 1,
+                    remark: "Don't let the wind get you."
+                }
+            ]
+        );
+    }
 }
 
 function suggestFromUV(uvs){

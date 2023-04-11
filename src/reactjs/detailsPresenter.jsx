@@ -4,6 +4,7 @@ import useRerender from "./useRerender.jsx";
 import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
+import resolvePromise from '../resolvePromise.js';
 
 function DetailsPresenter(props){
     const [promiseState,] = useState({});

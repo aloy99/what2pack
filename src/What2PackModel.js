@@ -31,6 +31,26 @@ class What2PackModel{
         }
     }
 
+    addItemToCurrentItems(itemToAdd){
+        for (const it of this.currentItems){
+            if(it.name === itemToAdd.name
+                && it.name === itemToAdd.amount
+                && it.name === itemToAdd.remark){
+                    return;
+                }
+        }
+        this.currentItems = [...this.currentItems, itemToAdd];
+        this.notifyObservers({itemToAdd: itemToAdd});
+    }
+
+    removeItemFromCurrentItems(itemToRemove){
+        const oldItems = this.currentItems;
+        this.currentItems = this.currentItems.filter(it => it !== itemToRemove);
+        if (this.currentItems.length !== oldItems.length){
+            this.notifyObservers({itemToRemove: itemToRemove});
+        }
+    }
+
     addPlan(planToAdd){
         for (const p of this.plans){
             if(p.destination === planToAdd.destination 
@@ -46,8 +66,9 @@ class What2PackModel{
     removePlan(planToRemove){
         const oldPlans = this.plans;
         this.plans = this.plans.filter(p => p !== planToRemove);
-        if (this.plans.length !== oldPlans.length)
+        if (this.plans.length !== oldPlans.length){
             this.notifyObservers({planToRemove: planToRemove});
+        }
     }
     
     addObserver(callback){
