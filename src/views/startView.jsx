@@ -27,18 +27,19 @@ function StartView(props){
         navigate("/");
     }
     return (
-     <div className="flex-row">
-        <div> 
-        <img src="/images/travel.jpg" alt="travel" width={"520"}></img>
+     <div class="start-container">
+        <div class="startL-container"> 
+        <img src="/images/travel.jpg" alt="travel" width="100%" height="100%"></img>
         </div>
-        <div className="flex-column">  
-            <div className="align-right">
+        <div class="startR-container">  
+            <div class="login-item">
             <UserIconView onIconClicked={clickLoginACB}/>
             </div>
-            <div className="item">
+            <div class="searchblock-item">
+
                 <h1>What to pack?</h1>
                 <h3>Pack the insights into your holidays</h3>
-                    <SearchBarView 
+                <SearchBarView 
                 id="search-bar-start" 
                 onSearchInput={passSearchInputACB} 
                 onDestChanged={passDestACB} 

@@ -74,22 +74,36 @@ function DetailsView(props){
     }
     return (
     <>
-        <img className="logo"
-            src="/logov1.png" 
-            alt="What2Pack" 
-            width="100" 
-            height="100"
-            onClick={clickLogoACB}>
-        </img>
-        <UserIconView onIconClicked={clickLoginACB}/>
-        <SearchBarView 
+        <div class="logo-login-container">
+
+            <div class="logo-item">
+            <img 
+                src="assets\images\logo.jpg" 
+                alt="What2Pack" 
+                width="100" 
+                height="100"
+                onClick={clickLogoACB}>
+            </img>
+            </div>
+
+            <div class="search-detail-item">
+            <SearchBarView 
+
             id="search-bar-details" 
             defaultDest={defaultDest}
             defaultRange={defaultRange}
             onSearchInput={passSearchInputACB} 
             onDestChanged={passDestACB} 
-            onRangeChanged={passRangeACB}
-        />
+            onRangeChanged={passRangeACB}/>
+            </div>
+
+            <div class="login-item">
+            <UserIconView onIconClicked={clickLoginACB}/>
+            </div>
+            
+        </div>
+        <div class="login"></div>
+        
         <p id="msg-details">{msg}</p>
         <table className="items-table-details">
             <thead>

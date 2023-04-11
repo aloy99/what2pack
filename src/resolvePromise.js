@@ -1,6 +1,6 @@
 export default
 function resolvePromise(promiseToResolve, promiseState){
-    if (promiseToResolve === null || promiseState === {} || promiseState === undefined || promiseToResolve === undefined) return;
+    if (promiseToResolve === null || promiseState === {} || !promiseState || !promiseToResolve) return;
     promiseState.promise = promiseToResolve;
     promiseState.data = null;
     promiseState.error = null;

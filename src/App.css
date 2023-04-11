@@ -1,9 +1,13 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* padding: 2rem; */
+  /* text-align: center; */
+  /* background-image: url("/images/travel.jpg"); */
 }
+
+/* .travelimage {
+he} */
 
 .logo {
   height: 6em;
@@ -11,9 +15,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -33,9 +39,9 @@
   }
 }
 
-.card {
+/* .card {
   padding: 2em;
-}
+} */
 
 .read-the-docs {
   color: #888;
@@ -45,37 +51,59 @@
   width: 100%;
 }
 
-.div-profile {
+.profile-container{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  /* height: 100px; */
 }
 
-.text-center {
-  /* text-align: center; */
+
+.profile-container>div{
+  margin-left: 10px;
+}
+
+/* .text-center {
+  text-align: center;
   vertical-align: middle;
-}
+} */
 
-.search-bar {
+.search-bar-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  /* background-color: aqua; */
+  /* width: 500px; */
 }
 
+.search-bar-container>div{
+    margin-top: 20px;
+}
+
+.destination-container {
+  display: flex;
+}
+
+.search-item {
+  /* margin-top: 20px; */
+  /* background-color: #c83939; */
+}
 .search-suggestions {
   background-color: rgba(255, 255, 255, 0.87);
   position: relative;
   display:block;
 }
 
-.country-search {
+/* .country-search {
   display: flex;
   min-width: 500px;
   margin: 0;
   padding: 0;
-}
+} */
 
-.date-picker {
+/* .date-picker {
   display: flex;  
-}
+} */
 
 
 input[type="search"].input-destination {
