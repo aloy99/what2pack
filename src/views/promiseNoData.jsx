@@ -7,7 +7,7 @@ function promiseNoData(PromiseState){
         return false;
     }
     if(!PromiseState.error){ //2
-        return <img src='\images\Spinner.gif' className="mainContent"/>;
+        return <img src="\Spinner.gif" className="mainContent"/>;
     }
     return <div className="mainContent">{PromiseState.error.toString()}</div>;// 3
 }

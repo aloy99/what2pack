@@ -14,17 +14,17 @@ function ProfileView(props){
     }
 
     return (
-        <div class="container">
+        <div className="container">
         <img onClick={clickLogoACB} src="/logov1.png" alt="logov1" width={"180"}></img>
-        <div class="flex-row">
+        <div className="flex-row">
         <div> 
         {/* <img src="/images/travel.jpg" alt="travel" width={"520"}></img> */}
         </div>
-        <div class="flex-column">  
-            <div class="align-right">
+        <div className="flex-column">  
+            <div className="align-right">
             <AuthDetails onIconClicked={clickLoginACB}/>
             </div>
-            <div class="item">
+            <div className="item">
                 <div className="profile-container">
                 <h1>Hello on profile page!</h1>
                 </div>
@@ -35,8 +35,6 @@ function ProfileView(props){
     );
 
 }
-
-
 
 
 export default ProfileView;

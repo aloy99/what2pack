@@ -33,19 +33,19 @@ const SignUp = () =>{
     }
 
     return (
-        <div class="container">
+        <div className="container">
         <img onClick={clickLogoACB} src="/logov1.png" alt="logov1" width={"180"}></img>
-        <div class="flex-row">
+        <div className="flex-row">
         <div> 
         <img src="/logov1.png" alt="logov1" width={"50"}></img>
         <img src="/suitcases.png" alt="suitcases" width={"420"}></img>
         </div>
-        <div class="flex-column">  
+        <div className="flex-column">  
             
-            <div class="align-right">
+            <div className="align-right">
                 <AuthDetails onIconClicked={clickLoginACB}/>
             </div>
-            <div class="item">
+            <div className="item">
             <div className="sign-up-container">
                 <form onSubmit={signUp}>
                     <h1>Create account</h1>   

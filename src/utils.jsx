@@ -18,7 +18,7 @@ function countDaysBetween(start, end){
     return diff;
 }
 
-function suggestFromTemperature(temps_max, temps_min, searchParams){
+function suggestFromTemperature(temps_max, temps_min){
     const temp_max_mean = meanIfNotNull(temps_max);
     const temp_min_mean = meanIfNotNull(temps_min);
     if(temp_max_mean > 30){
@@ -26,12 +26,12 @@ function suggestFromTemperature(temps_max, temps_min, searchParams){
         [
             {
                 name: "T-shirt",
-                amount: countDaysBetween(searchParams.startDate, searchParams.endDate).toString(),
-                remark: "It's going to be very hot in " + searchParams.destination + ". Take enough clothes with you for change."
+                amount: 1,
+                remark: "It's going to be very hot. Take enough clothes with you for change."
             },
             {
                 name: "shorts",
-                amount: countDaysBetween(searchParams.startDate, searchParams.endDate).toString(),
+                amount: 1,
                 remark: "Help you stay cool."
             }
         ]);
@@ -41,8 +41,9 @@ function suggestFromTemperature(temps_max, temps_min, searchParams){
             [
                 {
                     name: "T-shirt",
-                    amount: countDaysBetween(searchParams.startDate, searchParams.endDate).toString(),
-                    remark: "Nice temperature in" + searchParams.destination + "."
+                    // amount: countDaysBetween(searchParams.startDate, searchParams.endDate).toString(),
+                    amount: 1,
+                    remark: "Nice temperature."
                 }
             ]);
     }
@@ -51,8 +52,8 @@ function suggestFromTemperature(temps_max, temps_min, searchParams){
         [
             {
                 name: "Jacket",
-                amount: "1",
-                remark: "It's going to be a bit chilly in " + searchParams.destination + "."
+                amount: 1,
+                remark: "It's going to be a bit chilly."
             }
         ]);
     }
@@ -61,8 +62,8 @@ function suggestFromTemperature(temps_max, temps_min, searchParams){
         [
             {
                 name: "Down jacket/warm jacket",
-                amount: "1",
-                remark: "It's going to be quite cold in " + searchParams.destination + ". Dress warm!"
+                amount: 1,
+                remark: "It's going to be quite cold. Dress warm!"
             }
         ]);
     }
@@ -71,52 +72,74 @@ function suggestFromTemperature(temps_max, temps_min, searchParams){
         [
             {
                 name: "Thick down jacket/very warm jacket",
-                amount: "1",
-                remark: "It's going to be very very cold in " + searchParams.destination + ". Make sure that you dress very warm!"
+                amount: 1,
+                remark: "It's going to be very very cold. Make sure that you dress very warm!"
             },
             {
                 name: "Thick shoes",
-                amount: "1",
+                amount: 1,
                 remark: "Keep your feet warm."
             }
         ]);
     }
 }
 
-function suggestFromWind(winds, searchParams){
+function suggestFromWind(winds){
     //TODO: complete the rules.
     return (
         [
             {
                 name: "SPF 50 Sunscreen",
-                amount: "1",
-                remark: "It's going to be very sunny at the beach of " + searchParams.destination
+                amount: 1,
+                remark: "It's going to be very sunny at the beach."
             },
             {
                 name: "Umbrella",
-                amount: "1",
-                remark: "It's going to rain a lot in " + searchParams.destination
+                amount: 1,
+                remark: "It's going to rain a lot."
             }
         ]
     );
 }
 
-function suggestFromPrecipitation(pres, searchParams){
+function suggestFromUV(uvs){
     //TODO: complete the rules.
     return (
         [
             {
                 name: "SPF 50 Sunscreen",
-                amount: "1",
-                remark: "It's going to be very sunny at the beach of " + searchParams.destination
-            },
-            {
-                name: "Umbrella",
-                amount: "1",
-                remark: "It's going to rain a lot in " + searchParams.destination
+                amount: 1,
+                remark: "It's going to be very sunny at the beach."
             }
         ]
     );
 }
 
-export {suggestFromTemperature, suggestFromWind, suggestFromPrecipitation}
+function suggestFromPrecipitation(pres){
+    //TODO: complete the rules.
+    return (
+        [
+            {
+                name: "Umbrella",
+                amount: 1,
+                remark: "It's going to rain a lot."
+            }
+        ]
+    );
+}
+
+function suggestACB(weather_data){
+    const temps_max = weather_data.apparent_temperature_max;
+    const temps_min = weather_data.apparent_temperature_min;
+    const winds = weather_data.windspeed_10m_max;
+    const uvs = weather_data.uv_index_max;
+    const precipitations = weather_data.precipitation_sum;
+    const suggestions = [...new Set([...suggestFromTemperature(temps_max, temps_min),
+                        ...suggestFromWind(winds),
+                        ...suggestFromUV(uvs),
+                        ...suggestFromPrecipitation(precipitations)])];
+    console.log(suggestions);
+    return suggestions;
+}
+
+export {suggestACB}

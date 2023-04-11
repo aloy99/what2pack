@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import useModelProp from './useModelProp.jsx';
+import useRerender from "./useRerender.jsx";
 import DetailsView from "../views/detailsView.jsx";
+import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 
 function DetailsPresenter(props){
-    const suggestedItems = props.model.searchResultsPromiseState.data;
-    useModelProp(props.model, ["currentPlan", "currentItems", "plans"]);
+    const [promiseState,] = useState({});
+    useModelProp(props.model, ["currentPlan", "currentItems", "plans", "searchParams"]);
+    const rerenderACB = useRerender();
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
@@ -30,16 +33,21 @@ function DetailsPresenter(props){
         const plan = {destination: destination, startDate: startDate, endDate: endDate};
         props.model.setCurrentPlan(plan);
         setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
-        this.model.doSearch(this.model.searchParams);
+        props.model.doSearch(props.model.searchParams);
+        resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
+        if(props.model.searchResultsPromiseState.promise){
+            props.model.searchResultsPromiseState.promise.then(rerenderACB).catch(rerenderACB);
+            rerenderACB();
+        }
         console.log(props.model);
     }
     function handleAddPlanACB(){
-        props.model.addPlan(this.model.currentPlan);
+        props.model.addPlan(props.model.currentPlan);
         setCurrentPlanAdded(true);
         console.log(props.model);
     }
     function handleDeletePlanACB(){
-        props.model.removePlan(this.model.currentPlan);
+        props.model.removePlan(props.model.currentPlan);
         setCurrentPlanAdded(false);
         console.log(props.model);
     }
@@ -49,18 +57,19 @@ function DetailsPresenter(props){
     }
     return (
         <>
-            {   promiseNoData(props.model.searchResultsPromiseState) ||
-                <DetailsView 
+            <DetailsView 
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
-                currentItems={suggestedItems}
-                currentPlanAdded={currentPlanAdded}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}
-                onAddPlan={handleAddPlanACB}
-                onDeletePlan={handleDeletePlanACB}
-                onClickLogo={handleClickedLogoACB}/>}
+                onClickLogo={handleClickedLogoACB}/>
+            {   promiseNoData(props.model.searchResultsPromiseState) ||
+                <SuggestionView
+                    currentItems={props.model.searchResultsPromiseState.data}
+                    currentPlanAdded={currentPlanAdded}
+                    onAddPlan={handleAddPlanACB}
+                    onDeletePlan={handleDeletePlanACB}/>}
         </>);
 }
 
