@@ -56,7 +56,7 @@ function SearchBarView(props){
     };
     return (
     <div>
-        <div class="search-bar">
+        <div className="search-bar">
         <SearchCompleteView onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
         <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>
         </div>

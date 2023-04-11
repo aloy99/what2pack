@@ -1,4 +1,4 @@
-import usePlacesAutocomplete from "use-places-autocomplete";
+import usePlacesAutocomplete, { getLatLng, getGeocode } from "use-places-autocomplete";
 import React from "react";
 import { Input, List } from 'antd';
 import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
@@ -26,8 +26,10 @@ function SearchCompleteView(props){
         return () => {
             setValue(description, false);
             clearSuggestions();
-            console.log(description);
-            props.onLocationClicked(description);
+            getGeocode({ address: description }).then((results) => {
+                const { lat, lng } = getLatLng(results[0]);
+                props.onLocationClicked({description, 'latlng':{'latitude':lat, 'longitude':lng}});
+            })    
         }
     }
 

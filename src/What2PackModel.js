@@ -1,4 +1,5 @@
 import resolvePromise from './resolvePromise';
+import { getWeatherDetails } from './weatherSource';
 
 const PLAN_EXAMPLE = {
     destination: "Paris", 
@@ -85,8 +86,9 @@ class What2PackModel {
         this.observers.forEach(invokeObserverCB);
     }
 
-    setSearchDestination(dest){
-        this.searchParams.destination = dest;
+    setSearchDestination(info){
+        this.searchParams.destination = info.description;
+        this.searchParams.latlng = info.latlng;
     }
 
     setSearchDateRange(startDate, endDate){
@@ -95,7 +97,10 @@ class What2PackModel {
     }
 
     doSearch(searchParams){
-        if('destination' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
+        if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
+            
+            resolvePromise(getWeatherDetails(searchParams), this.searchResultsPromiseState);
+            console.log(this.searchResultsPromiseState);
             // TODO: need API functions
             // resolvePromise
             this.currentItems = [

@@ -15,7 +15,7 @@ function ProfileView(props){
 
     return (
         <div class="container">
-        <img onClick={clickLogoACB} src="/images/logov1.png" alt="logov1" width={"180"}></img>
+        <img onClick={clickLogoACB} src="/logov1.png" alt="logov1" width={"180"}></img>
         <div class="flex-row">
         <div> 
         {/* <img src="/images/travel.jpg" alt="travel" width={"520"}></img> */}
