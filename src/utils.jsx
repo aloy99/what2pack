@@ -10,6 +10,18 @@ function meanIfNotNull(arr){
     return (cnt === 0) ? undefined : sum / cnt;
 }
 
+function maxIfNotNull(arr){
+    let max = 0;
+    for(const item of arr){
+        if(item){
+            if(item > max){
+                max = item;
+            }
+        }
+    }
+    return max;
+}
+
 function countDaysBetween(start, end){
     const date_start = new Date(start);
     const date_end = new Date(end);
@@ -32,7 +44,12 @@ function suggestFromTemperature(temps_max, temps_min){
             {
                 name: "shorts",
                 amount: 1,
-                remark: "Help you stay cool."
+                remark: "Stay cool."
+            },
+            {
+                name: "sandals/flip-flops",
+                amount: 1,
+                remark: "Keep your feet cool."
             }
         ]);
     }
@@ -89,43 +106,185 @@ function suggestFromWind(winds){
     return (
         [
             {
-                name: "SPF 50 Sunscreen",
+                name: "Windproof jacket",
                 amount: 1,
-                remark: "It's going to be very sunny at the beach."
-            },
-            {
-                name: "Umbrella",
-                amount: 1,
-                remark: "It's going to rain a lot."
+                remark: "It's going to be very windy."
             }
         ]
     );
 }
 
 function suggestFromUV(uvs){
-    //TODO: complete the rules.
-    return (
-        [
-            {
-                name: "SPF 50 Sunscreen",
-                amount: 1,
-                remark: "It's going to be very sunny at the beach."
-            }
-        ]
-    );
+    const uv_mean = meanIfNotNull(uvs);
+    if (uv_mean < 3){
+        return (
+            [ 
+                {
+                    name: "Sunscreen SPF 15+",
+                    amount: 1,
+                    remark: "Low UV index. Minimal sun protection required."
+                },
+                {
+                    name: "Sunglasses",
+                    amount: 1,
+                    remark: "Wear sunglasses to protect your eyes."
+                }
+            ]
+        )
+    }
+    else if (uv_mean < 6){
+        return (
+            [ 
+                {
+                    name: "Sunscreen SPF 30+",
+                    amount: 1,
+                    remark: "Moderate UV index. Take precautions."
+                },
+                {
+                    name: "Sunglasses",
+                    amount: 1,
+                    remark: "Wear sunglasses to protect your eyes."
+                },
+                {
+                    name: "Sunhat",
+                    amount: 1,
+                    remark: "Cover your face."
+                }
+            ]
+        );
+    }
+    else if (uv_mean < 8){
+        return (
+            [ 
+                {
+                    name: "Sunscreen SPF 50",
+                    amount: 1,
+                    remark: "High UV index."
+                },
+                {
+                    name: "Sunglasses",
+                    amount: 1,
+                    remark: "Wear sunglasses to protect your eyes."
+                },
+                {
+                    name: "Sun protective clothing",
+                    amount: 1,
+                    remark: "Seek shade if necessary."
+                }
+            ]
+        );
+    }
+    else if (uv_mean < 10){
+        return (
+            [ 
+                {
+                    name: "SPF 50 Sunscreen",
+                    amount: 1,
+                    remark: "Very high UV index. Take precautions."
+                },
+                {
+                    name: "Sunglasses",
+                    amount: 1,
+                    remark: "Wear sunglasses to protect your eyes."
+                },
+                {
+                    name: "Sun protective clothing",
+                    amount: 1,
+                    remark: "To protect your skin from sunburn. Seek shade if necessary."
+                }
+            ]
+        );
+    }
+    else {
+        return (
+            [
+                {
+                    name: "SPF 50 Sunscreen",
+                    amount: 1,
+                    remark: "Extremely high UV index. Avoid the sun between 11 am and 4 pm."
+                },
+                {
+                    name: "Sunglasses",
+                    amount: 1,
+                    remark: "Wear sunglasses to protect your eyes."
+                },
+                {
+                    name: "Sun protective clothing",
+                    amount: 1,
+                    remark: "Unprotected skin can burn in minutes. Take full precations or seek shade."
+                }
+            ]
+        )
+    }
 }
 
 function suggestFromPrecipitation(pres){
-    //TODO: complete the rules.
-    return (
-        [
-            {
-                name: "Umbrella",
-                amount: 1,
-                remark: "It's going to rain a lot."
-            }
-        ]
-    );
+    const pres_max = maxIfNotNull(pres);
+    if (pres_max < 0.2){
+        return (
+            [
+                {
+                    name: "No umbrella needed",
+                    amount: 1,
+                    remark: "It's not going to rain during this period."
+                }
+            ]
+        );        
+    }
+    else if (pres_max < 4){
+        return (
+            [
+                {
+                    name: "Umbrella",
+                    amount: 1,
+                    remark: "Light rain during this period."
+                }
+            ]
+        );     
+    }
+    else if (pres_max < 9){
+        return (
+            [
+                {
+                    name: "Umbrella",
+                    amount: 1,
+                    remark: "Moderate rain during this period."
+                }
+            ]
+        );     
+    }
+    else if (pres_max < 40){
+        return (
+            [
+                {
+                    name: "Umbrella",
+                    amount: 1,
+                    remark: "Heavy rain during this period."
+                },
+                {
+                    name: "Poncho",
+                    amount: 1,
+                    remark: "Keep you dry when you are out there."
+                }
+            ]
+        );     
+    }
+    else{
+        return (
+            [
+                {
+                    name: "Umbrella",
+                    amount: 1,
+                    remark: "Violent rain. We suggest you to stay indoors."
+                },
+                {
+                    name: "Poncho",
+                    amount: 1,
+                    remark: "Be ready to get wet."
+                }
+            ]
+        );     
+    }
 }
 
 function suggestACB(weather_data){
@@ -142,4 +301,4 @@ function suggestACB(weather_data){
     return suggestions;
 }
 
-export {suggestACB}
+export {suggestACB};

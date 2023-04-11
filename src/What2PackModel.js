@@ -2,18 +2,6 @@ import resolvePromise from './resolvePromise';
 import { getWeatherDetails } from './weatherSource';
 import { suggestACB } from './utils';
 
-const PLAN_EXAMPLE = {
-    destination: "Paris", 
-    startDate: "2023-03-28", 
-    endDate: "2023-04-01"
-}
-
-const ITEM_EXAMPLE = {
-    name: "SPF 50 Sunscreen",
-    amount: "1",
-    remark: "It's going to be very sunny at the beach"
-}
-
 class What2PackModel{
     constructor(plans = []) {
         this.plans = plans;
