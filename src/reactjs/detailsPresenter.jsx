@@ -30,9 +30,11 @@ function DetailsPresenter(props){
     }
     function handleSearchInputACB(destination, startDate, endDate){
         console.log(destination);
+        //TODO: add items into plan
         const plan = {destination: destination, startDate: startDate, endDate: endDate};
         props.model.setCurrentPlan(plan);
         setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
+        //TODO: (fix) render suggested items
         props.model.doSearch(props.model.searchParams);
         resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
         if(props.model.searchResultsPromiseState.promise){

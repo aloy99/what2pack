@@ -1,7 +1,29 @@
 const PLAN_EXAMPLE = {
     destination: "Paris", 
     startDate: "2023-03-28", 
-    endDate: "2023-04-01"
+    endDate: "2023-04-01",
+    items: [    
+        {
+            "name": "Down jacket/warm jacket",
+            "amount": 1,
+            "remark": "It's going to be quite cold. Dress warm!"
+        },
+        {
+            "name": "SPF 50 Sunscreen",
+            "amount": 1,
+            "remark": "It's going to be very sunny at the beach."
+        },
+        {
+            "name": "Umbrella",
+            "amount": 1,
+            "remark": "It's going to rain a lot."
+        },
+        {
+            "name": "SPF 50 Sunscreen",
+            "amount": 1,
+            "remark": "It's going to be very sunny at the beach."
+        }
+    ]
 }
 
 const WEATHER_RESPONSE_EXAMPLE = {
