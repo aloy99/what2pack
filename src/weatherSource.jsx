@@ -55,6 +55,7 @@ function getWeatherDetails(searchTerms) { //handle destination name, start and e
                 //dailyData[key] = sliceArraysCB(dailyData[key])
             }
         }
+        console.log(output);
         return output;
     }
 

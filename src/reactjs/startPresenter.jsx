@@ -1,32 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import useModelProp from './useModelProp.jsx';
+import useRerender from "./useRerender.jsx";
 import StartView from '../views/startView.jsx';
+import resolvePromise from "../resolvePromise.js";
 
 function StartPresenter(props){
-    useModelProp(props.model, ["currentPlan"])
+    const [promiseState,] = useState({});
+    useModelProp(props.model, ["currentPlan","searchParams"]);
+    const rerenderACB = useRerender();
     function handleSearchInputACB(destination, startDate, endDate){
-        const plan = {destination: destination, startDate: startDate, endDate: endDate};
-        props.model.setCurrentPlan(plan);
-        this.model.doSearch(this.model.searchParams);
-        console.log(props.model);
+        function updateCurrentItemsACB(){
+            props.model.setCurrentItems(props.model.searchResultsPromiseState.data);
+        }
+        function updateCurrentPlanACB(){
+            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.currentItems};
+            props.model.setCurrentPlan(plan);
+            setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
+            console.log(props.model);
+        }
+        props.model.doSearch(props.model.searchParams);
+        resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
+        if(props.model.searchResultsPromiseState.promise){
+            props.model.searchResultsPromiseState.promise.then(rerenderACB)
+                                                         .then(updateCurrentItemsACB)
+                                                         .then(updateCurrentPlanACB)
+                                                         .catch(rerenderACB);
+        }
     }
-
     function handleDestACB(dest){
         props.model.setSearchDestination(dest);
         console.log(props.model);
     }
-
     function handleRangeACB(startDate, endDate){
         props.model.setSearchDateRange(startDate, endDate);
         console.log(props.model);
     }
-
+    function handleClickedLogoACB(){
+        props.model.setCurrentPlan(null);
+        console.log(props.model);
+    }
     return <StartView   
             model={props.model} 
             currentPlan={props.model.currentPlan}
             onSearchInput={handleSearchInputACB}
             onDestChanged={handleDestACB}
-            onRangeChanged={handleRangeACB}/>;
+            onRangeChanged={handleRangeACB}
+            onClickLogo={handleClickedLogoACB}/>;
 }
 
 export default StartPresenter;
