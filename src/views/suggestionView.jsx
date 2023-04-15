@@ -65,11 +65,19 @@ function SuggestionView(props){
         <>
             <p id="msg-details">{msg}</p>
             <p>
-                <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                <label htmlFor="checkbox-check-all" id="checkbox-check-all-label">Check All</label>
+
             </p>
             <table className="items-table-details">
                 <thead>
+                    <tr>
+                        <th>
+                            <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                            <label htmlFor="checkbox-check-all" id="checkbox-check-all-label">All</label>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                     <tr>
                         <th>Packed</th>
                         <th>Item</th>
