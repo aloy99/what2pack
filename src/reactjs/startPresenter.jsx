@@ -9,11 +9,8 @@ function StartPresenter(props){
     useModelProp(props.model, ["currentPlan","searchParams"]);
     const rerenderACB = useRerender();
     function handleSearchInputACB(destination, startDate, endDate){
-        function updateCurrentItemsACB(){
-            props.model.setCurrentItems(props.model.searchResultsPromiseState.data);
-        }
         function updateCurrentPlanACB(){
-            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.currentItems};
+            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.searchResultsPromiseState.data};
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
@@ -22,7 +19,6 @@ function StartPresenter(props){
         resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
         if(props.model.searchResultsPromiseState.promise){
             props.model.searchResultsPromiseState.promise.then(rerenderACB)
-                                                         .then(updateCurrentItemsACB)
                                                          .then(updateCurrentPlanACB)
                                                          .catch(rerenderACB);
         }

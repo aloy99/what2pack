@@ -1,12 +1,12 @@
 import resolvePromise from './resolvePromise';
 import { getWeatherDetails } from './weatherSource';
 import { suggestACB } from './utils';
+import isEqual from 'lodash.isequal';
 
 class What2PackModel{
     constructor(plans = []) {
         this.plans = plans;
         this.currentPlan = null;
-        this.currentItems = [];
         this.observers = [];
         this.searchParams = {};
         this.searchResultsPromiseState = {};
@@ -14,50 +14,45 @@ class What2PackModel{
     }
 
     setCurrentPlan(plan){
-        if (this.currentPlan == null
-            || plan.destination !== this.currentPlan.destination 
-            || plan.startDate !== this.currentPlan.startDate
-            || plan.endDate !== this.currentPlan.endDate){
+        if (this.currentPlan == null || !isEqual(plan, this.currentPlan)){
             this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});
         }
     }
 
-    setCurrentItems(items){
-        const oldItems = this.currentItems;
-        this.currentItems = items;
-        if (this.currentItems !== oldItems){
-            this.notifyObservers({currentItems: items});
+    setItemPacked(itemToCheck, ifPacked){
+        console.log(itemToCheck, ifPacked)
+        for (const item of this.currentPlan.items){
+            if(isEqual(item, itemToCheck)){
+                item.ifPacked = ifPacked;
+                break;
+            }
         }
     }
 
     addItemToCurrentItems(itemToAdd){
-        for (const it of this.currentItems){
-            if(it.name === itemToAdd.name
-                && it.name === itemToAdd.amount
-                && it.name === itemToAdd.remark){
-                    return;
-                }
+        for (const item of this.currentPlan.items){
+            if(isEqual(item, itemToAdd)){
+                return;
+            }
         }
-        this.currentItems = [...this.currentItems, itemToAdd];
+        this.currentPlan.items = [...this.currentPlan.items, itemToAdd];
         this.notifyObservers({itemToAdd: itemToAdd});
     }
 
     removeItemFromCurrentItems(itemToRemove){
-        const oldItems = this.currentItems;
-        this.currentItems = this.currentItems.filter(it => it !== itemToRemove);
-        if (this.currentItems.length !== oldItems.length){
+        const oldItems = this.currentPlan.items;
+        this.currentPlan.items = this.currentPlan.items.filter(it => it !== itemToRemove);
+        if (this.currentPlan.items.length !== oldItems.length){
             this.notifyObservers({itemToRemove: itemToRemove});
         }
     }
 
     addPlan(planToAdd){
         for (const p of this.plans){
-            if(p.destination === planToAdd.destination 
-                && p.startDate === planToAdd.startDate 
-                && p.endDate === planToAdd.endDate){
-                    return;
-                }
+            if(isEqual(p, planToAdd)){
+                return;
+            }
         }
         this.plans = [...this.plans, planToAdd];
         this.notifyObservers({planToAdd: planToAdd});
