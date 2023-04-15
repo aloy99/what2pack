@@ -68,6 +68,11 @@ function DetailsPresenter(props){
         }
         console.log(props.model);
     }
+    function handleDeleteItemACB(item){
+        props.model.removeItemFromCurrentItems(item);
+        rerenderACB();
+        console.log(props.model);
+    }
     return (
         <>
             <DetailsView 
@@ -84,7 +89,8 @@ function DetailsPresenter(props){
                     onAddPlan={handleAddPlanACB}
                     onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
-                    onAllItemsChecked={handleAllItemsPackedACB}/>}
+                    onAllItemsChecked={handleAllItemsPackedACB}
+                    onDeleteItem={handleDeleteItemACB}/>}
         </>);
 }
 

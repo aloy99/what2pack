@@ -21,7 +21,6 @@ class What2PackModel{
     }
 
     setItemPacked(itemToCheck, ifPacked){
-        console.log(itemToCheck, ifPacked)
         for (const item of this.currentPlan.items){
             if(isEqual(item, itemToCheck)){
                 item.ifPacked = ifPacked;
