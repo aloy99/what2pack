@@ -35,9 +35,26 @@ function SuggestionView(props){
     function cancelDeleteACB(){
         closePopconfirm();
     }
+    function itemCheckedACB(evt){
+        props.onItemChecked(evt.target.value, evt.target.checked);
+    }
+    function chooseAllACB(evt){
+        const ifCheckAll = evt.target.checked; //if true, 'Check All' checkbox; if false, 'Uncheck All' checkbox.
+        const checkboxes = document.getElementsByClassName("checkbox-suggestion");
+        for(const checkbox of checkboxes){
+            checkbox.checked = ifCheckAll;
+        }
+        if(ifCheckAll){
+            props.onAllItemsChecked(true);
+        }   
+        else{
+            props.onAllItemsChecked(false);
+        }
+    }
     function itemInfoCB(item){
         return(
             <tr key={item.name}>
+                <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
                 <td>{item.name}</td>
                 <td>{item.amount}</td>
                 <td>{item.remark}</td>
@@ -47,16 +64,29 @@ function SuggestionView(props){
     return (
         <>
             <p id="msg-details">{msg}</p>
+            <p>
+
+            </p>
             <table className="items-table-details">
                 <thead>
                     <tr>
+                        <th>
+                            <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                            <label htmlFor="checkbox-check-all" id="checkbox-check-all-label">All</label>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>Packed</th>
                         <th>Item</th>
                         <th>Amount</th>
                         <th>Remark</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {props.currentItems.map(itemInfoCB)}
+                    {props.currentPlan.items.map(itemInfoCB)}
                 </tbody>
             </table>
             <Popconfirm

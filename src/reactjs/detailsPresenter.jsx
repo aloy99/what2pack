@@ -5,17 +5,16 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
+import isEqual from 'lodash.isequal';
 
 function DetailsPresenter(props){
     const [promiseState,] = useState({});
-    useModelProp(props.model, ["currentPlan", "currentItems", "plans", "searchParams"]);
+    useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
-            if(p.destination === planToAdd.destination 
-                && p.startDate === planToAdd.startDate 
-                && p.endDate === planToAdd.endDate){
+            if(isEqual(p, planToAdd)){
                     return true;
                 }
             }
@@ -30,11 +29,8 @@ function DetailsPresenter(props){
         console.log(props.model);
     }
     function handleSearchInputACB(destination, startDate, endDate){
-        function updateCurrentItemsACB(){
-            props.model.setCurrentItems(props.model.searchResultsPromiseState.data);
-        }
         function updateCurrentPlanACB(){
-            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.currentItems};
+            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.searchResultsPromiseState.data};
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
@@ -43,7 +39,6 @@ function DetailsPresenter(props){
         resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
         if(props.model.searchResultsPromiseState.promise){
             props.model.searchResultsPromiseState.promise.then(rerenderACB)
-                                                         .then(updateCurrentItemsACB)
                                                          .then(updateCurrentPlanACB)
                                                          .catch(rerenderACB);
         }
@@ -62,6 +57,17 @@ function DetailsPresenter(props){
         props.model.setCurrentPlan(null);
         console.log(props.model);
     }
+    function handleItemPackedACB(itemName, ifPacked){
+        const itemToPack = props.model.currentPlan.items.find(item => item.name === itemName);
+        props.model.setItemPacked(itemToPack, ifPacked);
+        console.log(props.model);
+    }
+    function handleAllItemsPackedACB(ifCheckAll){
+        for(const item of props.model.currentPlan.items){
+            props.model.setItemPacked(item, ifCheckAll);
+        }
+        console.log(props.model);
+    }
     return (
         <>
             <DetailsView 
@@ -73,11 +79,12 @@ function DetailsPresenter(props){
                 onClickLogo={handleClickedLogoACB}/>
             {   promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
-                    currentItems={props.model.searchResultsPromiseState.data}
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
                     onAddPlan={handleAddPlanACB}
-                    onDeletePlan={handleDeletePlanACB}/>}
+                    onDeletePlan={handleDeletePlanACB}
+                    onItemChecked={handleItemPackedACB}
+                    onAllItemsChecked={handleAllItemsPackedACB}/>}
         </>);
 }
 
