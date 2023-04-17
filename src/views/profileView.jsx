@@ -10,7 +10,7 @@ function ProfileView(props){
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user){
-                setAuthUser(user)
+                setAuthUser(user);
             }else{
                 setAuthUser(null);
             }
@@ -22,24 +22,24 @@ function ProfileView(props){
     }  ,[]);
 
 
-    function handeluserSignOut(e){
-        navigate('/profile')
-        props.onUserSignOut()
+    function handleUserSignOutACB(e){
+        navigate('/profile');
+        props.onUserSignOut();
     }  
 
-    function handelGoHome(e){
-        navigate('/')
+    function handleGoHomeACB(e){
+        navigate('/');
     }  
 
     return (
         <div className="App">
             {authUser ? <div>
                 <p>Signed In as: {authUser?.email}</p> 
-                <button onClick={handeluserSignOut}>Sign Out</button>
+                <button onClick={handleUserSignOutACB}>Sign Out</button>
             </div> : 
             <div>
                 <p>You are: signed out</p> 
-                <button onClick={handelGoHome}>Go Home</button>
+                <button onClick={handleGoHomeACB}>Go Home</button>
             </div>}
         </div>
     );

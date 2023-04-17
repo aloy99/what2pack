@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {onAuthStateChanged, signOut} from "firebase/auth";
-import {auth} from "../firebaseModel";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebaseModel";
 import { useNavigate, Link } from "react-router-dom";
 
 const AuthDetails = () =>{
@@ -10,7 +10,7 @@ const AuthDetails = () =>{
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user){
-                setAuthUser(user)
+                setAuthUser(user);
             }else{
                 setAuthUser(null);
             }
@@ -23,8 +23,8 @@ const AuthDetails = () =>{
 
         const userSignOut = () =>{
             signOut(auth).then(() =>{
-                console.log("sign out succesfol")
-            }).catch(error => console.log(error))
+                console.log("sign out succesful");
+            }).catch(error => console.log(error));
             navigate("/login");
         }
 
