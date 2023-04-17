@@ -35,7 +35,7 @@ function AuthView(props){
                 <div className="sign-in-container">
                     <form  onSubmit={props.onUserSignIn}>
                         <h1>Log In to account</h1>
-                        <p >No account yet?<button onClick={handleSignUpClick}>Sign Up here</button></p>
+                        <p>No account yet?<button onClick={handleSignUpClick}>Sign Up here</button></p>
                         <input type="email" placeholder="Enter your email" 
                             value={props.email}
                             onChange={changeEmailACB}  
