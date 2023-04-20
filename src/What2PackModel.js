@@ -11,6 +11,7 @@ class What2PackModel{
         this.searchParams = {};
         this.searchResultsPromiseState = {};
         this.currentPlanPromiseState = {};
+        this.gmapsLoaded = false;
     }
 
     setCurrentPlan(plan){

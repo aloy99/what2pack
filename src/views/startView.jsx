@@ -26,6 +26,9 @@ function StartView(props){
         props.onClickLogo();
         navigate("/");
     }
+    function mapsLoadedACB(){
+        props.onMapsLoad();
+    }
     return (
      <div className="start-container">
         <div className="startL-container"> 
@@ -41,6 +44,8 @@ function StartView(props){
                 <h3>Pack the insights into your holidays</h3>
                 <SearchBarView 
                 id="search-bar-start" 
+                gmapsLoaded = {props.gmapsLoaded}
+                onMapsLoad={mapsLoadedACB}
                 onSearchInput={passSearchInputACB} 
                 onDestChanged={passDestACB} 
                 onRangeChanged={passRangeACB}/>

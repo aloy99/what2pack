@@ -35,9 +35,16 @@ function StartPresenter(props){
         props.model.setCurrentPlan(null);
         console.log(props.model);
     }
+
+    function mapsLoadedACB(){
+        props.model.gmapsLoaded = true;
+    }
+
     return <StartView   
             model={props.model} 
             currentPlan={props.model.currentPlan}
+            gmapsLoaded = {props.model.gmapsLoaded}
+            onMapsLoad={mapsLoadedACB}
             onSearchInput={handleSearchInputACB}
             onDestChanged={handleDestACB}
             onRangeChanged={handleRangeACB}
