@@ -21,11 +21,11 @@ function ProfileView(props){
                 <h1>Welcome on you profile page!</h1> 
                 <p>Signed In as: {currentUser?.email}</p> 
                 <button onClick={handeluserSignOut}>Sign Out</button>
-                <button onClick={handelGoHome}>Go Home</button>
+                <button onClick={handleGoHomeACB}>Go Home</button>
             </div> : 
             <div>
                 <p>You are: signed out</p> 
-                <button onClick={handelGoHome}>Go Home</button>
+                <button onClick={handleGoHomeACB}>Go Home</button>
             </div>
             }
         </div>
