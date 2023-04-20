@@ -10,10 +10,10 @@ function AuthView(props){
     const navigate = useNavigate();
 
     function changeEmailACB(e){
-        props.onEmailChange(e.target.value)
+        props.onEmailChange(e.target.value);
       }
     function changePasswordACB(e){
-        props.onPasswordChange(e.target.value)
+        props.onPasswordChange(e.target.value);
     }  
 
     const handleSignUpClick = event => {

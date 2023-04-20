@@ -8,14 +8,14 @@ function ProfilePresenter(props){
 
     const handleUserSignOutACB = () =>{
         signOut(auth).then(() =>{
-            console.log("sign out succesfol")
-        }).catch(error => console.log(error))
+            console.log("sign out successful");
+        }).catch(error => console.log(error));
     }
 
     return (
         
             <ProfileView 
-            onUserSignOut={handleUserSignOutACB}
+                onUserSignOut={handleUserSignOutACB}
             />
     );
 }

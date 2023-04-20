@@ -358,7 +358,10 @@ function suggestACB(weather_data){
         ...suggestFromUV(uvs),
         ...suggestFromPrecipitation(precipitations)])];
     for (let suggestion of suggestions) {
-        suggestion['ifPacked'] = false;
+        suggestion.ifPacked = false;
+    }
+    for (let i = 0; i < suggestions.length; i++) {
+        suggestions[i].index = i;
     }
     return suggestions;
 }

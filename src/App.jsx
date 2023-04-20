@@ -3,7 +3,7 @@ import StartPresenter from './reactjs/startPresenter.jsx';
 import DetailsPresenter from './reactjs/detailsPresenter.jsx';
 import ProfilePresenter from './reactjs/profilePresenter.jsx';
 import What2PackModel from './What2PackModel';
-import './App.css'
+import './App.css';
 import AuthPresenter from './reactjs/authPresenter.jsx';
 
 const myModel = new What2PackModel();
@@ -19,8 +19,7 @@ function App() {
         <Route path='/profile' element={<ProfilePresenter model={myModel}/>}></Route>
       </Routes>
     </BrowserRouter>
-    
   )
 }
 
-export default App
+export default App;

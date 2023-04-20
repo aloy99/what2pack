@@ -11,8 +11,8 @@ function ProfileView(props){
         props.onUserSignOut()
     }  
 
-    function handelGoHome(e){
-        navigate('/')
+    function handleGoHomeACB(e){
+        navigate('/');
     }  
 
     return (
