@@ -1,39 +1,65 @@
 import React, { useState } from "react";
 import AddButtonView from './addButtonView';
-import { Popconfirm } from 'antd';
+import { Popconfirm, Button } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+import useRerender from "../reactjs/useRerender";
 
 function SuggestionView(props){
+    const rerenderACB = useRerender();
     const currentPlan = props.currentPlan;
     const currentPlanAdded = props.currentPlanAdded;
-    const [open, setOpen] = useState(false);
-    const showPopconfirm = () => {
-        setOpen(true);
+    const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
+    const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
+    const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
+    const showPlanPopconfirm = () => {
+        setOpenPlanConfirm(true);
     };
-    const closePopconfirm = () => {
-        setOpen(false);
+    const closePlanPopconfirm = () => {
+        setOpenPlanConfirm(false);
+    };    
+    const showItemPopconfirm = (item) => {
+        const openItemConfirmNew = openItemConfirm;
+        openItemConfirmNew[item.index] = true;
+        setOpenItemConfirm(openItemConfirmNew);
+        rerenderACB();
+    };
+    const closeItemPopconfirm = (item) => {
+        const openItemConfirmNew = openItemConfirm;
+        openItemConfirmNew[item.index] = false;
+        setOpenItemConfirm(openItemConfirmNew);
+        rerenderACB();
     };
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
     const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
-    
     let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
     function clickAddToPlanACB(){
         if(!currentPlanAdded){
-            if (currentPlan.destination !== null 
-                && currentPlan.startDate !== null 
-                && currentPlan.endDate !== null){
+            if (currentPlan.destination 
+                && currentPlan.startDate 
+                && currentPlan.endDate){
                     props.onAddPlan();
                 }
         }
     }
     function clickRemoveFromPlanACB(){
-        showPopconfirm();
+        showPlanPopconfirm();
     }
-    function confirmDeleteACB(){
+    function confirmDeletePlanACB(){
+        closePlanPopconfirm();
         props.onDeletePlan();
-        closePopconfirm();
     }
-    function cancelDeleteACB(){
-        closePopconfirm();
+    function cancelDeletePlanACB(){
+        closePlanPopconfirm();
+    }
+    function clickRemoveFromItemsACB(item){
+        showItemPopconfirm(item);
+    }
+    function confirmDeleteItemACB(item){
+        closeItemPopconfirm(item);
+        props.onDeleteItem(item);
+    }
+    function cancelDeleteItemACB(item){
+        closeItemPopconfirm(item);
     }
     function itemCheckedACB(evt){
         props.onItemChecked(evt.target.value, evt.target.checked);
@@ -54,6 +80,21 @@ function SuggestionView(props){
     function itemInfoCB(item){
         return(
             <tr key={item.name}>
+                <td>
+                    <Popconfirm
+                        title="Are you sure to delete this item?"
+                        description=""
+                        onConfirm={() => confirmDeleteItemACB(item)}
+                        onCancel={() => cancelDeleteItemACB(item)}
+                        okText="Yes"
+                        cancelText="No"
+                        open={openItemConfirm[item.index]}>
+                        <Button 
+                            className="button-delete-item" 
+                            type="primary" icon={<CloseOutlined/>} 
+                            onClick={() => clickRemoveFromItemsACB(item)}/>
+                    </Popconfirm>
+                </td>
                 <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
                 <td>{item.name}</td>
                 <td>{item.amount}</td>
@@ -63,13 +104,28 @@ function SuggestionView(props){
     }
     return (
         <>
-            <p id="msg-details">{msg}</p>
-            <p>
-
+            <p id="msg-details">
+                {msg}
+                <Popconfirm
+                    title="Are you sure to delete this plan?"
+                    description=""
+                    onConfirm={confirmDeletePlanACB}
+                    onCancel={cancelDeletePlanACB}
+                    okText="Yes"
+                    cancelText="No"
+                    disabled={!currentPlanAdded}
+                    open={openPlanConfirm}
+                    >
+                    <AddButtonView 
+                        currentPlanAdded={currentPlanAdded}
+                        onDeletePlan={clickRemoveFromPlanACB}
+                        onAddPlan={clickAddToPlanACB}/>
+                </Popconfirm>
             </p>
             <table className="items-table-details">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>
                             <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
                             <label htmlFor="checkbox-check-all" id="checkbox-check-all-label">All</label>
@@ -79,6 +135,7 @@ function SuggestionView(props){
                         <th></th>
                     </tr>
                     <tr>
+                        <th></th>
                         <th>Packed</th>
                         <th>Item</th>
                         <th>Amount</th>
@@ -89,21 +146,7 @@ function SuggestionView(props){
                     {props.currentPlan.items.map(itemInfoCB)}
                 </tbody>
             </table>
-            <Popconfirm
-                title="Are you sure to delete this plan?"
-                description=""
-                onConfirm={confirmDeleteACB}
-                onCancel={cancelDeleteACB}
-                okText="Yes"
-                cancelText="No"
-                disabled={!currentPlanAdded}
-                open={open}
-                >
-                <AddButtonView 
-                    currentPlanAdded={currentPlanAdded}
-                    onDeletePlan={clickRemoveFromPlanACB}
-                    onAddPlan={clickAddToPlanACB}/>
-            </Popconfirm>
+
         </>
     );
 }

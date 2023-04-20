@@ -49,12 +49,12 @@ function DetailsView(props){
             <div className="search-detail-item">
             <SearchBarView 
 
-            id="search-bar-details" 
-            defaultDest={defaultDest}
-            defaultRange={defaultRange}
-            onSearchInput={passSearchInputACB} 
-            onDestChanged={passDestACB} 
-            onRangeChanged={passRangeACB}/>
+                id="search-bar-details" 
+                defaultDest={defaultDest}
+                defaultRange={defaultRange}
+                onSearchInput={passSearchInputACB} 
+                onDestChanged={passDestACB} 
+                onRangeChanged={passRangeACB}/>
             </div>
 
             <div className="login-item">

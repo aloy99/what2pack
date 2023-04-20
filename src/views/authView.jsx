@@ -9,10 +9,10 @@ function AuthView(props){
     const navigate = useNavigate();
 
     function changeEmailACB(e){
-        props.onEmailChange(e.target.value)
+        props.onEmailChange(e.target.value);
       }
     function changePasswordACB(e){
-        props.onPasswordChange(e.target.value)
+        props.onPasswordChange(e.target.value);
     }  
 
     const handleSignUpClick = event => {
@@ -42,7 +42,7 @@ function AuthView(props){
                 <div className="sign-in-container">
                     <form  onSubmit={props.onUserSignIn}>
                         <h1>Log In to account</h1>
-                        <p >No account yet?<button onClick={handleSignUpClick}>Sign Up here</button></p>
+                        <p>No account yet?<button onClick={handleSignUpClick}>Sign Up here</button></p>
                         <input type="email" placeholder="Enter your email" 
                             value={props.email}
                             onChange={changeEmailACB}  
