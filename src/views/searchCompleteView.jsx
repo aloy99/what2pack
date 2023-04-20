@@ -11,11 +11,14 @@ function SearchCompleteView(props){
         setValue,
         clearSuggestions,
     } = usePlacesAutocomplete({
+        initOnMount: false,
         requestOptions: {
             types: ['(cities)']
         },
         debounce: 500,
     });
+
+    // to do: getDetails, get country, and store country in model to use for holidays api
 
     function inputChangeACB(e){
         setValue(e.target.value);
@@ -33,33 +36,32 @@ function SearchCompleteView(props){
         }
     }
 
-    const renderSuggestionsCB = function () {
-        function suggestionListCB(suggestion) {
-            const {
-                place_id,
-                structured_formatting: {main_text, secondary_text },
-            } = suggestion;
+    // const renderSuggestionsCB = function () {
+    //     function suggestionListCB(suggestion) {
+    //         const {
+    //             place_id,
+    //             structured_formatting: {main_text, secondary_text },
+    //         } = suggestion;
 
-            return (
-                <li key={place_id} onClick={onLocationClickCB(suggestion)}>
-                    <strong>{main_text}</strong> <small>{secondary_text}</small>
-                </li>
-            );
-            }
-        return data.map(suggestionListCB);
-    }
+    //         return (
+    //             <li key={place_id} onClick={onLocationClickCB(suggestion)}>
+    //                 <strong>{main_text}</strong> <small>{secondary_text}</small>
+    //             </li>
+    //         );
+    //         }
+    //     return data.map(suggestionListCB);
+    // }
 
-    const listRenderCB = function(item) {
-        console.log(item);
-        const {
-            place_id,
-            structured_formatting: {main_text, secondary_text },
-        } = item;
-        console.log(main_text);
+    // const listRenderCB = function(item) {
+    //     console.log(item);
+    //     const {
+    //         place_id,
+    //         structured_formatting: {main_text, secondary_text },
+    //     } = item;
+    //     console.log(main_text);
 
-        return (<List.item>{main_text}</List.item>);
-        
-    }
+    //     return (<List.item>{main_text}</List.item>); 
+    // }
     return (
         <div className="country-search">
             <Input
