@@ -1,6 +1,6 @@
 
 const GMAPS_BASE_URL = 'https://maps.googleapis.com/maps/api/js?key='
-const GMAPS_API_KEY = ''
+const GMAPS_API_KEY = 'AIzaSyDg0YBH6lccvpjpfcj5qQcXz5asA2cdYCM'
 
 const HOLIDAYS_BASE_URL = ''
 const HOLIDAYS_API_KEY = ''

@@ -1,10 +1,26 @@
 import usePlacesAutocomplete, { getLatLng, getGeocode } from "use-places-autocomplete";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Input, List } from 'antd';
 import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
 
 function SearchCompleteView(props){
+
+    useEffect(() => {
+        scriptLoader();
+        return () => {
+        };
+    }, [])
+
+    const scriptLoader = () => {
+        const url = GMAPS_BASE_URL + GMAPS_API_KEY + "&libraries=places"
+        if (!document.getElementById('googleMapsScript').src) {
+            document.getElementById('googleMapsScript').src = url;
+        }
+        document.getElementById('googleMapsScript').onload = () => {init()} 
+    }
+
     const {
+        init,
         ready,
         value,
         suggestions: {status, data},
