@@ -2,6 +2,7 @@ import React from "react";
 import ProfileView from '../views/profileView.jsx';
 import {signOut} from "firebase/auth";
 import {auth} from "../firebaseModel";
+import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function ProfilePresenter(props){
 
@@ -12,6 +13,7 @@ function ProfilePresenter(props){
     }
 
     return (
+        
             <ProfileView 
                 onUserSignOut={handleUserSignOutACB}
             />

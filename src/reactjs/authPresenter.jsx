@@ -3,12 +3,14 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateC
 import {auth} from "../firebaseModel";
 import AuthView from "../views/authView.jsx";
 import { useNavigate } from "react-router-dom";
+import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function AuthPresenter(props){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState({});
     const auth = getAuth();
+    const currentUser = useAuth();
 
     const navigate = useNavigate();
 
@@ -51,17 +53,18 @@ function AuthPresenter(props){
 
     return (
         <div className="App">
-            <AuthView 
-            value={{user}}
-            email={props.email}
-            password={props.password}
-            currentUser={props.currentUser}
-            onEmailChange={handleEmailChangeACB}
-            onPasswordChange={handlePasswordChangeACB}
-            onUserSignIn={handleUserSignIn}
-            onUserSignUp={handleUserSignUp}
-            // onUserSignOut={handleUserSignOutACB}
-            />
+                 <AuthView 
+              value={{user}}
+              email={props.email}
+              password={props.password}
+              currentUser={props.currentUser}
+              onEmailChange={handleEmailChangeACB}
+              onPasswordChange={handlePasswordChangeACB}
+              onUserSignIn={handleUserSignIn}
+              onUserSignUp={handleUserSignUp}
+              // onUserSignOut={handleUserSignOutACB}
+              />
+
         </div>
     );
 }

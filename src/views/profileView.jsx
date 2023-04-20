@@ -6,9 +6,9 @@ function ProfileView(props){
     const navigate = useNavigate();
     const currentUser = useAuth();
 
-    function handleUserSignOutACB(e){
-        navigate('/profile');
-        props.onUserSignOut();
+    function handeluserSignOut(e){
+        navigate('/')
+        props.onUserSignOut()
     }  
 
     function handleGoHomeACB(e){
@@ -17,14 +17,17 @@ function ProfileView(props){
 
     return (
         <div className="App">
-            {authUser ? <div>
-                <p>Signed In as: {authUser?.email}</p> 
-                <button onClick={handleUserSignOutACB}>Sign Out</button>
+            {currentUser ? <div>
+                <h1>Welcome on you profile page!</h1> 
+                <p>Signed In as: {currentUser?.email}</p> 
+                <button onClick={handeluserSignOut}>Sign Out</button>
+                <button onClick={handelGoHome}>Go Home</button>
             </div> : 
             <div>
                 <p>You are: signed out</p> 
-                <button onClick={handleGoHomeACB}>Go Home</button>
-            </div>}
+                <button onClick={handelGoHome}>Go Home</button>
+            </div>
+            }
         </div>
     );
 
