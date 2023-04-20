@@ -1,13 +1,11 @@
-import { WEATHER_BASE_URL } from "./apiConfig.jsx";
+import { HOLIDAYS_BASE_URL, HOLIDAYS_API_KEY } from "./apiConfig.jsx";
 import dayjs from 'dayjs';
 
-const weatherParams = {
-    'daily': 'apparent_temperature_max,apparent_temperature_min,uv_index_max,precipitation_sum,windspeed_10m_max',
-    'forecast_days': 16,
-    'timezone': 'auto',
+const holidayParams = {
+    'type': 'public_holiday'
 }
 
-function getWeatherDetails(searchTerms) { //handle destination name, start and end dates, remove them from url search params, then truncate results based on dates
+function getHolidayDetails(searchTerms) { 
     function processResponseACB(response) {
         function throwErrorACB(data) {
             throw new Error("API returned error +" + response.status + " " + data);
@@ -43,12 +41,12 @@ function getWeatherDetails(searchTerms) { //handle destination name, start and e
         for (const key of Object.keys(dailyData)) {
             if (key !== 'time'){
                 output[key] = new Array(timeDays).fill(); //create null array of length instead
-                for (let i = 0; i < timeDays; i++) {
-                    const currIndex = dailyData.time.indexOf(output.time[i]);
-                    if (currIndex !== -1) {
-                        output[key][i] = dailyData[key][currIndex];
+                    for (let i = 0; i < timeDays; i++) {
+                        const currIndex = dailyData.time.indexOf(output.time[i]);
+                        if (currIndex !== -1) {
+                            output[key][i] = dailyData[key][currIndex];
+                        }
                     }
-                }
             }
         }
         console.log(output);
@@ -56,11 +54,11 @@ function getWeatherDetails(searchTerms) { //handle destination name, start and e
     }
 
 
-    return fetch(WEATHER_BASE_URL + new URLSearchParams({...searchTerms.latlng, ...weatherParams}),
+    return fetch(HOLIDAY_BASE_URL + new URLSearchParams({...searchTerms.country, ...holidayParams}),
         {
             method: 'GET',
             redirect: 'follow'
         }).then(processResponseACB).then(getDaysACB);
 }
 
-export { getWeatherDetails };
+export { getHolidayDetails };
