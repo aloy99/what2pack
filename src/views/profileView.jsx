@@ -1,26 +1,10 @@
-import React, {useState, useEffect} from "react";
-import {onAuthStateChanged, getAuth} from "firebase/auth";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {auth} from "../firebaseModel";
+import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function ProfileView(props){
-    const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
-            if(user){
-                setAuthUser(user)
-            }else{
-                setAuthUser(null);
-            }
-        });
-
-        return () =>{
-            listen();
-        }
-    }  ,[]);
-
+    const currentUser = useAuth();
 
     function handeluserSignOut(e){
         navigate('/profile')
@@ -33,8 +17,8 @@ function ProfileView(props){
 
     return (
         <div className="App">
-            {authUser ? <div>
-                <p>Signed In as: {authUser?.email}</p> 
+            {currentUser ? <div>
+                <p>Signed In as: {currentUser?.email}</p> 
                 <button onClick={handeluserSignOut}>Sign Out</button>
             </div> : 
             <div>

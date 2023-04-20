@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function AuthView(props){
     const [isSignUpShown, setIsSignUpShown] = useState(false);
     const [isSignInShown, setIsSignInShown] = useState(true);
-
+    const currentUser = useAuth();
     const navigate = useNavigate();
 
     function changeEmailACB(e){
@@ -31,6 +32,12 @@ function AuthView(props){
 
     return (
         <div className="App">
+               {currentUser ? <div>
+                <p>Signed In as: {currentUser?.email}</p> 
+            </div> : 
+            <div>
+                <p>You are: signed out</p> 
+            </div>}
             {isSignInShown && (
                 <div className="sign-in-container">
                     <form  onSubmit={props.onUserSignIn}>
