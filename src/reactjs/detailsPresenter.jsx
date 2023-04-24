@@ -78,11 +78,19 @@ function DetailsPresenter(props){
         rerenderACB();
         console.log(props.model);
     }
+
+    function mapsLoadedACB(){
+        props.model.gmapsLoaded = true;
+    }
+
+
     return (
         <>
             <DetailsView 
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
+                gmapsLoaded = {props.model.gmapsLoaded}
+                onMapsLoad={mapsLoadedACB}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}

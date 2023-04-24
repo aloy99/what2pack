@@ -9,14 +9,15 @@ function SearchCompleteView(props){
         scriptLoader();
         return () => {
         };
-    }, [])
+    })
 
     const scriptLoader = () => {
         const url = GMAPS_BASE_URL + GMAPS_API_KEY + "&libraries=places"
-        if (!document.getElementById('googleMapsScript').src) {
-            document.getElementById('googleMapsScript').src = url;
-        }
-        document.getElementById('googleMapsScript').onload = () => {init()} 
+        // if (!document.getElementById('googleMapsScript').src) {
+        //     document.getElementById('googleMapsScript').src = url;
+        // }
+        document.getElementById('googleMapsScript').src = url;
+        document.getElementById('googleMapsScript').onload = () => {props.onMapsLoad(); console.log('script loaded'); init()} 
     }
 
     const {
@@ -33,7 +34,11 @@ function SearchCompleteView(props){
         },
         debounce: 500,
     });
-
+    
+    if (props.gmapsLoaded) {
+        init();
+    }
+    
     // to do: getDetails, get country, and store country in model to use for holidays api
 
     function inputChangeACB(e){

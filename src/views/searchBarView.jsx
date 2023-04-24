@@ -49,7 +49,9 @@ function SearchBarView(props){
     function locationClickedACB(dest){
         props.onDestChanged(dest);
     }
-
+    function mapsLoadedACB(){
+        props.onMapsLoad();
+    }
     const disabledDate = (current) => {
         // Can not select days before today
         return current < dayjs().startOf('day');
@@ -57,7 +59,7 @@ function SearchBarView(props){
     return (
     <div className="search-bar-container">
             <div>
-            <SearchCompleteView onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
+            <SearchCompleteView gmapsLoaded = {props.gmapsLoaded} onMapsLoad={mapsLoadedACB} onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
             </div>
             <div>
             <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>

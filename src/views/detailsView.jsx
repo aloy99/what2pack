@@ -32,6 +32,9 @@ function DetailsView(props){
         props.onClickLogo();
         navigate("/");
     }
+    function mapsLoadedACB(){
+        props.onMapsLoad();
+    }
     return (
     <>
         <div className="logo-login-container">
@@ -52,6 +55,8 @@ function DetailsView(props){
                 id="search-bar-details" 
                 defaultDest={defaultDest}
                 defaultRange={defaultRange}
+                gmapsLoaded = {props.gmapsLoaded}
+                onMapsLoad={mapsLoadedACB}
                 onSearchInput={passSearchInputACB} 
                 onDestChanged={passDestACB} 
                 onRangeChanged={passRangeACB}/>
