@@ -118,3 +118,55 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
+/* navigation start */
+
+.nav-container {
+  margin: 1rem;
+  text-align: center;
+}
+.nav {
+  background-color:  #ecd8b2;
+  color: #595549;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 0 1rem;
+  font-family: 'Castoro Titling', cursive;
+}
+
+.site-title {
+  font-size: 2rem;
+  font-family: 'Castoro Titling', cursive;
+}
+
+.nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+}
+
+.nav li.active {
+  /* background-color: #BB9B75; */
+  color: #863A2C;
+  text-decoration: underline;
+}
+
+.nav li:hover {
+  /* background-color: #BB9B75; */
+  color: #863A2C;
+}
+
+/* navigation end */
+
