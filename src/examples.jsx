@@ -79,8 +79,10 @@ const WEATHER_RESPONSE_EXAMPLE = {
 
 const ITEM_EXAMPLE = {
     name: "SPF 50 Sunscreen",
-    amount: "1",
-    remark: "It's going to be very sunny at the beach"
+    amount: 1,
+    remark: "It's going to be very sunny at the beach",
+    ifPacked: false, 
+    index: 5
 }
 
 const SUGGESTIONS_EXAMPLE = [
