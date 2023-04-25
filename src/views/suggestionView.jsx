@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import AddButtonView from './addButtonView';
-import { Popconfirm, Button } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { Popconfirm, Button, Input, notification } from 'antd';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 
 function SuggestionView(props){
     const rerenderACB = useRerender();
-    const currentPlan = props.currentPlan;
     const currentPlanAdded = props.currentPlanAdded;
     const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
-    const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
+    const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
+    // console.log("ifItemConfirmOpen: ", ifItemConfirmOpen);
+    // const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
     const showPlanPopconfirm = () => {
         setOpenPlanConfirm(true);
@@ -29,14 +30,14 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
-    const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
+    const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
+    const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
     let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
     function clickAddToPlanACB(){
         if(!currentPlanAdded){
-            if (currentPlan.destination 
-                && currentPlan.startDate 
-                && currentPlan.endDate){
+            if (props.currentPlan.destination 
+                && props.currentPlan.startDate 
+                && props.currentPlan.endDate){
                     props.onAddPlan();
                 }
         }
@@ -60,6 +61,31 @@ function SuggestionView(props){
     }
     function cancelDeleteItemACB(item){
         closeItemPopconfirm(item);
+    }
+    function clickAddItemACB(){
+        const inputName = document.getElementById("input-add-item-name");
+        const inputAmount = document.getElementById("input-add-item-amount");
+        const inputRemark = document.getElementById("input-add-item-remark");
+        const item = {
+            name: inputName.value,
+            amount: inputAmount.value,
+            remark: inputRemark.value,
+            ifPacked: false,
+            index: props.currentPlan.items.length,
+            ifDeleteConfirmOpen: false
+        }
+        if(props.currentPlan.items.includes(item)){
+            notification.open({
+                message: 'Item already exists in current plan.',
+                description:'',
+                onClick: () => {
+                  console.log('Notification Clicked!');
+                },
+              });
+            return;
+        }
+        ifItemConfirmOpen.push(false);
+        props.onAddItem(item);
     }
     function itemCheckedACB(evt){
         props.onItemChecked(evt.target.value, evt.target.checked);
@@ -153,6 +179,18 @@ function SuggestionView(props){
                 </thead>
                 <tbody>
                     {props.currentPlan.items.map(itemInfoCB)}
+                    <tr>
+                        <th>                        
+                            <Button 
+                                className="button-add-item" 
+                                type="primary" icon={<PlusOutlined/>} 
+                                onClick={() => clickAddItemACB()}/>
+                        </th>
+                        <th></th>
+                        <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
+                        <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
+                        <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th>
+                    </tr>
                 </tbody>
             </table>
             <table className="holidays-table-details">
