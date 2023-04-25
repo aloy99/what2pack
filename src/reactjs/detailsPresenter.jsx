@@ -33,8 +33,9 @@ function DetailsPresenter(props){
             const plan = {destination: destination, 
                           startDate: startDate, 
                           endDate: endDate, 
-                          items: props.model.searchResultsPromiseState.data,
-                          itemsCount: props.model.searchResultsPromiseState.data.length
+                          items: props.model.searchResultsPromiseState.data.items,
+                          itemsCount: props.model.searchResultsPromiseState.data.items.length,
+                          holidays: props.model.searchResultsPromiseState.data.holidays
                         };
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));

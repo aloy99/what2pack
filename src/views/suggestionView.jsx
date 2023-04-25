@@ -102,6 +102,15 @@ function SuggestionView(props){
             </tr>
         )
     }
+    function holidaysInfoCB(holiday){
+        return(
+            <tr key={holiday.name}>
+                <td>{holiday.date}</td>
+                <td>{holiday.name}</td>
+            </tr>
+        )
+    }
+
     return (
         <>
             <p id="msg-details">
@@ -144,6 +153,17 @@ function SuggestionView(props){
                 </thead>
                 <tbody>
                     {props.currentPlan.items.map(itemInfoCB)}
+                </tbody>
+            </table>
+            <table className="holidays-table-details">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.currentPlan.holidays.map(holidaysInfoCB)}
                 </tbody>
             </table>
 
