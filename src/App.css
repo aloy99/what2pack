@@ -105,6 +105,13 @@ he} */
   display: flex;  
 } */
 
+.holidays-table-details {
+  align-items: left;
+  padding: 20px;
+  margin-right: 0px;
+  margin-left: 20px; 
+}
+
 
 input[type="search"].input-destination {
   -webkit-appearance: searchfield;

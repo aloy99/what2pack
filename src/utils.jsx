@@ -341,7 +341,9 @@ function suggestFromPrecipitation(pres){
     }
 }
 
-function suggestACB(weather_data){
+function suggestACB(response){
+    const weather_data = response[0];
+    const holiday_data = response[1];
     const temps_max = weather_data.apparent_temperature_max;
     const temps_min = weather_data.apparent_temperature_min;
     const winds = weather_data.windspeed_10m_max;
@@ -363,7 +365,7 @@ function suggestACB(weather_data){
     for (let i = 0; i < suggestions.length; i++) {
         suggestions[i].index = i;
     }
-    return suggestions;
+    return {'items':suggestions, 'holidays':holiday_data};
 }
 
 export {suggestACB};
