@@ -32,11 +32,11 @@ function StartView(props){
     return (
      <div className="start-container">
         <div className="startL-container"> 
-        <img src="/travel.jpg" alt="travel" width="100%" height="100%"></img>
+        {/* <img src="/travel.png" alt="travel" width="100%" height="100%"></img> */}
         </div>
         <div className="startR-container">  
             <div className="login-item">
-            <UserIconView onIconClicked={clickLoginACB}/>
+            {/* <UserIconView onIconClicked={clickLoginACB}/> */}
             </div>
             <div className="searchblock-item">
 

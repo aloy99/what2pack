@@ -37,7 +37,7 @@ function DetailsView(props){
     <>
         <div className="logo-login-container">
 
-            <div className="logo-item">
+            {/* <div className="logo-item">
             <img 
                 src="\logov1.png" 
                 alt="What2Pack" 
@@ -45,7 +45,7 @@ function DetailsView(props){
                 height="100"
                 onClick={clickLogoACB}>
             </img>
-            </div>
+            </div> */}
 
             <div className="search-detail-item">
             <SearchBarView 
@@ -60,9 +60,9 @@ function DetailsView(props){
                 onRangeChanged={passRangeACB}/>
             </div>
 
-            <div className="login-item">
+            {/* <div className="login-item">
             <UserIconView onIconClicked={clickLoginACB}/>
-            </div>
+            </div> */}
             
         </div>
         <div className="login"></div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddButtonView from './addButtonView';
-import { Popconfirm, Button, Input, notification } from 'antd';
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { Popconfirm, Button } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 
 function SuggestionView(props){
@@ -123,10 +123,18 @@ function SuggestionView(props){
                         open={openItemConfirm[item.index]}>
                         <Button 
                             className="button-delete-item" 
-                            type="primary" icon={<CloseOutlined/>} 
+                            type="text" 
+                            // style={{ background: "#ecd8b2", borderColor: "#ecd8b2" }}
+                            size="small"
+                            shape="circle"
+                            icon={<MinusCircleOutlined/>} 
                             onClick={() => clickRemoveFromItemsACB(item)}/>
                     </Popconfirm>
                 </td>
+
+{/* <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td> */}
+                <td>{item.name}</td>
+                {/* <td>{item.amount}</td> */}
                 <td>
                     <input  
                         type="checkbox" 
@@ -143,7 +151,9 @@ function SuggestionView(props){
                         defaultValue={item.amount}
                         onChange={changeAmountACB}/>
                 </td>
+
                 <td>{item.remark}</td>
+                <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
             </tr>
         )
     }
@@ -213,7 +223,7 @@ function SuggestionView(props){
     }
     return (
         <>
-            <h2 id="msg-details">
+            <p id="msg-details">
                 {msg}
                 <Popconfirm
                     title="Are you sure to delete this plan?"
@@ -225,13 +235,12 @@ function SuggestionView(props){
                     disabled={!currentPlanAdded}
                     open={openPlanConfirm}
                     >
-                <AddButtonView 
-                    currentPlanAdded={currentPlanAdded}
-                    onDeletePlan={clickRemoveFromPlanACB}
-                    onAddPlan={clickAddToPlanACB}/>
+                    <AddButtonView 
+                        currentPlanAdded={currentPlanAdded}
+                        onDeletePlan={clickRemoveFromPlanACB}
+                        onAddPlan={clickAddToPlanACB}/>
                 </Popconfirm>
-            </h2>
-            <h3>ITEMS TO PACK</h3>
+            </p>
             <table className="items-table-details">
                 <thead>
                     <tr>
@@ -252,10 +261,22 @@ function SuggestionView(props){
                         <th>Remark</th>
                     </tr>
                 </thead>
-                {itemsTableBody}
+                <tbody>
+                    {props.currentPlan.items.map(itemInfoCB)}
+                </tbody>
             </table>
-            <h3>HOLIDAYS</h3>
-            {holidaysTable}
+            <table className="holidays-table-details">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.currentPlan.holidays.map(holidaysInfoCB)}
+                </tbody>
+            </table>
+
         </>
     );
 }

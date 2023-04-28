@@ -82,31 +82,49 @@ button:focus-visible {
   }
 }
 
+/*LandingPage Start*/
 .start-container {
   display: flex;
   flex-direction: row;
-  height: 100%;
-  /* background-color: #22c52d; */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
+
 .start-container>div {
   width: 50%;
+  /* height: auto; */
+  vertical-align: middle;
+  display: inline-block; 
 }
+
+.startL-container {
+  margin-left: 60px;
+  background-color: #ecd8b2;
+  background-image: url('travel.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 60%;
+}
+
+.startL-container img {
+  width: 500px;
+  height: 400px;
+}
+
 
 .startR-container {
   display: flex;
   flex-direction: column;
-  /* padding: 30px; */
-  /* height: 100%; */
-  /* width: 50%; */
-  background-color: #ecd8b2;
-    /* width: 500px; */
+  /* background-color: #897653; */
 }
+/*LandingPage End*/
 
 .login-item {
   /* background-color: #b2b5ec; */
   margin-right: 0px;
   margin-left: auto; 
-  padding: 40px;
 }
 
 .logo-item {
@@ -117,7 +135,10 @@ button:focus-visible {
 }
 
 .search-detail-item {
-  padding: 15px;
+  /* padding: 15px; */
+  justify-content: center;
+  align-items: center;
+  /* background-color: #1a1a1a; */
 }
 
 .searchblock-item {
@@ -126,10 +147,17 @@ button:focus-visible {
   width: 500px;
 }
 
-
 .logo-login-container{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainContent {
+    display: block;
+    margin: auto;
+    /* width: 200px; */
 }
 
 /* login/signup Start */

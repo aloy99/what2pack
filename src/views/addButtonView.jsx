@@ -24,10 +24,10 @@ function AddButtonView(props){
         return(
             <Button 
                 className="button-add-to-plan-detail"
-                type="primary" 
+                type="default" 
                 icon={<PlusOutlined />} 
                 onClick={clickAddToPlanACB} >
-                Add to my plans
+                Add to plans
             </Button>
         );
     }
