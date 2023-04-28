@@ -107,6 +107,9 @@ function SuggestionView(props){
         }
     }
     function itemInfoCB(item){
+        function changeAmountACB(evt){
+            props.onAmountChange(item, Number(evt.target.value));
+        }
         return(
             <tr key={item.name}>
                 <td>
@@ -124,9 +127,22 @@ function SuggestionView(props){
                             onClick={() => clickRemoveFromItemsACB(item)}/>
                     </Popconfirm>
                 </td>
-                <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
+                <td>
+                    <input  
+                        type="checkbox" 
+                        className="checkbox-suggestion"
+                        onChange={itemCheckedACB} 
+                        value={item.name}
+                        />
+                </td>
                 <td>{item.name}</td>
-                <td>{item.amount}</td>
+                <td>
+                    <input 
+                        type="number" 
+                        className="input-amount" 
+                        defaultValue={item.amount}
+                        onChange={changeAmountACB}/>
+                </td>
                 <td>{item.remark}</td>
             </tr>
         )
