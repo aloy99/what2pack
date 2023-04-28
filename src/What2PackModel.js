@@ -1,5 +1,6 @@
 import resolvePromise from './resolvePromise';
 import { getWeatherDetails } from './weatherSource';
+import { getHolidayDetails } from './holidaySource';
 import { suggestACB } from './utils';
 import isEqual from 'lodash.isequal';
 
@@ -101,7 +102,9 @@ class What2PackModel{
 
     doSearch(searchParams){
         if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
-            resolvePromise(getWeatherDetails(searchParams).then(suggestACB), this.searchResultsPromiseState);
+
+            resolvePromise(Promise.all([getWeatherDetails(searchParams), getHolidayDetails(searchParams)]).then(suggestACB), this.searchResultsPromiseState);
+            console.log(this.searchResultsPromiseState)
         }
     }
 }

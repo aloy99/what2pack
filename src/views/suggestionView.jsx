@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import AddButtonView from './addButtonView';
-import { Popconfirm, Button } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { Popconfirm, Button, Input, notification } from 'antd';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 
 function SuggestionView(props){
     const rerenderACB = useRerender();
-    const currentPlan = props.currentPlan;
     const currentPlanAdded = props.currentPlanAdded;
     const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
-    const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
+    const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
+    // console.log("ifItemConfirmOpen: ", ifItemConfirmOpen);
+    // const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
     const showPlanPopconfirm = () => {
         setOpenPlanConfirm(true);
@@ -29,14 +30,17 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
-    const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
-    let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
+    function makeMsg(dest, start, end){
+        return dest + ", " + start + " - " + end;
+    }
+    const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
+    const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
+    const msg = makeMsg(defaultDest, defaultRange[0], defaultRange[1]);
     function clickAddToPlanACB(){
         if(!currentPlanAdded){
-            if (currentPlan.destination 
-                && currentPlan.startDate 
-                && currentPlan.endDate){
+            if (props.currentPlan.destination 
+                && props.currentPlan.startDate 
+                && props.currentPlan.endDate){
                     props.onAddPlan();
                 }
         }
@@ -60,6 +64,31 @@ function SuggestionView(props){
     }
     function cancelDeleteItemACB(item){
         closeItemPopconfirm(item);
+    }
+    function clickAddItemACB(){
+        const inputName = document.getElementById("input-add-item-name");
+        const inputAmount = document.getElementById("input-add-item-amount");
+        const inputRemark = document.getElementById("input-add-item-remark");
+        const item = {
+            name: inputName.value,
+            amount: inputAmount.value,
+            remark: inputRemark.value,
+            ifPacked: false,
+            index: props.currentPlan.items.length,
+            ifDeleteConfirmOpen: false
+        }
+        for(const it of props.currentPlan.items)
+        {
+            if(it.name == item.name){
+                notification.open({
+                    message: `${it.name} already exists in current plan.`,
+                    description:''
+                });
+                return;
+            }
+        }
+        ifItemConfirmOpen.push(false);
+        props.onAddItem(item);
     }
     function itemCheckedACB(evt){
         props.onItemChecked(evt.target.value, evt.target.checked);
@@ -102,9 +131,73 @@ function SuggestionView(props){
             </tr>
         )
     }
+    function holidaysInfoCB(holiday){
+        return(
+            <tr key={holiday.name}>
+                <td>{holiday.date}</td>
+                <td>{holiday.name}</td>
+            </tr>
+        );
+    }
+    const addItemRow = (
+        <tr>
+            <th>                        
+                <Button 
+                    className="button-add-item" 
+                    type="primary" icon={<PlusOutlined/>} 
+                    onClick={() => clickAddItemACB()}/>
+            </th>
+            <th></th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
+            <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th>
+        </tr>
+    );
+    let itemsTableBody;
+    if(props.currentPlan.items.length > 0){
+        itemsTableBody =(
+            <>
+                <tbody>
+                    {props.currentPlan.items.map(itemInfoCB)}
+                    {addItemRow}
+                </tbody>
+            </>
+        );
+    }
+    else{
+        itemsTableBody = (
+            <>
+                <p>No items to pack.</p>;
+                <tbody>
+                    {addItemRow}
+                </tbody>
+            </>
+        );
+    }
+    let holidaysTable;
+    if(props.currentPlan.holidays.length > 0){
+        holidaysTable = (
+            <table className="holidays-table-details">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.currentPlan.holidays.map(holidaysInfoCB)}
+                </tbody>
+            </table>
+        );
+    }
+    else{
+        holidaysTable = (
+            <p>No public holidays during this period.</p>
+        );
+    }
     return (
         <>
-            <p id="msg-details">
+            <h2 id="msg-details">
                 {msg}
                 <Popconfirm
                     title="Are you sure to delete this plan?"
@@ -116,12 +209,13 @@ function SuggestionView(props){
                     disabled={!currentPlanAdded}
                     open={openPlanConfirm}
                     >
-                    <AddButtonView 
-                        currentPlanAdded={currentPlanAdded}
-                        onDeletePlan={clickRemoveFromPlanACB}
-                        onAddPlan={clickAddToPlanACB}/>
+                <AddButtonView 
+                    currentPlanAdded={currentPlanAdded}
+                    onDeletePlan={clickRemoveFromPlanACB}
+                    onAddPlan={clickAddToPlanACB}/>
                 </Popconfirm>
-            </p>
+            </h2>
+            <h3>ITEMS TO PACK</h3>
             <table className="items-table-details">
                 <thead>
                     <tr>
@@ -142,11 +236,10 @@ function SuggestionView(props){
                         <th>Remark</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {props.currentPlan.items.map(itemInfoCB)}
-                </tbody>
+                {itemsTableBody}
             </table>
-
+            <h3>HOLIDAYS</h3>
+            {holidaysTable}
         </>
     );
 }

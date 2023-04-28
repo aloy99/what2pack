@@ -10,7 +10,16 @@ function StartPresenter(props){
     const rerenderACB = useRerender();
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
-            const plan = {destination: destination, startDate: startDate, endDate: endDate, items: props.model.searchResultsPromiseState.data};
+            const plan = {
+                destination: destination, 
+                startDate: startDate, 
+                endDate: endDate, 
+                items: props.model.searchResultsPromiseState.data.items,
+                holidays: props.model.searchResultsPromiseState.data.holidays
+            };
+            for(const it of plan.items){
+                it.ifDeleteConfirmOpen = false;
+            }
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
