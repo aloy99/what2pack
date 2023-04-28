@@ -349,12 +349,25 @@ function suggestACB(response){
     const winds = weather_data.windspeed_10m_max;
     const uvs = weather_data.uv_index_max;
     const precipitations = weather_data.precipitation_sum;
-    // get suggestions from all weather perspectives
+    const times = weather_data.time;
     // const suggestions_concat = suggestFromTemperature(temps_max, temps_min).concat(suggestFromWind(winds))
     //                                                                        .concat(suggestFromUV(uvs))
     //                                                                        .concat(suggestFromPrecipitation(precipitations));
     // // filter out the items with the same name                                                                
     // const suggestions = [...new Map(suggestions_concat.map(s => [s['name'], s])).values()];
+    // console.log(weather_data)
+    let weathers = [];
+    times.forEach((time, i) => {
+        weathers.push({
+            i: i,
+            time: time.split('-').slice(-1),
+            temp_max: temps_max[i],
+            temp_min: temps_min[i],
+            precipitation: precipitations[i]
+        });
+    });
+    // console.log(weathers)
+    // get packing suggestions from all weather perspectives
     const suggestions = [...new Set([...suggestFromTemperature(temps_max, temps_min),
         ...suggestFromWind(winds),
         ...suggestFromUV(uvs),
@@ -365,7 +378,7 @@ function suggestACB(response){
     for (let i = 0; i < suggestions.length; i++) {
         suggestions[i].index = i;
     }
-    return {'items':suggestions, 'holidays':holiday_data};
+    return {'weathers':weathers, 'items':suggestions, 'holidays':holiday_data};
 }
 
 export {suggestACB};

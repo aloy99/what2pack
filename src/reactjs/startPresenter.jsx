@@ -15,8 +15,10 @@ function StartPresenter(props){
                 startDate: startDate, 
                 endDate: endDate, 
                 items: props.model.searchResultsPromiseState.data.items,
+                weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays
             };
+            console.log(plan)
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
             }

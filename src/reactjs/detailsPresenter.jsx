@@ -34,7 +34,8 @@ function DetailsPresenter(props){
                 destination: destination, 
                 startDate: startDate, 
                 endDate: endDate, 
-                items: props.model.searchResultsPromiseState.data.items,
+                items: props.model.searchResultsPromiseState.data.items,                
+                weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays
             };
             for(const it of plan.items){
@@ -115,7 +116,9 @@ function DetailsPresenter(props){
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}
                     onAddItem={handleAddItemACB}
-                    onAmountChange={handleAmountChangeACB}/>}
+                    onAmountChange={handleAmountChangeACB}
+                />
+            }
         </>);
 }
 

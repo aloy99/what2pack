@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddButtonView from './addButtonView';
-import { Popconfirm, Button, Input } from 'antd';
+import { Popconfirm, Button, Input, Card, List } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 
@@ -165,6 +165,28 @@ function SuggestionView(props){
             </tr>
         );
     }
+    function weatherInfoCB(weather){
+        if(weather.temp_max){
+            return (
+                <List.Item>
+                    <Card className="card-weather" title={weather.time}>
+                        <p>{weather.temp_max}</p>
+                        <p>{weather.temp_min}</p>
+                    </Card>
+                </List.Item>
+            );
+        }
+        else{
+            return (
+                <List.Item>
+                    <Card className="card-weather" title={weather.time}>
+                        <p>Not</p>
+                        <p>available</p>
+                    </Card>
+                </List.Item>
+            );
+        }
+    }
     const addItemRow = (
         <tr>
             <th>                        
@@ -185,14 +207,18 @@ function SuggestionView(props){
                 <tbody>
                     {props.currentPlan.items.map(itemInfoCB)}
                     {addItemRow}
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>select all</th>
-                    <th>
-                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
-                    </th>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>select all</th>
+                    </tr>
+                    <tr>
+                        <th>
+                        <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                        <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
+                        </th>
+                    </tr>
                 </tbody>
             </>
         );
@@ -274,11 +300,19 @@ function SuggestionView(props){
                                     onAddPlan={clickAddToPlanACB}/>
                             </Popconfirm>
                     </h2>
+                    <List className="list-weathers"
+                        grid={{
+                            gutter: 0,
+                            column: 6
+                        }}
+                        dataSource={props.currentPlan.weathers}
+                        renderItem={weatherInfoCB}
+                    /> 
+                    
                     <table className="suggestion-table-details">
                         <thead>
                                 <tr>
                                     <th></th>
-                                    {/* <th>Packed</th> */}
                                     <th>Item</th>
                                     <th>Amount</th>
                                     <th>Remark</th>
@@ -289,20 +323,8 @@ function SuggestionView(props){
                     </table>
                 </div>
             <div className="dateEvent-item">
-                 <h2>
-                    National Holidays 
-                </h2>
-                    <table className="holidays-table-details">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Event</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {props.currentPlan.holidays.map(holidaysInfoCB)}
-                        </tbody>
-                    </table>
+                <h2>National Holidays</h2>
+                {holidaysTable}
             </div>
         </div>
     </div>

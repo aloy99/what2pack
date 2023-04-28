@@ -279,3 +279,14 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   flex-wrap: wrap;
   flex-direction: row;
 }
+
+.list-weathers{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+}
+
+.card-weather{
+  text-align: center;
+  vertical-align: middle;
+}
