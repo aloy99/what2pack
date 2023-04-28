@@ -90,10 +90,6 @@ function DetailsPresenter(props){
     function mapsLoadedACB(){
         props.model.gmapsLoaded = true;
     }
-    function handleAmountChangeACB(item, newAmount){
-        props.model.setItemAmount(item, newAmount);
-        console.log(props.model);
-    }
     return (
         <>
             <DetailsView 
@@ -114,8 +110,7 @@ function DetailsPresenter(props){
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}
-                    onAddItem={handleAddItemACB}
-                    onAmountChange={handleAmountChangeACB}/>}
+                    onAddItem={handleAddItemACB}/>}
         </>);
 }
 
