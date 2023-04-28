@@ -135,15 +135,15 @@ function SuggestionView(props){
 {/* <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td> */}
                 <td>{item.name}</td>
                 {/* <td>{item.amount}</td> */}
-                <td>
+                {/* <td>
                     <input  
                         type="checkbox" 
                         className="checkbox-suggestion"
                         onChange={itemCheckedACB} 
                         value={item.name}
                         />
-                </td>
-                <td>{item.name}</td>
+                </td> */}
+                {/* <td>{item.name}</td> */}
                 <td>
                     <input 
                         type="number" 
@@ -173,7 +173,6 @@ function SuggestionView(props){
                     type="primary" icon={<PlusOutlined/>} 
                     onClick={() => clickAddItemACB()}/>
             </th>
-            <th></th>
             <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
             <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
             <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th>
@@ -186,6 +185,14 @@ function SuggestionView(props){
                 <tbody>
                     {props.currentPlan.items.map(itemInfoCB)}
                     {addItemRow}
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>select all</th>
+                    <th>
+                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
+                    </th>
                 </tbody>
             </>
         );
@@ -196,6 +203,13 @@ function SuggestionView(props){
                 <p>No items to pack.</p>;
                 <tbody>
                     {addItemRow}
+                    <th></th>
+                    <th></th>
+                    <th>select all</th>
+                    <th>
+                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
+                    </th>
                 </tbody>
             </>
         );
@@ -266,30 +280,12 @@ function SuggestionView(props){
                                     <th></th>
                                     {/* <th>Packed</th> */}
                                     <th>Item</th>
-                                    {/* <th>Amount</th> */}
+                                    <th>Amount</th>
                                     <th>Remark</th>
                                     <th>Packed</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {props.currentPlan.items.map(itemInfoCB)}
-                                    <th></th>
-                                    <th></th>
-                                    <th>select all</th>
-                                    <th>
-                                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
-                                    </th>
-                            </tbody>
-                            {/* <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th>select all</th>
-                                    <th>
-                                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
-                                    </th>
-                            </tr> */}
+                            {itemsTableBody}
                     </table>
                 </div>
             <div className="dateEvent-item">
