@@ -222,62 +222,94 @@ function SuggestionView(props){
         );
     }
     return (
-        <>
-            <p id="msg-details">
-                {msg}
-                <Popconfirm
-                    title="Are you sure to delete this plan?"
-                    description=""
-                    onConfirm={confirmDeletePlanACB}
-                    onCancel={cancelDeletePlanACB}
-                    okText="Yes"
-                    cancelText="No"
-                    disabled={!currentPlanAdded}
-                    open={openPlanConfirm}
-                    >
-                    <AddButtonView 
-                        currentPlanAdded={currentPlanAdded}
-                        onDeletePlan={clickRemoveFromPlanACB}
-                        onAddPlan={clickAddToPlanACB}/>
-                </Popconfirm>
-            </p>
-            <table className="items-table-details">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                            <label htmlFor="checkbox-check-all" id="checkbox-check-all-label">All</label>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th>Packed</th>
-                        <th>Item</th>
-                        <th>Amount</th>
-                        <th>Remark</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.currentPlan.items.map(itemInfoCB)}
-                </tbody>
-            </table>
-            <table className="holidays-table-details">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.currentPlan.holidays.map(holidaysInfoCB)}
-                </tbody>
-            </table>
+         <div className="detailPage-container">
+            
+            {/* news information please put here */}
+            <div className="news-item">
+                <h2>
+                    Local News 
+                </h2>
+                    <table className="news-table-details">
+                        <thead>
+                            <tr>
+                                <th>news</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+            </div>
 
-        </>
+            <div className="suggestion-container">
+                <div className="suggestion-item">
+                    <h2 id="msg-details">
+                        {msg}
+                            <Popconfirm
+                                title="Are you sure to delete this plan?"
+                                description=""
+                                onConfirm={confirmDeletePlanACB}
+                                onCancel={cancelDeletePlanACB}
+                                okText="Yes"
+                                cancelText="No"
+                                disabled={!currentPlanAdded}
+                                open={openPlanConfirm}
+                                >
+                                <AddButtonView 
+                                    currentPlanAdded={currentPlanAdded}
+                                    onDeletePlan={clickRemoveFromPlanACB}
+                                    onAddPlan={clickAddToPlanACB}/>
+                            </Popconfirm>
+                    </h2>
+                    <table className="suggestion-table-details">
+                        <thead>
+                                <tr>
+                                    <th></th>
+                                    {/* <th>Packed</th> */}
+                                    <th>Item</th>
+                                    {/* <th>Amount</th> */}
+                                    <th>Remark</th>
+                                    <th>Packed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {props.currentPlan.items.map(itemInfoCB)}
+                                    <th></th>
+                                    <th></th>
+                                    <th>select all</th>
+                                    <th>
+                                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
+                                    </th>
+                            </tbody>
+                            {/* <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>select all</th>
+                                    <th>
+                                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
+                                    </th>
+                            </tr> */}
+                    </table>
+                </div>
+            <div className="dateEvent-item">
+                 <h2>
+                    National Holidays 
+                </h2>
+                    <table className="holidays-table-details">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {props.currentPlan.holidays.map(holidaysInfoCB)}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
     );
 }
 
