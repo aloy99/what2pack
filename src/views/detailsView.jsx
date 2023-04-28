@@ -6,14 +6,16 @@ import UserIconView from './userIconView';
 import { func } from "prop-types";
 
 function DetailsView(props){
-    const defaultDest = props.currentPlan ? props.currentPlan.destination : "";
-    const defaultRange = props.currentPlan ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
+    const currentPlan = props.currentPlan;
+    const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
+    const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
     const navigate = useNavigate();
+    let msg = "Packing suggestions for " + defaultDest + " from " + defaultRange[0] + " to " + defaultRange[1];
     function makeMsg(dest, start, end){
-        return dest + ", " + start + " - " + end;
+        return "Packing suggestions for " + dest + " from " + start + " to " + end;
     }
     function passSearchInputACB(destination, startDate, endDate){
-        const msg = makeMsg(destination, startDate, endDate);
+        msg = makeMsg(destination, startDate, endDate);
         document.getElementById("msg-details").innerText = msg;
         props.onSearchInput(destination, startDate, endDate);
     }

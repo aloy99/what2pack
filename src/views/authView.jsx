@@ -48,62 +48,40 @@ function AuthView(props){
         return (
             <div className="App">
                 {isSignInShown && (
-                    <div className="login-page-wrapper">
-                        <div className="login-row">
-                            <div className="login-column">
-                                <div className="loginL-column"> 
-                                </div>
-                            </div>
-                            <div className="login-column">
-                                <div className="loginR-column">  
-                                    <form  className="" onSubmit={props.onUserSignIn}>
-                                        <h1>Log In to account</h1>
-                                        <p >No account yet?<button className="sign-button" onClick={handleSignUpClick}>Sign Up here</button></p>
-                                        <label for="email">Email</label>
-                                        <input type="email" placeholder="Enter your email" 
-                                            value={props.email}
-                                            onChange={changeEmailACB}  
-                                        ></input>
-                                         <label for="password">Password</label>
-                                        <input type="password" placeholder="Enter your password" 
-                                            value={props.password}
-                                            onChange={changePasswordACB}  
-                                        ></input>
-                                        <button className="login-button" type="submit" >Log In</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="sign-in-container">
+                        <form  onSubmit={props.onUserSignIn}>
+                            <h1>Log In to account</h1>
+                            <p >No account yet?<button onClick={handleSignUpClick}>Sign Up here</button></p>
+                            <input type="email" placeholder="Enter your email" 
+                                value={props.email}
+                                onChange={changeEmailACB}  
+                            ></input>
+                            <input type="password" placeholder="Enter your password" 
+                                value={props.password}
+                                onChange={changePasswordACB}  
+                            ></input>
+                            <button type="submit" >Log In</button>
+                            <button onClick={handelGoHomeButton}>Go home</button>
+                        </form>
                     </div>
                 )}
     
                 {isSignUpShown && (
-                    <div className="login-page-wrapper">
-                        <div className="login-row">
-                            <div className="login-column">
-                                <div className="loginL-column"> 
-                                </div>
-                                  </div>
-                            <div className="login-column">
-                                <div className="loginR-column">  
-                                    <form  onSubmit={props.onUserSignUp}>
-                                        <h1>Create account</h1>  
-                                        <p >All ready have an account? <button className="sign-button"  onClick={handleSignInClick}>Log In here</button></p> 
-                                        <label for="email">Email</label>
-                                        <input type="email" placeholder="Enter your email" 
-                                            value={props.email}
-                                            onChange={changeEmailACB}   
-                                        ></input>
-                                        <label for="password">Password</label>
-                                        <input type="password" placeholder="Enter your password" 
-                                            value={props.password}
-                                            onChange={changePasswordACB} 
-                                        ></input>
-                                        <button className="login-button" type="submit" >Sign Up</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="sign-up-container">
+                        <form  onSubmit={props.onUserSignUp}>
+                            <h1>Create account</h1>  
+                            <p >All ready have an account? <button onClick={handleSignInClick}>Log In here</button></p> 
+                            <input type="email" placeholder="Enter your email" 
+                                value={props.email}
+                                onChange={changeEmailACB}   
+                            ></input>
+                            <input type="password" placeholder="Enter your password" 
+                                value={props.password}
+                                onChange={changePasswordACB} 
+                            ></input>
+                            <button type="submit" >Sign Up</button>
+                            <button onClick={handelGoHomeButton}>Go home</button>
+                        </form>
                     </div>
                 )}
             </div>

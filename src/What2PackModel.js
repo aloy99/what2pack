@@ -22,15 +22,6 @@ class What2PackModel{
         }
     }
 
-    setItemAmount(item, newAmount){
-        for (const it of this.currentPlan.items){
-            if(it.name === item.name){
-                it.amount = newAmount;
-                break;
-            }
-        }
-    }
-
     setItemPacked(itemToCheck, ifPacked){
         for (const item of this.currentPlan.items){
             if(isEqual(item, itemToCheck)){

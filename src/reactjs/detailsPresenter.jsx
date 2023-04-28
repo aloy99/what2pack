@@ -30,16 +30,13 @@ function DetailsPresenter(props){
     }
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
-            const plan = {
-                destination: destination, 
-                startDate: startDate, 
-                endDate: endDate, 
-                items: props.model.searchResultsPromiseState.data.items,
-                holidays: props.model.searchResultsPromiseState.data.holidays
-            };
-            for(const it of plan.items){
-                it.ifDeleteConfirmOpen = false;
-            }
+            const plan = {destination: destination, 
+                          startDate: startDate, 
+                          endDate: endDate, 
+                          items: props.model.searchResultsPromiseState.data.items,
+                          itemsCount: props.model.searchResultsPromiseState.data.items.length,
+                          holidays: props.model.searchResultsPromiseState.data.holidays
+                        };
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
@@ -82,18 +79,12 @@ function DetailsPresenter(props){
         rerenderACB();
         console.log(props.model);
     }
-    function handleAddItemACB(item){
-        props.model.addItemToCurrentItems(item);
-        rerenderACB();
-        console.log(props.model);
-    }
+
     function mapsLoadedACB(){
         props.model.gmapsLoaded = true;
     }
-    function handleAmountChangeACB(item, newAmount){
-        props.model.setItemAmount(item, newAmount);
-        console.log(props.model);
-    }
+
+
     return (
         <>
             <DetailsView 
@@ -113,9 +104,7 @@ function DetailsPresenter(props){
                     onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
-                    onDeleteItem={handleDeleteItemACB}
-                    onAddItem={handleAddItemACB}
-                    onAmountChange={handleAmountChangeACB}/>}
+                    onDeleteItem={handleDeleteItemACB}/>}
         </>);
 }
 
