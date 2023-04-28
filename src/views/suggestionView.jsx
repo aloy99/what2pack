@@ -99,15 +99,9 @@ function SuggestionView(props){
                             onClick={() => clickRemoveFromItemsACB(item)}/>
                     </Popconfirm>
                 </td>
-<<<<<<< HEAD
                 {/* <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td> */}
                 <td>{item.name}</td>
                 {/* <td>{item.amount}</td> */}
-=======
-                <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
-                <td>{item.name}</td>
-                <td>{item.amount}</td>
->>>>>>> parent of e1def31 (Merge pull request #26 from achc/profile)
                 <td>{item.remark}</td>
                 <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
             </tr>
