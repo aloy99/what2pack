@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddButtonView from './addButtonView';
-import { Popconfirm, Button } from 'antd';
-import { MinusCircleOutlined } from '@ant-design/icons';
+import { Popconfirm, Button, Input } from 'antd';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 
 function SuggestionView(props){
