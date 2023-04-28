@@ -152,3 +152,9 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
 }
+
+.mainContent {
+    display: block;
+    margin: auto;
+    /* width: 200px; */
+}
