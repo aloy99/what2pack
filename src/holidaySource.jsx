@@ -2,6 +2,7 @@ import { HOLIDAYS_BASE_URL, HOLIDAYS_API_KEY } from "./apiConfig.jsx";
 import dayjs from 'dayjs';
 
 const holidayParams = {
+    'type': 'major_holiday'
 }
 
 function getHolidayDetails(searchTerms) { 
@@ -17,11 +18,25 @@ function getHolidayDetails(searchTerms) {
 
     function getDaysACB(json_response) {
 
-        function filterDatesACB(holidays) {
+        var date_check = {}
+        function filterDatesCB(holidays) {
+            if (holidays.date in date_check){
+                return false;
+            }
+            date_check[holidays.date] = true;
             return (holidays["date"] <= searchTerms.endDate && holidays["date"] >= searchTerms.startDate)
         }
 
-        return json_response.filter(filterDatesACB);
+        function sortDatesCB(holidayA, holidayB){
+            if (holidayA['date'] > holidayB['date']){
+                return 1;
+            }
+            return -1;
+        }
+
+        json_response.sort(sortDatesCB);
+
+        return json_response.filter(filterDatesCB);
     }
 
     console.log({'year': 2023, 'country':searchTerms.destination.split(', ').slice(-1), ...holidayParams})
