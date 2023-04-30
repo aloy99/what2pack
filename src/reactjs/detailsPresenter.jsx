@@ -8,6 +8,8 @@ import resolvePromise from '../resolvePromise.js';
 import isEqual from 'lodash.isequal';
 
 function DetailsPresenter(props){
+    const plan = props.model.searchParams;
+    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+','+plan.endDate);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
@@ -42,6 +44,7 @@ function DetailsPresenter(props){
                 it.ifDeleteConfirmOpen = false;
             }
             props.model.setCurrentPlan(plan);
+            setMsg(plan.destination+', '+plan.startDate+','+plan.endDate);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
         }
@@ -101,17 +104,19 @@ function DetailsPresenter(props){
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
                 gmapsLoaded = {props.model.gmapsLoaded}
+                onAddPlan={handleAddPlanACB}
+                onDeletePlan={handleDeletePlanACB}
                 onMapsLoad={mapsLoadedACB}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}
-                onClickLogo={handleClickedLogoACB}/>
+                onClickLogo={handleClickedLogoACB}
+                currentPlanAdded={currentPlanAdded}
+                planMsg={msg}/>
             {   promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
-                    onAddPlan={handleAddPlanACB}
-                    onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}

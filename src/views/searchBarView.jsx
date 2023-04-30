@@ -3,11 +3,9 @@ import dayjs from 'dayjs';
 import { notification, DatePicker, Button} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import SearchCompleteView from './searchCompleteView';
-import useRerender from "../reactjs/useRerender.jsx";
 const { RangePicker } = DatePicker;
 
 function SearchBarView(props){
-    const rerenderACB = useRerender();
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type, msg, des) => {
         api[type]({
@@ -33,7 +31,6 @@ function SearchBarView(props){
         else{
             props.onSearchInput(destination, startDate, endDate);
         }
-        rerenderACB();
     }
     function destChangeACB(){
         let destination = document.querySelector(".input-destination").value;

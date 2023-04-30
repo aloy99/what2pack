@@ -1,23 +1,20 @@
-import React, { useState } from "react";
-import AddButtonView from './addButtonView';
+import React, { useEffect, useState } from "react";
 import { Popconfirm, Button, Input, Card, List } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 
 function SuggestionView(props){
+    useEffect(()=>{
+        const days = props.currentPlan.weathers.length;
+        let weatherWidth = (0.92/(days < 6? days : 6))*100+'%';
+        const divsWeather = document.getElementsByClassName("div-weather");
+        for(const div of divsWeather){
+            div.style.setProperty("--weather-width", weatherWidth);
+        }
+    });
     const rerenderACB = useRerender();
-    const currentPlanAdded = props.currentPlanAdded;
-    const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
     const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
-    // console.log("ifItemConfirmOpen: ", ifItemConfirmOpen);
-    // const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
-    const showPlanPopconfirm = () => {
-        setOpenPlanConfirm(true);
-    };
-    const closePlanPopconfirm = () => {
-        setOpenPlanConfirm(false);
-    };    
     const showItemPopconfirm = (item) => {
         const openItemConfirmNew = openItemConfirm;
         openItemConfirmNew[item.index] = true;
@@ -30,31 +27,12 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    function makeMsg(dest, start, end){
-        return dest + ", " + start + " - " + end;
-    }
+    // function makeMsg(dest, start, end){
+    //     return dest + ", " + start + " - " + end;
+    // }
     const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
     const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
-    const msg = makeMsg(defaultDest, defaultRange[0], defaultRange[1]);
-    function clickAddToPlanACB(){
-        if(!currentPlanAdded){
-            if (props.currentPlan.destination 
-                && props.currentPlan.startDate 
-                && props.currentPlan.endDate){
-                    props.onAddPlan();
-                }
-        }
-    }
-    function clickRemoveFromPlanACB(){
-        showPlanPopconfirm();
-    }
-    function confirmDeletePlanACB(){
-        closePlanPopconfirm();
-        props.onDeletePlan();
-    }
-    function cancelDeletePlanACB(){
-        closePlanPopconfirm();
-    }
+    // const msg = makeMsg(defaultDest, defaultRange[0], defaultRange[1]);
     function clickRemoveFromItemsACB(item){
         showItemPopconfirm(item);
     }
@@ -132,18 +110,7 @@ function SuggestionView(props){
                     </Popconfirm>
                 </td>
 
-{/* <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td> */}
                 <td>{item.name}</td>
-                {/* <td>{item.amount}</td> */}
-                {/* <td>
-                    <input  
-                        type="checkbox" 
-                        className="checkbox-suggestion"
-                        onChange={itemCheckedACB} 
-                        value={item.name}
-                        />
-                </td> */}
-                {/* <td>{item.name}</td> */}
                 <td>
                     <input 
                         type="number" 
@@ -168,22 +135,20 @@ function SuggestionView(props){
     function weatherInfoCB(weather){
         if(weather.temp_max){
             return (
-                <List.Item>
-                    <Card className="card-weather" title={weather.time}>
-                        <p>{weather.temp_max}</p>
-                        <p>{weather.temp_min}</p>
-                    </Card>
-                </List.Item>
+                <div key={weather.time} className="div-weather">
+                    <b>{weather.time}</b>
+                    <p>{weather.temp_max}</p>
+                    <p>{weather.temp_min}</p>
+                </div>
             );
         }
         else{
             return (
-                <List.Item>
-                    <Card className="card-weather" title={weather.time}>
-                        <p>Not</p>
-                        <p>available</p>
-                    </Card>
-                </List.Item>
+                <div key={weather.time} className="div-weather">
+                    <h3>{weather.time}</h3>
+                    <p>Not</p>
+                    <p>available</p>
+                </div>
             );
         }
     }
@@ -282,33 +247,12 @@ function SuggestionView(props){
 
             <div className="suggestion-container">
                 <div className="suggestion-item">
-                    <h2 id="msg-details">
-                        {msg}
-                            <Popconfirm
-                                title="Are you sure to delete this plan?"
-                                description=""
-                                onConfirm={confirmDeletePlanACB}
-                                onCancel={cancelDeletePlanACB}
-                                okText="Yes"
-                                cancelText="No"
-                                disabled={!currentPlanAdded}
-                                open={openPlanConfirm}
-                                >
-                                <AddButtonView 
-                                    currentPlanAdded={currentPlanAdded}
-                                    onDeletePlan={clickRemoveFromPlanACB}
-                                    onAddPlan={clickAddToPlanACB}/>
-                            </Popconfirm>
+                    <h2>
+                        Weather Forecasts
                     </h2>
-                    <List className="list-weathers"
-                        grid={{
-                            gutter: 0,
-                            column: 6
-                        }}
-                        dataSource={props.currentPlan.weathers}
-                        renderItem={weatherInfoCB}
-                    /> 
-                    
+                    <div className="div-weathers">
+                        {props.currentPlan.weathers.map(weatherInfoCB)}
+                    </div>
                     <table className="suggestion-table-details">
                         <thead>
                                 <tr>
