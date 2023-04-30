@@ -12,7 +12,7 @@ function DetailsPresenter(props){
         console.log("current plan added: " + currentPlanAdded);
     },[window.location.href]);
     const plan = props.model.searchParams;
-    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+','+plan.endDate);
+    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' - '+plan.endDate);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
