@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { useIsFocused } from '@react-navigation/native';
 import { useNavigate } from "react-router-dom";
 import { Popconfirm } from 'antd';
 import dayjs from 'dayjs';
@@ -11,7 +12,6 @@ function DetailsView(props){
     const defaultDest = props.currentPlan ? props.currentPlan.destination : "";
     const defaultRange = props.currentPlan ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
     const navigate = useNavigate();
-    const currentPlanAdded = props.currentPlanAdded;
     const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
     const showPlanPopconfirm = () => {
         setOpenPlanConfirm(true);
@@ -39,7 +39,7 @@ function DetailsView(props){
         props.onMapsLoad();
     }
     function clickAddToPlanACB(){
-        if(!currentPlanAdded){
+        if(!props.currentPlanAdded){
             if (props.currentPlan.destination 
                 && props.currentPlan.startDate 
                 && props.currentPlan.endDate){
@@ -76,7 +76,7 @@ function DetailsView(props){
                     id="search-bar-details" 
                     defaultDest={defaultDest}
                     defaultRange={defaultRange}
-                    gmapsLoaded = {props.gmapsLoaded}
+                    gmapsLoaded={props.gmapsLoaded}
                     onMapsLoad={mapsLoadedACB}
                     onSearchInput={passSearchInputACB} 
                     onDestChanged={passDestACB} 
@@ -89,11 +89,11 @@ function DetailsView(props){
                     onCancel={cancelDeletePlanACB}
                     okText="Yes"
                     cancelText="No"
-                    disabled={!currentPlanAdded}
+                    disabled={!props.currentPlanAdded}
                     open={openPlanConfirm}
                     >
                     <AddButtonView 
-                        currentPlanAdded={currentPlanAdded}
+                        currentPlanAdded={props.currentPlanAdded}
                         onDeletePlan={clickRemoveFromPlanACB}
                         onAddPlan={clickAddToPlanACB}/>
                 </Popconfirm>

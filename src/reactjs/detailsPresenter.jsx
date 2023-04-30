@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useModelProp from './useModelProp.jsx';
 import useRerender from "./useRerender.jsx";
 import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
-import isEqual from 'lodash.isequal';
 
 function DetailsPresenter(props){
+    useEffect(() =>{
+        setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
+        console.log("current plan added: " + currentPlanAdded);
+    },[window.location.href]);
     const plan = props.model.searchParams;
     const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+','+plan.endDate);
     const [promiseState,] = useState({});
@@ -16,7 +19,9 @@ function DetailsPresenter(props){
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
-            if(isEqual(p, planToAdd)){
+            if(p.destination == planToAdd.destination
+                && p.startDate == planToAdd.startDate
+                && p.endDate == planToAdd.endDate){
                     return true;
                 }
             }
