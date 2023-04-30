@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useModelProp from './useModelProp.jsx';
 import useRerender from "./useRerender.jsx";
 import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
-import isEqual from 'lodash.isequal';
 
 function DetailsPresenter(props){
+    useEffect(() =>{
+        setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
+        console.log("current plan added: " + currentPlanAdded);
+    },[window.location.href]);
+    const plan = props.model.searchParams;
+    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+','+plan.endDate);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
-            if(isEqual(p, planToAdd)){
+            if(p.destination == planToAdd.destination
+                && p.startDate == planToAdd.startDate
+                && p.endDate == planToAdd.endDate){
                     return true;
                 }
             }
@@ -34,13 +41,15 @@ function DetailsPresenter(props){
                 destination: destination, 
                 startDate: startDate, 
                 endDate: endDate, 
-                items: props.model.searchResultsPromiseState.data.items,
+                items: props.model.searchResultsPromiseState.data.items,                
+                weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays
             };
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
             }
             props.model.setCurrentPlan(plan);
+            setMsg(plan.destination+', '+plan.startDate+','+plan.endDate);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
         }
@@ -100,22 +109,26 @@ function DetailsPresenter(props){
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
                 gmapsLoaded = {props.model.gmapsLoaded}
+                onAddPlan={handleAddPlanACB}
+                onDeletePlan={handleDeletePlanACB}
                 onMapsLoad={mapsLoadedACB}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}
-                onClickLogo={handleClickedLogoACB}/>
+                onClickLogo={handleClickedLogoACB}
+                currentPlanAdded={currentPlanAdded}
+                planMsg={msg}/>
             {   promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
-                    onAddPlan={handleAddPlanACB}
-                    onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}
                     onAddItem={handleAddItemACB}
-                    onAmountChange={handleAmountChangeACB}/>}
+                    onAmountChange={handleAmountChangeACB}
+                />
+            }
         </>);
 }
 

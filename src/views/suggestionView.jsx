@@ -1,23 +1,21 @@
-import React, { useState } from "react";
-import AddButtonView from './addButtonView';
+import React, { useEffect, useState } from "react";
 import { Popconfirm, Button, Input } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
+import { thresholdPrecipitation } from '../utils';
 
 function SuggestionView(props){
+    useEffect(()=>{
+        const days = props.currentPlan.weathers.length;
+        let weatherWidth = (0.92/(days < 6? days : 6))*100+'%';
+        const divsWeather = document.getElementsByClassName("div-weather");
+        for(const div of divsWeather){
+            div.style.setProperty("--weather-width", weatherWidth);
+        }
+    });
     const rerenderACB = useRerender();
-    const currentPlanAdded = props.currentPlanAdded;
-    const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
     const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
-    // console.log("ifItemConfirmOpen: ", ifItemConfirmOpen);
-    // const ifItemConfirmOpen = new Array(props.currentPlan.itemsCount).fill(false);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
-    const showPlanPopconfirm = () => {
-        setOpenPlanConfirm(true);
-    };
-    const closePlanPopconfirm = () => {
-        setOpenPlanConfirm(false);
-    };    
     const showItemPopconfirm = (item) => {
         const openItemConfirmNew = openItemConfirm;
         openItemConfirmNew[item.index] = true;
@@ -30,31 +28,8 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    function makeMsg(dest, start, end){
-        return dest + ", " + start + " - " + end;
-    }
     const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
     const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
-    const msg = makeMsg(defaultDest, defaultRange[0], defaultRange[1]);
-    function clickAddToPlanACB(){
-        if(!currentPlanAdded){
-            if (props.currentPlan.destination 
-                && props.currentPlan.startDate 
-                && props.currentPlan.endDate){
-                    props.onAddPlan();
-                }
-        }
-    }
-    function clickRemoveFromPlanACB(){
-        showPlanPopconfirm();
-    }
-    function confirmDeletePlanACB(){
-        closePlanPopconfirm();
-        props.onDeletePlan();
-    }
-    function cancelDeletePlanACB(){
-        closePlanPopconfirm();
-    }
     function clickRemoveFromItemsACB(item){
         showItemPopconfirm(item);
     }
@@ -132,18 +107,7 @@ function SuggestionView(props){
                     </Popconfirm>
                 </td>
 
-{/* <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td> */}
                 <td>{item.name}</td>
-                {/* <td>{item.amount}</td> */}
-                {/* <td>
-                    <input  
-                        type="checkbox" 
-                        className="checkbox-suggestion"
-                        onChange={itemCheckedACB} 
-                        value={item.name}
-                        />
-                </td> */}
-                {/* <td>{item.name}</td> */}
                 <td>
                     <input 
                         type="number" 
@@ -165,6 +129,59 @@ function SuggestionView(props){
             </tr>
         );
     }
+    const iconPaths = {
+        'SUN' : "public/weather-icon/sun.png",
+        'DRIZZLE': "public/weather-icon/drizzle.png",
+        'LIGHT': "public/weather-icon/light.png",
+        'RAIN': "public/weather-icon/rain.png",
+        'CLOUD': "public/weather-icon/cloud.png"
+    };
+    function weatherInfoCB(weather){
+        // console.log(weather)
+        // const uv = weather
+        let iconPath;
+        const pre = weather.precipitation;
+        const uv = weather.uv;
+        if(pre < thresholdPrecipitation[0]){
+            if(uv < 3){
+                iconPath = iconPaths['CLOUD'];
+            }
+            else{
+                iconPath = iconPaths['SUN'];
+            }
+        }
+        else if(pre < thresholdPrecipitation[1]){
+            iconPath = iconPaths['DRIZZLE'];
+        }
+        else if(pre < thresholdPrecipitation[2]){
+            iconPath = iconPaths['LIGHT'];
+        }
+        else if(pre < thresholdPrecipitation[3]){
+            iconPath = iconPaths['RAIN'];
+        }
+        else{
+            iconPath = iconPaths['RAIN'];
+        }
+        if(weather.temp_max){
+            return (
+                <div key={weather.time} className="div-weather">
+                    <b>{weather.time}</b>
+                    <p className="weather-temp-max">{weather.temp_max}</p>
+                    <p className="weather-temp-min">{weather.temp_min}</p>
+                    <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                </div>
+            );
+        }
+        else{
+            return (
+                <div key={weather.time} className="div-weather">
+                    <h3>{weather.time}</h3>
+                    <p>Not</p>
+                    <p>available</p>
+                </div>
+            );
+        }
+    }
     const addItemRow = (
         <tr>
             <th>                        
@@ -185,14 +202,18 @@ function SuggestionView(props){
                 <tbody>
                     {props.currentPlan.items.map(itemInfoCB)}
                     {addItemRow}
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>select all</th>
-                    <th>
-                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                    <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
-                    </th>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>select all</th>
+                    </tr>
+                    <tr>
+                        <th>
+                        <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                        <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
+                        </th>
+                    </tr>
                 </tbody>
             </>
         );
@@ -240,9 +261,9 @@ function SuggestionView(props){
             
             {/* news information please put here */}
             <div className="news-item">
-                <h2>
+                <h3>
                     Local News 
-                </h2>
+                </h3>
                     <table className="news-table-details">
                         <thead>
                             <tr>
@@ -256,29 +277,19 @@ function SuggestionView(props){
 
             <div className="suggestion-container">
                 <div className="suggestion-item">
-                    <h2 id="msg-details">
-                        {msg}
-                            <Popconfirm
-                                title="Are you sure to delete this plan?"
-                                description=""
-                                onConfirm={confirmDeletePlanACB}
-                                onCancel={cancelDeletePlanACB}
-                                okText="Yes"
-                                cancelText="No"
-                                disabled={!currentPlanAdded}
-                                open={openPlanConfirm}
-                                >
-                                <AddButtonView 
-                                    currentPlanAdded={currentPlanAdded}
-                                    onDeletePlan={clickRemoveFromPlanACB}
-                                    onAddPlan={clickAddToPlanACB}/>
-                            </Popconfirm>
-                    </h2>
+                    <h3>
+                        Weather Forecasts(°C)
+                    </h3>
+                    <div className="div-weathers">
+                        {props.currentPlan.weathers.map(weatherInfoCB)}
+                    </div>
+                    <h3>
+                        Packing List
+                    </h3>
                     <table className="suggestion-table-details">
                         <thead>
                                 <tr>
                                     <th></th>
-                                    {/* <th>Packed</th> */}
                                     <th>Item</th>
                                     <th>Amount</th>
                                     <th>Remark</th>
@@ -289,20 +300,8 @@ function SuggestionView(props){
                     </table>
                 </div>
             <div className="dateEvent-item">
-                 <h2>
-                    National Holidays 
-                </h2>
-                    <table className="holidays-table-details">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Event</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {props.currentPlan.holidays.map(holidaysInfoCB)}
-                        </tbody>
-                    </table>
+                <h3>National Holidays</h3>
+                {holidaysTable}
             </div>
         </div>
     </div>

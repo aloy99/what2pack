@@ -1,3 +1,5 @@
+const thresholdPrecipitation = [0.2, 4, 9, 40];
+
 function meanIfNotNull(arr){
     let sum = 0;
     let cnt = 0;
@@ -274,7 +276,7 @@ function suggestFromUV(uvs){
 
 function suggestFromPrecipitation(pres){
     const pres_max = maxIfNotNull(pres);
-    if (pres_max < 0.2){
+    if (pres_max < thresholdPrecipitation[0]){
         return (
             [
                 {
@@ -285,7 +287,7 @@ function suggestFromPrecipitation(pres){
             ]
         );        
     }
-    else if (pres_max < 4){
+    else if (pres_max < thresholdPrecipitation[1]){
         return (
             [
                 {
@@ -296,7 +298,7 @@ function suggestFromPrecipitation(pres){
             ]
         );     
     }
-    else if (pres_max < 9){
+    else if (pres_max < thresholdPrecipitation[2]){
         return (
             [
                 {
@@ -307,7 +309,7 @@ function suggestFromPrecipitation(pres){
             ]
         );     
     }
-    else if (pres_max < 40){
+    else if (pres_max < thresholdPrecipitation[3]){
         return (
             [
                 {
@@ -350,12 +352,26 @@ function suggestACB(response){
     const winds = weather_data.windspeed_10m_max;
     const uvs = weather_data.uv_index_max;
     const precipitations = weather_data.precipitation_sum;
-    // get suggestions from all weather perspectives
+    const times = weather_data.time;
     // const suggestions_concat = suggestFromTemperature(temps_max, temps_min).concat(suggestFromWind(winds))
     //                                                                        .concat(suggestFromUV(uvs))
     //                                                                        .concat(suggestFromPrecipitation(precipitations));
     // // filter out the items with the same name                                                                
     // const suggestions = [...new Map(suggestions_concat.map(s => [s['name'], s])).values()];
+    // console.log(weather_data)
+    let weathers = [];
+    times.forEach((time, i) => {
+        weathers.push({
+            i: i,
+            time: time.split('-').slice(-1),
+            temp_max: temps_max[i],
+            temp_min: temps_min[i],
+            precipitation: precipitations[i],
+            uv: uvs[i]
+        });
+    });
+    // console.log(weathers)
+    // get packing suggestions from all weather perspectives
     const suggestions = [...new Set([...suggestFromTemperature(temps_max, temps_min),
         ...suggestFromWind(winds),
         ...suggestFromUV(uvs),
@@ -366,7 +382,7 @@ function suggestACB(response){
     for (let i = 0; i < suggestions.length; i++) {
         suggestions[i].index = i;
     }
-    return {'items':suggestions, 'holidays':holiday_data, 'news':news_data};
+    return {'weathers':weathers, 'items':suggestions, 'holidays':holiday_data, 'news':news_data};
 }
 
-export {suggestACB};
+export {thresholdPrecipitation, suggestACB};

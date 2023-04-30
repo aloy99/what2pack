@@ -136,6 +136,7 @@ button:focus-visible {
 
 .search-detail-item {
   /* padding: 15px; */
+  width: auto;
   justify-content: center;
   align-items: center;
   /* background-color: #1a1a1a; */

@@ -43,12 +43,13 @@ function StartView(props){
                 <h1>What to pack?</h1>
                 <h3>Pack the insights into your holidays</h3>
                 <SearchBarView 
-                id="search-bar-start" 
-                gmapsLoaded = {props.gmapsLoaded}
-                onMapsLoad={mapsLoadedACB}
-                onSearchInput={passSearchInputACB} 
-                onDestChanged={passDestACB} 
-                onRangeChanged={passRangeACB}/>
+                    id="search-bar-start" 
+                    gmapsLoaded = {props.gmapsLoaded}
+                    onMapsLoad={mapsLoadedACB}
+                    onSearchInput={passSearchInputACB} 
+                    onDestChanged={passDestACB} 
+                    onRangeChanged={passRangeACB}
+                />
             </div>
         </div>   
     </div>
