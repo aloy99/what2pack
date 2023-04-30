@@ -103,6 +103,10 @@ function DetailsPresenter(props){
         props.model.setItemAmount(item, newAmount);
         console.log(props.model);
     }
+    function handleRemarkChangeACB(item, newRemark){
+        props.model.setItemRemark(item, newRemark);
+        console.log(props.model);
+    }
     return (
         <>
             <DetailsView 
@@ -127,6 +131,7 @@ function DetailsPresenter(props){
                     onDeleteItem={handleDeleteItemACB}
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
+                    onRemarkChange={handleRemarkChangeACB}
                 />
             }
         </>);

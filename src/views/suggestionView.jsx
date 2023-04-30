@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Button, Input } from 'antd';
+import { notification, Popconfirm, Button, Input } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
@@ -13,6 +13,14 @@ function SuggestionView(props){
             div.style.setProperty("--weather-width", weatherWidth);
         }
     });
+    const [api, contextHolder] = notification.useNotification();    
+    const openNotificationWithIcon = (type, msg, des) => {
+        api[type]({
+          message: msg,
+          description: des,
+          duration: 3
+        });
+    };
     const rerenderACB = useRerender();
     const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
@@ -55,10 +63,7 @@ function SuggestionView(props){
         for(const it of props.currentPlan.items)
         {
             if(it.name == item.name){
-                notification.open({
-                    message: `${it.name} already exists in current plan.`,
-                    description:''
-                });
+                openNotificationWithIcon('warning',`${it.name} already exists in current plan.`,'');
                 return;
             }
         }
@@ -85,6 +90,9 @@ function SuggestionView(props){
         function changeAmountACB(evt){
             props.onAmountChange(item, Number(evt.target.value));
         }
+        function changeRemarkACB(evt){
+            props.onRemarkChange(item, evt.target.value);
+        }
         return(
             <tr key={item.name}>
                 <td>
@@ -106,7 +114,6 @@ function SuggestionView(props){
                             onClick={() => clickRemoveFromItemsACB(item)}/>
                     </Popconfirm>
                 </td>
-
                 <td>{item.name}</td>
                 <td>
                     <input 
@@ -115,8 +122,12 @@ function SuggestionView(props){
                         defaultValue={item.amount}
                         onChange={changeAmountACB}/>
                 </td>
-
-                <td>{item.remark}</td>
+                <td>                    
+                    <input  
+                        className="input-remark" 
+                        defaultValue={item.remark}
+                        onChange={changeRemarkACB}/>
+                </td>
                 <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
             </tr>
         )
@@ -184,15 +195,16 @@ function SuggestionView(props){
     }
     const addItemRow = (
         <tr>
-            <th>                        
-                <Button 
-                    className="button-add-item" 
-                    type="primary" icon={<PlusOutlined/>} 
-                    onClick={() => clickAddItemACB()}/>
-            </th>
+            <th></th>
             <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
             <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
             <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th>
+            <th>
+                <Button 
+                    className="button-add-item" 
+                    type="primary" icon={<PlusOutlined/>} 
+                    onClick={() => clickAddItemACB()}>Add</Button>
+            </th>
         </tr>
     );
     let itemsTableBody;
@@ -297,6 +309,7 @@ function SuggestionView(props){
                                 </tr>
                             </thead>
                             {itemsTableBody}
+                            {contextHolder}
                     </table>
                 </div>
             <div className="dateEvent-item">

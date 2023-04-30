@@ -52,6 +52,15 @@ he} */
   width: 100%;
 }
 
+.input-amount {
+  text-align: center;
+}
+
+.input-remark {
+  text-align: center;
+  font-size: 
+}
+
 .profile-container{
   display: flex;
   flex-direction: row;
