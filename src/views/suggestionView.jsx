@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Button, Input, Card, List } from 'antd';
+import { Popconfirm, Button, Input } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
+import { thresholdPrecipitation } from '../utils';
 
 function SuggestionView(props){
     useEffect(()=>{
@@ -27,12 +28,8 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    // function makeMsg(dest, start, end){
-    //     return dest + ", " + start + " - " + end;
-    // }
     const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
     const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
-    // const msg = makeMsg(defaultDest, defaultRange[0], defaultRange[1]);
     function clickRemoveFromItemsACB(item){
         showItemPopconfirm(item);
     }
@@ -132,13 +129,46 @@ function SuggestionView(props){
             </tr>
         );
     }
+    const iconPaths = {
+        'SUN' : "public/weather-icon/sun.png",
+        'DRIZZLE': "public/weather-icon/drizzle.png",
+        'LIGHT': "public/weather-icon/light.png",
+        'RAIN': "public/weather-icon/rain.png",
+        'CLOUD': "public/weather-icon/cloud.png"
+    };
     function weatherInfoCB(weather){
+        // console.log(weather)
+        // const uv = weather
+        let iconPath;
+        const pre = weather.precipitation;
+        const uv = weather.uv;
+        if(pre < thresholdPrecipitation[0]){
+            if(uv < 3){
+                iconPath = iconPaths['CLOUD'];
+            }
+            else{
+                iconPath = iconPaths['SUN'];
+            }
+        }
+        else if(pre < thresholdPrecipitation[1]){
+            iconPath = iconPaths['DRIZZLE'];
+        }
+        else if(pre < thresholdPrecipitation[2]){
+            iconPath = iconPaths['LIGHT'];
+        }
+        else if(pre < thresholdPrecipitation[3]){
+            iconPath = iconPaths['RAIN'];
+        }
+        else{
+            iconPath = iconPaths['RAIN'];
+        }
         if(weather.temp_max){
             return (
                 <div key={weather.time} className="div-weather">
                     <b>{weather.time}</b>
-                    <p>{weather.temp_max}</p>
-                    <p>{weather.temp_min}</p>
+                    <p className="weather-temp-max">{weather.temp_max}</p>
+                    <p className="weather-temp-min">{weather.temp_min}</p>
+                    <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
                 </div>
             );
         }
@@ -231,9 +261,9 @@ function SuggestionView(props){
             
             {/* news information please put here */}
             <div className="news-item">
-                <h2>
+                <h3>
                     Local News 
-                </h2>
+                </h3>
                     <table className="news-table-details">
                         <thead>
                             <tr>
@@ -247,12 +277,15 @@ function SuggestionView(props){
 
             <div className="suggestion-container">
                 <div className="suggestion-item">
-                    <h2>
-                        Weather Forecasts
-                    </h2>
+                    <h3>
+                        Weather Forecasts(°C)
+                    </h3>
                     <div className="div-weathers">
                         {props.currentPlan.weathers.map(weatherInfoCB)}
                     </div>
+                    <h3>
+                        Packing List
+                    </h3>
                     <table className="suggestion-table-details">
                         <thead>
                                 <tr>
@@ -267,7 +300,7 @@ function SuggestionView(props){
                     </table>
                 </div>
             <div className="dateEvent-item">
-                <h2>National Holidays</h2>
+                <h3>National Holidays</h3>
                 {holidaysTable}
             </div>
         </div>

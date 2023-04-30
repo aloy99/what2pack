@@ -1,3 +1,5 @@
+const thresholdPrecipitation = [0.2, 4, 9, 40];
+
 function meanIfNotNull(arr){
     let sum = 0;
     let cnt = 0;
@@ -274,7 +276,7 @@ function suggestFromUV(uvs){
 
 function suggestFromPrecipitation(pres){
     const pres_max = maxIfNotNull(pres);
-    if (pres_max < 0.2){
+    if (pres_max < thresholdPrecipitation[0]){
         return (
             [
                 {
@@ -285,7 +287,7 @@ function suggestFromPrecipitation(pres){
             ]
         );        
     }
-    else if (pres_max < 4){
+    else if (pres_max < thresholdPrecipitation[1]){
         return (
             [
                 {
@@ -296,7 +298,7 @@ function suggestFromPrecipitation(pres){
             ]
         );     
     }
-    else if (pres_max < 9){
+    else if (pres_max < thresholdPrecipitation[2]){
         return (
             [
                 {
@@ -307,7 +309,7 @@ function suggestFromPrecipitation(pres){
             ]
         );     
     }
-    else if (pres_max < 40){
+    else if (pres_max < thresholdPrecipitation[3]){
         return (
             [
                 {
@@ -364,7 +366,8 @@ function suggestACB(response){
             time: time.split('-').slice(-1),
             temp_max: temps_max[i],
             temp_min: temps_min[i],
-            precipitation: precipitations[i]
+            precipitation: precipitations[i],
+            uv: uvs[i]
         });
     });
     // console.log(weathers)
@@ -382,4 +385,4 @@ function suggestACB(response){
     return {'weathers':weathers, 'items':suggestions, 'holidays':holiday_data, 'news':news_data};
 }
 
-export {suggestACB};
+export {thresholdPrecipitation, suggestACB};

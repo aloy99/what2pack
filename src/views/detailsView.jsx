@@ -53,6 +53,7 @@ function DetailsView(props){
     function confirmDeletePlanACB(){
         closePlanPopconfirm();
         props.onDeletePlan();
+        //TODO: Undo button.
     }
     function cancelDeletePlanACB(){
         closePlanPopconfirm();

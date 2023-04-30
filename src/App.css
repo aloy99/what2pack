@@ -306,3 +306,16 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   font-size: small;
   line-height: 80%;
 }
+
+.weather-temp-max{
+  color: #FC4F00;
+}
+
+.weather-temp-min{
+  color: #617A55;
+}
+
+.weather-icon{
+  width: 70%;
+  height: 70%;
+}
