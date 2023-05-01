@@ -4,6 +4,7 @@ import { getHolidayDetails } from './holidaySource';
 import { getNewsDetails } from './newsSource';
 import { suggestACB } from './utils';
 import isEqual from 'lodash.isequal';
+import { getUnsplashImages } from './unsplashSource';
 
 class What2PackModel{
     constructor(plans = []) {
@@ -113,7 +114,12 @@ class What2PackModel{
     doSearch(searchParams){
         if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
 
-            resolvePromise(Promise.all([getWeatherDetails(searchParams), getHolidayDetails(searchParams), getNewsDetails(searchParams)]).then(suggestACB), this.searchResultsPromiseState);
+            resolvePromise(Promise.all([
+                getWeatherDetails(searchParams),
+                getHolidayDetails(searchParams),
+                getNewsDetails(searchParams),
+                getUnsplashImages(searchParams)
+            ]).then(suggestACB), this.searchResultsPromiseState);
             console.log(this.searchResultsPromiseState)
         }
     }
