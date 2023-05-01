@@ -112,8 +112,8 @@ function suggestFromWind(winds){
         return (
             [
                 {
-                    name: "No need for windproof clothing",
-                    amount: 1,
+                    name: "Windproof clothing",
+                    amount: 0,
                     remark: "😌"
                 }
             ]
@@ -224,7 +224,7 @@ function suggestFromUV(uvs){
                 {
                     name: "Sun protective clothing",
                     amount: 1,
-                    remark: "Seek shade if necessary."
+                    remark: "🥵"
                 }
             ]
         );
@@ -279,8 +279,8 @@ function suggestFromPrecipitation(pres){
         return (
             [
                 {
-                    name: "No umbrella needed",
-                    amount: 1,
+                    name: "Umbrella",
+                    amount: 0,
                     remark: "🌞"
                 }
             ]

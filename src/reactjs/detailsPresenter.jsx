@@ -12,7 +12,7 @@ function DetailsPresenter(props){
         console.log("current plan added: " + currentPlanAdded);
     },[window.location.href]);
     const plan = props.model.searchParams;
-    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' - '+plan.endDate);
+    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' ~ '+plan.endDate);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
@@ -49,7 +49,7 @@ function DetailsPresenter(props){
                 it.ifDeleteConfirmOpen = false;
             }
             props.model.setCurrentPlan(plan);
-            setMsg(plan.destination+', '+plan.startDate+','+plan.endDate);
+            setMsg(plan.destination+', '+plan.startDate+' - '+plan.endDate);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
             console.log(props.model);
         }

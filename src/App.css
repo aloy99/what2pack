@@ -325,6 +325,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .weather-icon{
-  width: 70%;
-  height: 70%;
+  width: 50px;
+  height: 50px;
 }
