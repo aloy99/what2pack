@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import { useIsFocused } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Popconfirm } from 'antd';
 import dayjs from 'dayjs';
@@ -9,8 +8,13 @@ import UserIconView from './userIconView';
 import { func } from "prop-types";
 
 function DetailsView(props){
-    const defaultDest = props.currentPlan ? props.currentPlan.destination : "";
-    const defaultRange = props.currentPlan ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
+    const [defaultDest, setDefaultDest] = useState(props.currentPlan ? props.currentPlan.destination : "") ;
+    const [defaultRange, setDefaultRange] = useState(props.currentPlan ? [dayjs(props.currentPlan.startDate), dayjs(props.currentPlan.endDate)] : ["",""]);
+    useEffect(() => {
+        console.log(props.currentPlan);
+        setDefaultDest(props.currentPlan ? props.currentPlan.destination : "");
+        setDefaultRange(props.currentPlan ? [dayjs(props.currentPlan.startDate), dayjs(props.currentPlan.endDate)] : ["",""]);
+    },[window.location.href]);
     const navigate = useNavigate();
     const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
     const showPlanPopconfirm = () => {

@@ -49,16 +49,41 @@ function DetailsPresenter(props){
                 it.ifDeleteConfirmOpen = false;
             }
             props.model.setCurrentPlan(plan);
-            setMsg(plan.destination+', '+plan.startDate+' - '+plan.endDate);
-            setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
+            setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
             console.log(props.model);
         }
-        props.model.doSearch(props.model.searchParams);
-        resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
-        if(props.model.searchResultsPromiseState.promise){
-            props.model.searchResultsPromiseState.promise.then(rerenderACB)
-                                                         .then(updateCurrentPlanACB)
-                                                         .catch(rerenderACB);
+        setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
+        const tmp = {
+            destination: destination, 
+            startDate: startDate, 
+            endDate: endDate
+        };
+        const ifPlanExists = ifPlanAdded(tmp, props.model.plans);
+        if(!ifPlanExists){ // if the searched plan is not in my plans
+            props.model.doSearch(props.model.searchParams);
+            resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
+            if(props.model.searchResultsPromiseState.promise){
+                props.model.searchResultsPromiseState.promise.then(rerenderACB)
+                                                            .then(updateCurrentPlanACB)
+                                                            .catch(rerenderACB);
+            }
+        }
+        else{ // if the searched plan is already in my plans
+            let currentPlan = {};
+            for(const p of props.model.plans){
+                if(p.destination == destination
+                    && p.startDate == startDate
+                    && p.endDate == endDate){
+                        currentPlan = p;
+                        break;
+                    }
+            }
+            props.model.setCurrentPlan(currentPlan);            
+            for(const it of currentPlan.items){
+                it.ifDeleteConfirmOpen = false;
+            }
+            setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
+            rerenderACB();
         }
     }
     function handleAddPlanACB(){
@@ -121,8 +146,10 @@ function DetailsPresenter(props){
                 onRangeChanged={handleRangeACB}
                 onClickLogo={handleClickedLogoACB}
                 currentPlanAdded={currentPlanAdded}
-                planMsg={msg}/>
-            {   promiseNoData(props.model.searchResultsPromiseState) ||
+                planMsg={msg}
+            />
+            {   
+                promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
@@ -134,7 +161,8 @@ function DetailsPresenter(props){
                     onRemarkChange={handleRemarkChangeACB}
                 />
             }
-        </>);
+        </>
+    );
 }
 
 export default DetailsPresenter;

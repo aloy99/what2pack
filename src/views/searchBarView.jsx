@@ -59,10 +59,10 @@ function SearchBarView(props){
     return (
     <div className="search-bar-container">
             <div>
-            <SearchCompleteView gmapsLoaded = {props.gmapsLoaded} onMapsLoad={mapsLoadedACB} onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
+                <SearchCompleteView defaultValue={props.defaultDest} gmapsLoaded = {props.gmapsLoaded} onMapsLoad={mapsLoadedACB} onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
             </div>
             <div>
-            <RangePicker id="range-picker-search-bar" disabledDate={disabledDate} onChange={rangeChangeACB}/>
+                <RangePicker id="range-picker-search-bar" defaultValue={props.defaultRange} disabledDate={disabledDate} onChange={rangeChangeACB}/>
             </div>
         <div className="search-item">
 
