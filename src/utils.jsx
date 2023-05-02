@@ -319,6 +319,7 @@ function suggestACB(response){
     const weather_data = response[0];
     const holiday_data = response[1];
     const news_data = response[2];
+    const unsplash_data = response[3];
     const temps_max = weather_data.apparent_temperature_max;
     const temps_min = weather_data.apparent_temperature_min;
     const winds = weather_data.windspeed_10m_max;
@@ -354,7 +355,7 @@ function suggestACB(response){
     for (let i = 0; i < suggestions.length; i++) {
         suggestions[i].index = i;
     }
-    return {'weathers':weathers, 'items':suggestions, 'holidays':holiday_data, 'news':news_data};
+    return {'weathers':weathers, 'items':suggestions, 'holidays':holiday_data, 'news':news_data, 'image':unsplash_data};
 }
 
 export {thresholdPrecipitation, suggestACB};
