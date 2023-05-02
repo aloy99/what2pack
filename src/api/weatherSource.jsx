@@ -1,4 +1,4 @@
-import { WEATHER_BASE_URL } from "./apiConfig.jsx";
+import { WEATHER_BASE_URL } from "../apiConfig.jsx";
 import dayjs from 'dayjs';
 
 const weatherParams = {
@@ -51,7 +51,7 @@ function getWeatherDetails(searchTerms) { //handle destination name, start and e
                 }
             }
         }
-        console.log(output);
+        // console.log(output);
         return output;
     }
 

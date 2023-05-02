@@ -1,10 +1,10 @@
 import resolvePromise from './resolvePromise';
-import { getWeatherDetails } from './weatherSource';
-import { getHolidayDetails } from './holidaySource';
-import { getNewsDetails } from './newsSource';
+import { getWeatherDetails } from './api/weatherSource';
+import { getHolidayDetails } from './api/holidaySource';
+import { getNewsDetails } from './api/newsSource';
+import { getUnsplashImages } from './api/unsplashSource';
 import { suggestACB } from './utils';
 import isEqual from 'lodash.isequal';
-import { getUnsplashImages } from './unsplashSource';
 
 class What2PackModel{
     constructor(plans = []) {

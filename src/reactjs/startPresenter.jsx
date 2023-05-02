@@ -16,9 +16,10 @@ function StartPresenter(props){
                 endDate: endDate, 
                 items: props.model.searchResultsPromiseState.data.items,
                 weathers: props.model.searchResultsPromiseState.data.weathers,
-                holidays: props.model.searchResultsPromiseState.data.holidays
+                holidays: props.model.searchResultsPromiseState.data.holidays,
+                image: props.model.searchResultsPromiseState.data.image
             };
-            console.log(plan)
+            // console.log(plan)
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
             }

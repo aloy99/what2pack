@@ -1,4 +1,4 @@
-import { UNSPLASH_BASE_URL, UNSPLASH_API_KEY } from "./apiConfig.jsx";
+import { UNSPLASH_BASE_URL, UNSPLASH_API_KEY } from "../apiConfig.jsx";
 
 const unsplashParams = {
     'count': 1,
