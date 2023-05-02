@@ -32,6 +32,15 @@ class What2PackModel{
         }
     }
 
+    setItemRemark(item, newRemark){
+        for (const it of this.currentPlan.items){
+            if(it.name === item.name){
+                it.remark = newRemark;
+                break;
+            }
+        }
+    }
+
     setItemPacked(itemToCheck, ifPacked){
         for (const item of this.currentPlan.items){
             if(isEqual(item, itemToCheck)){
