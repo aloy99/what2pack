@@ -159,6 +159,7 @@ function DetailsPresenter(props){
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
                     onRemarkChange={handleRemarkChangeACB}
+                    planMsg={msg}
                 />
             }
         </>

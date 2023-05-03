@@ -187,31 +187,47 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 /* detailPage start */
 .detailPage-container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   /* background-color: #888; */
 }
 
-.news-item {
-  width: 60% ;
-  /* background-color: #B5B48E; */
-  margin-top: 2em;
-  padding: 2em
+.PlanandWeather-container{
+  display: flex;
+  flex-direction: row;
+}
+.NewsandList-container{
+  display: flex;
+  flex-direction: row;
 }
 
-.news-table-details {
-  /* background-color: #B5B48E; */
-  width: 50% ;
+.HolidayandNews-container{
+  display: flex; /* 使用flexbox */
+  flex-wrap: wrap; /* 設定flex容器可換行 */
+  justify-content: space-between;
+  align-items: center; 
+  height: 100vh;
+  width: 100vh;
+  padding: 10px;
 }
+
+.HolidayandNews-container div{
+  flex-basis: calc(50% - 10px);
+  height: calc(50% - 10px);
+  margin: 5px;
+  background-color: #595549;
+  /* margin: 10px; */
+}
+
 
 /* suggestion page start*/
 
 .suggestion-container {
   /* display: flex; */
   background-color: #ecd8b2;
-  flex-direction: column;
-  width: 40%;
-  margin: 2em;
-  padding: 2em
+  /* flex-direction: column; */
+  width: 50%;
+  /* margin: 2em; */
+  padding: 2em;
 }
 
 .suggestion-item {
@@ -223,7 +239,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
-  min-width: 400px;
+  /* min-width: 400px; */
   border-radius: 5px 5px 0 0; 
   overflow: hidden;
   background-color: #F6E3C3;
@@ -241,37 +257,10 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 .suggestion-table-details tbody tr {
   border-bottom: 1px solid #DBC29A;
 }
-/* .suggestion-table-details tbody tr:nth-of-type(even) {
-  background-color: #DBC29A;
-} */
 
 /* suggestion page end*/
 
-.holidays-table-details {
-  border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 0.9em;
-  min-width: 100%;
-  border-radius: 5px 5px 0 0; 
-  overflow: hidden;
-  background-color: #F6E3C3;
-}
-.holidays-table-details thead tr {
-  background-color: #DBC29A;
-  color: #ffffff;
-  text-align: left;
-  font-weight: bold;
-}
-.holidays-table-details th,
-.holidays-table-details td {
-  padding: 12px 15px;
-}
-.holidays-table-details tbody tr {
-  border-bottom: 1px solid #DBC29A;
-}
-/* .holidays-table-details tbody tr:nth-of-type(even) {
-  background-color: #DBC29A;
-} */
+
 
 /* detailPage end */
 .card-plan-profile{

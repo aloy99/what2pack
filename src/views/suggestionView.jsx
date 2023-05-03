@@ -3,6 +3,7 @@ import { notification, Popconfirm, Button, Input } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
+import DetailsView from "./detailsView";
 
 function SuggestionView(props){
     useEffect(()=>{
@@ -269,32 +270,45 @@ function SuggestionView(props){
         );
     }
     return (
-         <div className="detailPage-container">
-            
-            {/* news information please put here */}
-            <div className="news-item">
-                <h3>
-                    Local News 
-                </h3>
-                    <table className="news-table-details">
-                        <thead>
-                            <tr>
-                                <th>news</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-            </div>
+        <div className="detailPage-container">
+            <div className="PlanandWeather-container">
+                <div className="addplan-item">
+                    <h2>
+                    {props.planMsg}
+                    </h2>
+                </div>
 
-            <div className="suggestion-container">
-                <div className="suggestion-item">
+                <div className="div-weathers">
                     <h3>
                         Weather Forecasts(°C)
                     </h3>
-                    <div className="div-weathers">
                         {props.currentPlan.weathers.map(weatherInfoCB)}
-                    </div>
+                </div>
+            </div>   
+
+        <div className="NewsandList-container">
+        
+        
+          <div className="HolidayandNews-container">
+
+            {/* news information please put here */}
+                        <div>
+                            {/* <h3>National Holidays</h3> */}
+                            {/* {holidaysTable} */}
+                            <h3>holidays</h3>
+                        </div>
+                        <div>
+                            <h3>news</h3>
+                        </div>
+                        <div>
+                            <h3>news</h3>
+                        </div>
+                        <div>
+                            <h3>news</h3>
+                        </div>    
+            </div>
+         <div className="suggestion-container">
+                <div className="suggestion-item">
                     <h3>
                         Packing List
                     </h3>
@@ -312,10 +326,7 @@ function SuggestionView(props){
                             {contextHolder}
                     </table>
                 </div>
-            <div className="dateEvent-item">
-                <h3>National Holidays</h3>
-                {holidaysTable}
-            </div>
+          </div>
         </div>
     </div>
     );
