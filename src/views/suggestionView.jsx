@@ -141,11 +141,11 @@ function SuggestionView(props){
         );
     }
     const iconPaths = {
-        'SUN' : "public/weather-icon/sun.png",
-        'DRIZZLE': "public/weather-icon/drizzle.png",
-        'LIGHT': "public/weather-icon/light.png",
-        'RAIN': "public/weather-icon/rain.png",
-        'CLOUD': "public/weather-icon/cloud.png"
+        'SUN' : "/weather-icon/sun.png",
+        'DRIZZLE': "/weather-icon/drizzle.png",
+        'LIGHT': "/weather-icon/light.png",
+        'RAIN': "/weather-icon/rain.png",
+        'CLOUD': "/weather-icon/cloud.png"
     };
     function weatherInfoCB(weather){
         // console.log(weather)
