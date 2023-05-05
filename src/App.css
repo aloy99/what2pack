@@ -58,7 +58,7 @@ he} */
 
 .input-remark {
   text-align: center;
-  font-size: 
+  /* font-size:  */
 }
 
 .profile-container{
@@ -138,7 +138,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   text-align: center;
 }
 .nav {
-  background-color:  #ecd8b2;
+  background-color:  #F9F2E0;
   color: #595549;
   display: flex;
   justify-content: space-between;
