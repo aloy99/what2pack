@@ -52,12 +52,15 @@ class What2PackModel{
     }
 
     addItemToCurrentItems(itemToAdd){
+        function compareItemsCB(a,b){
+            return a.index - b.index;
+        }
         for (const item of this.currentPlan.items){
             if(isEqual(item, itemToAdd)){
                 return;
             }
         }
-        this.currentPlan.items = [...this.currentPlan.items, itemToAdd];
+        this.currentPlan.items = [...this.currentPlan.items, itemToAdd].sort(compareItemsCB);
         this.notifyObservers({itemToAdd: itemToAdd});
     }
 

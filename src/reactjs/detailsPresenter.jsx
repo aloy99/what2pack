@@ -133,6 +133,12 @@ function DetailsPresenter(props){
         props.model.setItemRemark(item, newRemark);
         console.log(props.model);
     }
+    function handleUndoDeleteItemACB(item){
+        //TODO: sort
+        props.model.addItemToCurrentItems(item);
+        rerenderACB();
+        console.log(props.model);
+    }
     return (
         <>
             <DetailsView 
@@ -160,6 +166,7 @@ function DetailsPresenter(props){
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
                     onRemarkChange={handleRemarkChangeACB}
+                    onUndoDeleteItem={handleUndoDeleteItemACB}
                 />
             }
         </>
