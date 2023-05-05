@@ -9,7 +9,7 @@ import resolvePromise from '../resolvePromise.js';
 function DetailsPresenter(props){
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-        console.log("current plan added: " + currentPlanAdded);
+        // console.log("current plan added: " + currentPlanAdded);
     },[window.location.href]);
     const plan = props.model.searchParams;
     const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' ~ '+plan.endDate);
@@ -43,7 +43,8 @@ function DetailsPresenter(props){
                 endDate: endDate, 
                 items: props.model.searchResultsPromiseState.data.items,                
                 weathers: props.model.searchResultsPromiseState.data.weathers,
-                holidays: props.model.searchResultsPromiseState.data.holidays
+                holidays: props.model.searchResultsPromiseState.data.holidays,
+                image: props.model.searchResultsPromiseState.data.image
             };
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
@@ -132,6 +133,12 @@ function DetailsPresenter(props){
         props.model.setItemRemark(item, newRemark);
         console.log(props.model);
     }
+    function handleUndoDeleteItemACB(item){
+        //TODO: sort
+        props.model.addItemToCurrentItems(item);
+        rerenderACB();
+        console.log(props.model);
+    }
     return (
         <>
             <DetailsView 
@@ -159,6 +166,7 @@ function DetailsPresenter(props){
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
                     onRemarkChange={handleRemarkChangeACB}
+                    onUndoDeleteItem={handleUndoDeleteItemACB}
                 />
             }
         </>

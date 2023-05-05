@@ -1,4 +1,4 @@
-import { NEWS_BASE_URL, NEWS_API_KEY } from "./apiConfig.jsx";  
+import { NEWS_BASE_URL, NEWS_API_KEY } from "../apiConfig.jsx";  
 
 const newsParams = {
     'sortBy': 'popularity',
