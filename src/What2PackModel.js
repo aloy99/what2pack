@@ -1,10 +1,10 @@
 import resolvePromise from './resolvePromise';
-import { getWeatherDetails } from './weatherSource';
-import { getHolidayDetails } from './holidaySource';
-import { getNewsDetails } from './newsSource';
+import { getWeatherDetails } from './api/weatherSource';
+import { getHolidayDetails } from './api/holidaySource';
+import { getNewsDetails } from './api/newsSource';
+import { getUnsplashImages } from './api/unsplashSource';
 import { suggestACB } from './utils';
 import isEqual from 'lodash.isequal';
-import { getUnsplashImages } from './unsplashSource';
 
 class What2PackModel{
     constructor(plans = []) {
@@ -52,12 +52,15 @@ class What2PackModel{
     }
 
     addItemToCurrentItems(itemToAdd){
+        function compareItemsCB(a,b){
+            return a.index - b.index;
+        }
         for (const item of this.currentPlan.items){
             if(isEqual(item, itemToAdd)){
                 return;
             }
         }
-        this.currentPlan.items = [...this.currentPlan.items, itemToAdd];
+        this.currentPlan.items = [...this.currentPlan.items, itemToAdd].sort(compareItemsCB);
         this.notifyObservers({itemToAdd: itemToAdd});
     }
 

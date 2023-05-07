@@ -11,7 +11,6 @@ function DetailsView(props){
     const [defaultDest, setDefaultDest] = useState(props.currentPlan ? props.currentPlan.destination : "") ;
     const [defaultRange, setDefaultRange] = useState(props.currentPlan ? [dayjs(props.currentPlan.startDate), dayjs(props.currentPlan.endDate)] : ["",""]);
     useEffect(() => {
-        console.log(props.currentPlan);
         setDefaultDest(props.currentPlan ? props.currentPlan.destination : "");
         setDefaultRange(props.currentPlan ? [dayjs(props.currentPlan.startDate), dayjs(props.currentPlan.endDate)] : ["",""]);
     },[window.location.href]);
