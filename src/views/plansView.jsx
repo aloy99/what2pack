@@ -7,6 +7,7 @@ function PlansView(props){
     const navigate = useNavigate();
     function renderPlanCB(plan){
         const description = plan.startDate + " - " + plan.endDate;
+        
         function clickCardACB(){
             navigate("/details");
             props.onCurrentPlanChanged(plan);
