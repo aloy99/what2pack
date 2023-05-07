@@ -1,9 +1,12 @@
-import { NEWS_BASE_URL, NEWS_API_KEY } from "../apiConfig.jsx";  
+import { NEWS_BASE_URL, NEWS_API_KEY, NEWS_API_HOST } from "../apiConfig.jsx";  
 
 const newsParams = {
-    'sortBy': 'popularity',
-    'language': 'en',
-    'excludeDomains':'nerdwallet.com, nature.com, thepointsguy.com, wired.com, techcrunch.com, engadget.com'
+    'count': 8,
+    'safeSearch': 'Moderate',
+    'freshness': 'week',
+    'sortBy': 'date',
+    'setLang': 'en',
+    'mkt': 'en-GB'
 }
 
 function getNewsDetails(searchTerms) { 
@@ -18,18 +21,16 @@ function getNewsDetails(searchTerms) {
     }
 
     function getNewsACB(json_response) {
-        return json_response;
+        return json_response.value;
     }
 
-
-    var earliestDate = new Date();
-    earliestDate.setDate(earliestDate.getDate()-14);
-    console.log(earliestDate.toISOString().split('T')[0]);
-    return fetch(NEWS_BASE_URL + new URLSearchParams({'from': earliestDate.toISOString().split('T')[0], 'q':searchTerms.destination.split(', ').join(' '), ...newsParams}),
+    return fetch(NEWS_BASE_URL + new URLSearchParams({'q':searchTerms.destination.split(', ').join(' '), ...newsParams}),
         {
             method: 'GET',
             headers: {
-                'X-Api-Key': NEWS_API_KEY,},
+                'X-BingApis-SDK': true,
+                'X-RapidAPI-Host': NEWS_API_HOST,
+                'X-RapidAPI-Key': NEWS_API_KEY,},
             redirect: 'follow'
         }).then(processResponseACB).then(getNewsACB);
 }
