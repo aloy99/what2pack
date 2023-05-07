@@ -74,7 +74,7 @@ function DetailsView(props){
                 onClick={clickLogoACB}>
             </img>
             </div> */}
-            <h2 id="msg-details">{props.planMsg}</h2>
+            {/* <h2 id="msg-details">{props.planMsg}</h2> */}
             <div className="search-detail-item">
                 <SearchBarView 
                     id="search-bar-details" 

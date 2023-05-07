@@ -68,7 +68,6 @@ he} */
   /* height: 100px; */
 }
 
-
 .profile-container>div{
   margin-left: 10px;
 }
@@ -117,7 +116,6 @@ he} */
   margin-right: 0px;
   margin-left: 20px; 
 }
-
 
 input[type="search"].input-destination {
   -webkit-appearance: searchfield;
@@ -184,83 +182,163 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 /* navigation end */
 
 
-/* detailPage start */
+/* detailPage left part start */
 .detailPage-container{
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh;
+}
+.detailPage-container div{
+  margin-bottom: 10px;
+}
+
+.plan-news-container{
+  display: flex;
   flex-direction: column;
-  /* background-color: #888; */
+  width: 50%;
+  padding: 10px;
 }
 
-.PlanandWeather-container{
+.plan-news-container div{
+  box-sizing: border-box;
+} 
+  /* width: calc(50% - 0px); */
+  /* height: calc(50% - 0px); */
+
+.planandAdd-item{
+  display: flex;
+  background-color: #B5B48E;
+  height: calc(30% - 20px);
+  /* width: calc(100% - 20px); */
+  /* padding: 20px 30px 10px 30px; */
+  /* margin: 10px 0px 10px 10px; */
+}
+
+.plan-inside-item {
+  /* padding: 20px; */
+  margin: 0 10px 0 10px;
+  background-color: #4a492f;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
 }
-.NewsandList-container{
-  display: flex;
-  flex-direction: row;
-}
 
-.HolidayandNews-container{
+.holiday-news-container{
   display: flex; /* 使用flexbox */
   flex-wrap: wrap; /* 設定flex容器可換行 */
   justify-content: space-between;
   align-items: center; 
-  height: 100vh;
-  width: 100vh;
+  height: 70%;
+  /* background-color: #888; */
+  /* margin: -20px; */
+}
+
+.holiday-news-container div {
+  box-sizing: border-box;
+  width: calc(50% - 20px);
+  height:calc(50% - 20px); 
+  background-color: #E8E8E8;
+  margin: 10px;
+  /* padding: 0 20px 0 20px; */
+  padding: 20px;
+  /* padding-left: 20px; */
+}
+
+.holidays-item, .news1-item {
+  order: 1;
+}
+
+.news3-item, .news4-item {
+  order: 2;
+}
+
+.holidays-item {
+  background-color:  #ecd8b2;
+}
+
+/* Detail page right part start */
+
+.weather-pic {
+  background-color:  #ecd8b2;
+}
+
+.weather-temp-ranage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color:  #ecd8b2;
+}
+
+.weather-list-container{
+  display: flex;
+  flex-direction: column;
+  /* width: calc(50% - 40px); */
+  width: 50%;
   padding: 10px;
 }
 
-.HolidayandNews-container div{
-  flex-basis: calc(50% - 10px);
-  height: calc(50% - 10px);
-  margin: 5px;
-  background-color: #595549;
-  /* margin: 10px; */
+.weather-container {
+  background-color: #E8E8E8;
+  /* padding: 0 30px 0 30px; */
+  height: calc(30% - 20px);
+  width: 100%;
 }
 
+.weather-inside-item {
+  /* margin: 0 10px 0px 10px; */
+  background-color: #c07373;
+}
+
+.weather-title-item {
+  height: 25px;
+  background-color: #c07373;
+}
 
 /* suggestion page start*/
-
 .suggestion-container {
-  /* display: flex; */
-  background-color: #ecd8b2;
-  /* flex-direction: column; */
-  width: 50%;
-  /* margin: 2em; */
-  padding: 2em;
+  background-color: #606054;
+  height: calc(70% - 20px);
+  width: 100%;
+  margin: 10px 0px 0px 0px;
 }
 
+.suggestion-title-item {
+  /* background-color: #e3e342; */
+  height: 30px;
+}
 .suggestion-item {
   justify-content: center;
   align-items: center;
+  height: calc(100% - 80px);
+  overflow-y: scroll;
+  background-color: #B5B48E;
 }
 
 .suggestion-table-details {
   border-collapse: collapse;
-  margin: 25px 0;
+  /* margin: 20px 0; */
   font-size: 0.9em;
-  /* min-width: 400px; */
   border-radius: 5px 5px 0 0; 
-  overflow: hidden;
-  background-color: #F6E3C3;
+  background-color: #B5B48E;
 }
 .suggestion-table-details thead tr {
-  background-color: #DBC29A;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #B5B48E;
   text-align: left;
   font-weight: bold;
 }
 .suggestion-table-details th,
 .suggestion-table-details td {
-  padding: 12px 15px;
+  padding: 10px 10px;
 }
 .suggestion-table-details tbody tr {
-  border-bottom: 1px solid #DBC29A;
+  border-bottom: 1px solid #B5B48E;
 }
-
-/* suggestion page end*/
-
-
+/* detail page end*/
 
 /* detailPage end */
 .card-plan-profile{
@@ -279,22 +357,25 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .div-weathers{
-  width: 100%;
-  height: min-content;
+  /* width: calc(100% - 10px); */
+  /* width: 100%; */
+  /* height: min-content; */
+  height: calc(100% - 60px);
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row; 
   justify-content: space-between;
   align-content: space-between;
+  background-color: #ffffff;
 }
 
 .div-weather{
   width: var(--weather-width);
   height: 100%;
   flex: 0 0 auto;
-  margin: 0.5%;
-  padding: 3% 0 0 0;
+  margin: 0 0 0 5%;
+  /* padding: 3% 0 0 0; */
   border-style: solid;
   border-width: 1px;
   border-color: #863A2C;
@@ -306,14 +387,16 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .weather-temp-max{
-  color: #FC4F00;
+  color: #f34545; 
+  font-size: x-small; 
 }
 
 .weather-temp-min{
   color: #617A55;
+  font-size: x-small;
 }
 
 .weather-icon{
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }

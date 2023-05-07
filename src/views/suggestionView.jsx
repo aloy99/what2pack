@@ -3,7 +3,7 @@ import { notification, Popconfirm, Button, Input } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
-import DetailsView from "./detailsView";
+import AddButtonView from './addButtonView';
 
 function SuggestionView(props){
     useEffect(()=>{
@@ -177,10 +177,16 @@ function SuggestionView(props){
         if(weather.temp_max){
             return (
                 <div key={weather.time} className="div-weather">
-                    <b>{weather.time}</b>
-                    <p className="weather-temp-max">{weather.temp_max}</p>
-                    <p className="weather-temp-min">{weather.temp_min}</p>
-                    <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                        <div className="weather-date">
+                        <b>{weather.time}</b>
+                        </div>
+                        <div className="weather-pic">
+                        <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                        </div>
+                        <div className="weather-temp-ranage">
+                            <p className="weather-temp-max">{weather.temp_max}</p>
+                            <p className="weather-temp-min">{weather.temp_min}</p>
+                        </div>
                 </div>
             );
         }
@@ -271,63 +277,79 @@ function SuggestionView(props){
     }
     return (
         <div className="detailPage-container">
-            <div className="PlanandWeather-container">
-                <div className="addplan-item">
-                    <h2>
-                    {props.planMsg}
-                    </h2>
+
+            <div className="plan-news-container">
+                <div className="planandAdd-item">
+                        <div className="plan-inside-item">
+                            <div className="plan-title">
+                            <h2>
+                            {props.planMsg}
+                            </h2>
+                            </div>
+                            <div className="addbutton">
+                            {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />}
+                            </div>
+                    </div>
                 </div>
 
-                <div className="div-weathers">
-                    <h3>
-                        Weather Forecasts(°C)
-                    </h3>
-                        {props.currentPlan.weathers.map(weatherInfoCB)}
-                </div>
-            </div>   
+                <div className="holiday-news-container">
+                    {/* news information please put here */}
+                    <div className="holidays-item">
+                        {/* <h3>National Holidays</h3> */}
+                        {/* {holidaysTable} */}
+                        <h3>holidays</h3>
+                    </div>
 
-        <div className="NewsandList-container">
-        
-        
-          <div className="HolidayandNews-container">
+                    <div className="news1-item">
+                        <h3>news</h3>
+                    </div>
 
-            {/* news information please put here */}
-                        <div>
-                            {/* <h3>National Holidays</h3> */}
-                            {/* {holidaysTable} */}
-                            <h3>holidays</h3>
+                    <div className="news1-item">
+                        <h3>news</h3>
+                    </div>
+
+                    <div className="news3-item">
+                        <h3>news</h3>
+                    </div>    
+                </div>  
+            </div>    
+
+        <div className="weather-list-container">
+
+                    <div className="weather-container">
+                            <div className="weather-title-item">
+                                <h3>
+                                    Weather Forecasts(°C)
+                                </h3>
+                            </div> 
+                            <div className="div-weathers">
+                                {props.currentPlan.weathers.map(weatherInfoCB)}
+                            </div> 
+                    </div>
+
+                <div className="suggestion-container">
+                        <div className="suggestion-title-item">
+                            <h3>
+                                Packing List
+                            </h3>
                         </div>
-                        <div>
-                            <h3>news</h3>
-                        </div>
-                        <div>
-                            <h3>news</h3>
-                        </div>
-                        <div>
-                            <h3>news</h3>
-                        </div>    
-            </div>
-         <div className="suggestion-container">
-                <div className="suggestion-item">
-                    <h3>
-                        Packing List
-                    </h3>
-                    <table className="suggestion-table-details">
-                        <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Item</th>
-                                    <th>Amount</th>
-                                    <th>Remark</th>
-                                    <th>Packed</th>
-                                </tr>
+                        <div className="suggestion-item">   
+                        <table className="suggestion-table-details">
+                            <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Item</th>
+                                        <th>Amount</th>
+                                        <th>Remark</th>
+                                        <th>Packed</th>
+                                    </tr>
                             </thead>
-                            {itemsTableBody}
-                            {contextHolder}
-                    </table>
-                </div>
-          </div>
-        </div>
+                                {itemsTableBody}
+                                {contextHolder}
+                        </table>
+                        </div>    
+                    </div>
+            </div>     
     </div>
     );
 }
