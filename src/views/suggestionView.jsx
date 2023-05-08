@@ -108,8 +108,7 @@ function SuggestionView(props){
                         <Button 
                             className="button-delete-item" 
                             type="text" 
-                            // style={{ background: "#ecd8b2", borderColor: "#ecd8b2" }}
-                            size="small"
+                            size="medium"
                             shape="circle"
                             icon={<MinusCircleOutlined/>} 
                             onClick={() => clickRemoveFromItemsACB(item)}/>
@@ -135,10 +134,18 @@ function SuggestionView(props){
     }
     function holidaysInfoCB(holiday){
         return(
-            <tr key={holiday.name}>
-                <td>{holiday.date}</td>
-                <td>{holiday.name}</td>
-            </tr>
+            // <tr key={holiday.name}>
+            //     <td>{holiday.date}</td>
+            //     <td>{holiday.name}</td>
+            // </tr>
+            <div className="holiday-date-name" key={holiday.name}>
+                <div className="holiday-title">
+                {holiday.date.slice(5)}
+                </div>
+                <div className="holiday-name">
+                {holiday.name}
+                </div>
+            </div>
         );
     }
     const iconPaths = {
@@ -257,17 +264,30 @@ function SuggestionView(props){
     let holidaysTable;
     if(props.currentPlan.holidays.length > 0){
         holidaysTable = (
-            <table className="holidays-table-details">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.currentPlan.holidays.map(holidaysInfoCB)}
-                </tbody>
-            </table>
+            // <table className="holidays-table-details">
+            //     <thead>
+            //         <tr>
+            //             {/* <th>Date</th>
+            //             <th>Event</th> */}
+            //         </tr>
+            //     </thead>
+            //     <tbody>
+            //         {props.currentPlan.holidays.map(holidaysInfoCB)}
+            //     </tbody>
+            // </table>
+        // <div className="holidaysTable-container">
+        //     <p>
+        //     {props.currentPlan.holidays.map(holidaysInfoCB)}                 
+        //     </p>  
+        // </div>
+        <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>
+                <div className="holiday-title">
+                {props.currentPlan.holidays[0].date.slice(5)}
+                </div>
+                <div className="holiday-name">
+                {props.currentPlan.holidays[0].name}
+                </div>
+            </div>
         );
     }
     else{
@@ -294,21 +314,22 @@ function SuggestionView(props){
 
                 <div className="holiday-news-container">
                     {/* news information please put here */}
-                    <div className="holidays-item">
-                        {/* <h3>National Holidays</h3> */}
-                        {/* {holidaysTable} */}
-                        <h3>holidays</h3>
+                    <div className="news holiday">
+                        <div className="new-holiday-title">
+                        <h3>National Holidays</h3>
+                        </div>
+                        {holidaysTable}
                     </div>
 
-                    <div className="news1-item">
+                    <div className="news one">
                         <h3>news</h3>
                     </div>
 
-                    <div className="news1-item">
+                    <div className="news two">
                         <h3>news</h3>
                     </div>
 
-                    <div className="news3-item">
+                    <div className="news three">
                         <h3>news</h3>
                     </div>    
                 </div>  
