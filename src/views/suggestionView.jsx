@@ -302,9 +302,8 @@ function SuggestionView(props){
                 <div className="planandAdd-item">
                         <div className="plan-inside-item">
                             <div className="plan-title">
-                            <h2>
-                            {props.planMsg}
-                            </h2>
+                            <h2>{props.destMsg}</h2>
+                            <p>{props.dateMsg}</p>
                             </div>
                             <div className="addbutton">
                             {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />}

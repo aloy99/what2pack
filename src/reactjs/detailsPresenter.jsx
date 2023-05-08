@@ -12,7 +12,9 @@ function DetailsPresenter(props){
         console.log("current plan added: " + currentPlanAdded);
     },[window.location.href]);
     const plan = props.model.searchParams;
-    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' ~ '+plan.endDate);
+    const [destMsg, setDestMsg] = useState(plan.destination);
+    const [dateMsg, setDateMsg] = useState(plan.startDate+' ~ '+plan.endDate);
+    // const [msg, setMsg] = useState(plan.destination+', '+);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
@@ -52,7 +54,9 @@ function DetailsPresenter(props){
             setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
             console.log(props.model);
         }
-        setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
+        setDestMsg(destination);
+        setDateMsg(startDate + ' ~ ' + endDate);
+        // setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
         const tmp = {
             destination: destination, 
             startDate: startDate, 
@@ -146,7 +150,6 @@ function DetailsPresenter(props){
                 onRangeChanged={handleRangeACB}
                 onClickLogo={handleClickedLogoACB}
                 currentPlanAdded={currentPlanAdded}
-                planMsg={msg}
             />
             {   
                 promiseNoData(props.model.searchResultsPromiseState) ||
@@ -159,7 +162,8 @@ function DetailsPresenter(props){
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
                     onRemarkChange={handleRemarkChangeACB}
-                    planMsg={msg}
+                    destMsg={destMsg}
+                    dateMsg={dateMsg}
                 />
             }
         </>
