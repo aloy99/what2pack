@@ -71,6 +71,32 @@ function SuggestionView(props){
         ifItemConfirmOpen.push(false);
         props.onAddItem(item);
     }
+    const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
+    const showPlanPopconfirm = () => {
+        setOpenPlanConfirm(true);
+    };
+    const closePlanPopconfirm = () => {
+        setOpenPlanConfirm(false);
+    };    
+    function clickAddToPlanACB(){
+        if(!props.currentPlanAdded){
+            if (props.currentPlan.destination 
+                && props.currentPlan.startDate 
+                && props.currentPlan.endDate){
+                    props.onAddPlan();
+                }
+        }
+    }
+    function clickRemoveFromPlanACB(){
+        showPlanPopconfirm();
+    }
+    function confirmDeletePlanACB(){
+        closePlanPopconfirm();
+        props.onDeletePlan();
+    }
+    function cancelDeletePlanACB(){
+        closePlanPopconfirm();
+    }
     function itemCheckedACB(evt){
         props.onItemChecked(evt.target.value, evt.target.checked);
     }
@@ -306,7 +332,22 @@ function SuggestionView(props){
                             <p>{props.dateMsg}</p>
                             </div>
                             <div className="addbutton">
-                            {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />}
+                            {/* {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />} */}
+                            <Popconfirm
+                                title="Are you sure to delete this plan?"
+                                description=""
+                                onConfirm={confirmDeletePlanACB}
+                                onCancel={cancelDeletePlanACB}
+                                okText="Yes"
+                                cancelText="No"
+                                disabled={!props.currentPlanAdded}
+                                open={openPlanConfirm}
+                                >
+                                <AddButtonView 
+                                    currentPlanAdded={props.currentPlanAdded}
+                                    onDeletePlan={clickRemoveFromPlanACB}
+                                    onAddPlan={clickAddToPlanACB}/> 
+                            </Popconfirm>
                             </div>
                     </div>
                 </div>

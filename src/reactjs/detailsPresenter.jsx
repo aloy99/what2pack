@@ -142,8 +142,6 @@ function DetailsPresenter(props){
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
                 gmapsLoaded = {props.model.gmapsLoaded}
-                onAddPlan={handleAddPlanACB}
-                onDeletePlan={handleDeletePlanACB}
                 onMapsLoad={mapsLoadedACB}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
@@ -156,6 +154,8 @@ function DetailsPresenter(props){
                 <SuggestionView
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
+                    onAddPlan={handleAddPlanACB}
+                    onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}
