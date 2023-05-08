@@ -101,7 +101,7 @@ button:focus-visible {
 .startL-container {
   margin-left: 60px;
   background-color: #ecd8b2;
-  background-image: url('travel.png');
+  background-image: url(/travel.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -186,7 +186,7 @@ button:focus-visible {
 
 .loginL-column {
   /* background-color: #ecd8b2; */
-  background: url(../suitcases.png);
+  background: url(/suitcases.png);
   /* background: url(../suitcases.png) no-repeat center center fixed; */
   height: 600px;
 }
