@@ -12,7 +12,7 @@ export default function Navbar() {
       <ul>
         <CustomLink to="/start">Home</CustomLink>
         <CustomLink to="/login">
-         {currentUser ? "Signed In as: "+currentUser.email : "LogiIn / SignUp"}
+         {currentUser ? "Signed In as: "+currentUser.email : "Login / SignUp"}
           {/* Login/SignUp OR Signed In as: {currentUser?.email} */}
           </CustomLink>
         <CustomLink to="/profile">Profile</CustomLink>

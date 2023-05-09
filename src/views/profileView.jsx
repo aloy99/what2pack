@@ -25,7 +25,7 @@ function ProfileView(props){
         <div className="App">
             {
                 currentUser ? <div>
-                    <h1>Welcome on you profile page!</h1> 
+                    <h1>Welcome to your profile page!</h1> 
                     <p>Signed In as: {currentUser?.email}</p> 
                     <p>Signed In as: {currentUser?.uid}</p> 
                     <button onClick={handleuserSignOutACB}>Sign Out</button>
