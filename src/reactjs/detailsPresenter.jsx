@@ -9,11 +9,12 @@ import resolvePromise from '../resolvePromise.js';
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function DetailsPresenter(props){
+    const rerenderACB = useRerender();
     const currentUser = useAuth();
-
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         console.log("current plan added: " + props.model.currentPlan +props.model.plans);
+        rerenderACB();
     },[window.location.href]);
     const plan = props.model.searchParams;
     const [destMsg, setDestMsg] = useState(plan.destination);
@@ -21,7 +22,6 @@ function DetailsPresenter(props){
     // const [msg, setMsg] = useState(plan.destination+', '+);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
-    const rerenderACB = useRerender();
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
