@@ -1,20 +1,35 @@
 // Initialize Firebase
 import firebaseConfig from "/src/firebaseConfig.js";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-// const db = getFirestore();
+var userUid = "";
 
 import { getDatabase, ref, get, set, onValue } from "firebase/database";
 
+var PATH = "allTrips";
+
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        userUid = user.uid;
+        PATH = "allTrips/"+ userUid;
+    console.log("UIIDDD:" ,user.uid);
+
+    } else{
+        PATH = "guest";
+        userUid = "guest";
+    }
+});
+
+
 const db = getDatabase(app);
-const PATH = "allTrips";
 
 
   function modelToPersistence(model) {
-    console.log("model to per")
+    console.log("model to per");
+    // console.log("model to per TEST", getUidUser())
     const result = {
       allPlans: model.plans,
     };
