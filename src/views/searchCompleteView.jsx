@@ -12,10 +12,11 @@ function SearchCompleteView(props){
     })
 
     const scriptLoader = () => {
-        const url = GMAPS_BASE_URL + GMAPS_API_KEY + "&libraries=places"
+        const url = GMAPS_BASE_URL + GMAPS_API_KEY + "&libraries=places&callback=initMap"
         // if (!document.getElementById('googleMapsScript').src) {
         //     document.getElementById('googleMapsScript').src = url;
         // }
+        window.initMap = () => {};
         document.getElementById('googleMapsScript').src = url;
         document.getElementById('googleMapsScript').onload = () => {props.onMapsLoad(); console.log('script loaded'); init()} 
     }

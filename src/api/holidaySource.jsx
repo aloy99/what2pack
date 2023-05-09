@@ -1,4 +1,4 @@
-import { HOLIDAYS_BASE_URL, HOLIDAYS_API_KEY } from "./apiConfig.jsx";
+import { HOLIDAYS_BASE_URL, HOLIDAYS_API_KEY } from "../apiConfig.jsx";
 import dayjs from 'dayjs';
 
 const holidayParams = {

@@ -5,11 +5,15 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
+import { addTrip } from '../firestoreModel.js';
+import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function DetailsPresenter(props){
+    const currentUser = useAuth();
+
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-        console.log("current plan added: " + currentPlanAdded);
+        // console.log("current plan added: " + currentPlanAdded);
     },[window.location.href]);
     const plan = props.model.searchParams;
     const [destMsg, setDestMsg] = useState(plan.destination);
@@ -45,7 +49,8 @@ function DetailsPresenter(props){
                 endDate: endDate, 
                 items: props.model.searchResultsPromiseState.data.items,                
                 weathers: props.model.searchResultsPromiseState.data.weathers,
-                holidays: props.model.searchResultsPromiseState.data.holidays
+                holidays: props.model.searchResultsPromiseState.data.holidays,
+                image: props.model.searchResultsPromiseState.data.image
             };
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
@@ -91,15 +96,22 @@ function DetailsPresenter(props){
         }
     }
     function handleAddPlanACB(){
+        handleSubmit();
         props.model.addPlan(props.model.currentPlan);
         setCurrentPlanAdded(true);
         console.log(props.model);
     }
+    const handleSubmit = async () => {
+        try {
+        await addTrip(currentUser?.uid, props.model.currentPlan.destination, props.model.currentPlan.startDate, props.model.currentPlan.startDate);
+        } catch (error) {
+        }
+      };
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
         setCurrentPlanAdded(false);
         console.log(props.model);
-    }
+    } 
     function handleClickedLogoACB(){
         props.model.setCurrentPlan(null);
         console.log(props.model);
@@ -136,6 +148,12 @@ function DetailsPresenter(props){
         props.model.setItemRemark(item, newRemark);
         console.log(props.model);
     }
+    function handleUndoDeleteItemACB(item){
+        //TODO: sort
+        props.model.addItemToCurrentItems(item);
+        rerenderACB();
+        console.log(props.model);
+    }
     return (
         <>
             <DetailsView 
@@ -164,6 +182,7 @@ function DetailsPresenter(props){
                     onRemarkChange={handleRemarkChangeACB}
                     destMsg={destMsg}
                     dateMsg={dateMsg}
+                    onUndoDeleteItem={handleUndoDeleteItemACB}
                 />
             }
         </>

@@ -7,6 +7,7 @@ function PlansView(props){
     const navigate = useNavigate();
     function renderPlanCB(plan){
         const description = plan.startDate + " - " + plan.endDate;
+        
         function clickCardACB(){
             navigate("/details");
             props.onCurrentPlanChanged(plan);
@@ -16,7 +17,7 @@ function PlansView(props){
                 className='card-plan-profile'
                 key={plan}
                 hoverable
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                cover={<img className='img-card-plan-profile' alt={plan.destination} src={plan.image} />}
                 onClick={clickCardACB}
             >
                 <Meta title={plan.destination} description={description} />

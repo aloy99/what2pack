@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { notification, Popconfirm, Button, Input } from 'antd';
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
 import AddButtonView from './addButtonView';
@@ -15,11 +15,34 @@ function SuggestionView(props){
         }
     });
     const [api, contextHolder] = notification.useNotification();    
-    const openNotificationWithIcon = (type, msg, des) => {
+    const openNotificationWithIconWarning = (type, msg, des) => {
         api[type]({
           message: msg,
           description: des,
           duration: 3
+        });
+    };
+    const openNotificationWithUndoButton = (item, msg, des) => {
+        function undoButtonClickedACB(){
+            console.log("undo");
+            api.destroy();
+            props.onUndoDeleteItem(item);
+        }
+        const btn = (
+            <>
+              <Button type="link" size="small" onClick={() => api.destroy()}>
+                Close
+              </Button>
+              <Button type="primary" size="small" onClick={() => undoButtonClickedACB()}>
+                Undo
+              </Button>
+            </>
+        );
+        api.open({
+          message: msg,
+          description: des,
+          icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+          btn
         });
     };
     const rerenderACB = useRerender();
@@ -44,6 +67,7 @@ function SuggestionView(props){
     }
     function confirmDeleteItemACB(item){
         closeItemPopconfirm(item);
+        openNotificationWithUndoButton(item,`${item.name} deleted.`,'')
         props.onDeleteItem(item);
     }
     function cancelDeleteItemACB(item){
@@ -64,7 +88,7 @@ function SuggestionView(props){
         for(const it of props.currentPlan.items)
         {
             if(it.name == item.name){
-                openNotificationWithIcon('warning',`${it.name} already exists in current plan.`,'');
+                openNotificationWithIconWarning('warning',`${it.name} already exists in current plan.`,'');
                 return;
             }
         }
@@ -182,11 +206,11 @@ function SuggestionView(props){
         );
     }
     const iconPaths = {
-        'SUN' : "public/weather-icon/sun.png",
-        'DRIZZLE': "public/weather-icon/drizzle.png",
-        'LIGHT': "public/weather-icon/light.png",
-        'RAIN': "public/weather-icon/rain.png",
-        'CLOUD': "public/weather-icon/cloud.png"
+        'SUN' : "/weather-icon/sun.png",
+        'DRIZZLE': "/weather-icon/drizzle.png",
+        'LIGHT': "/weather-icon/light.png",
+        'RAIN': "/weather-icon/rain.png",
+        'CLOUD': "/weather-icon/cloud.png"
     };
     function weatherInfoCB(weather){
         // console.log(weather)

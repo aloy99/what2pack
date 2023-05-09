@@ -1,6 +1,9 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
+import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 export default function Navbar() {
+  const currentUser = useAuth();
+
   return (
     <nav className="nav">
       <Link to="/" className="site-title">
@@ -8,7 +11,10 @@ export default function Navbar() {
       </Link>
       <ul>
         <CustomLink to="/start">Home</CustomLink>
-        <CustomLink to="/login">Login/SignUp</CustomLink>
+        <CustomLink to="/login">
+         {currentUser ? "Signed In as: "+currentUser.email : "LogiIn / SignUp"}
+          {/* Login/SignUp OR Signed In as: {currentUser?.email} */}
+          </CustomLink>
         <CustomLink to="/profile">Profile</CustomLink>
       </ul>
     </nav>
