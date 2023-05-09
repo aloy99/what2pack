@@ -3,6 +3,7 @@ import { notification, Popconfirm, Button, Input } from 'antd';
 import { PlusOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
+import AddButtonView from './addButtonView';
 
 function SuggestionView(props){
     useEffect(()=>{
@@ -94,6 +95,32 @@ function SuggestionView(props){
         ifItemConfirmOpen.push(false);
         props.onAddItem(item);
     }
+    const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
+    const showPlanPopconfirm = () => {
+        setOpenPlanConfirm(true);
+    };
+    const closePlanPopconfirm = () => {
+        setOpenPlanConfirm(false);
+    };    
+    function clickAddToPlanACB(){
+        if(!props.currentPlanAdded){
+            if (props.currentPlan.destination 
+                && props.currentPlan.startDate 
+                && props.currentPlan.endDate){
+                    props.onAddPlan();
+                }
+        }
+    }
+    function clickRemoveFromPlanACB(){
+        showPlanPopconfirm();
+    }
+    function confirmDeletePlanACB(){
+        closePlanPopconfirm();
+        props.onDeletePlan();
+    }
+    function cancelDeletePlanACB(){
+        closePlanPopconfirm();
+    }
     function itemCheckedACB(evt){
         props.onItemChecked(evt.target.value, evt.target.checked);
     }
@@ -131,8 +158,7 @@ function SuggestionView(props){
                         <Button 
                             className="button-delete-item" 
                             type="text" 
-                            // style={{ background: "#ecd8b2", borderColor: "#ecd8b2" }}
-                            size="small"
+                            size="medium"
                             shape="circle"
                             icon={<MinusCircleOutlined/>} 
                             onClick={() => clickRemoveFromItemsACB(item)}/>
@@ -152,16 +178,31 @@ function SuggestionView(props){
                         defaultValue={item.remark}
                         onChange={changeRemarkACB}/>
                 </td>
-                <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
+                <td><input 
+                        className="checkbox-suggestion" 
+                        type="checkbox" 
+                        // size="medium"
+                        // shape="circle"
+                        onChange={itemCheckedACB} 
+                        value={item.name}/>
+                </td>
             </tr>
         )
     }
     function holidaysInfoCB(holiday){
         return(
-            <tr key={holiday.name}>
-                <td>{holiday.date}</td>
-                <td>{holiday.name}</td>
-            </tr>
+            // <tr key={holiday.name}>
+            //     <td>{holiday.date}</td>
+            //     <td>{holiday.name}</td>
+            // </tr>
+            <div className="holiday-date-name" key={holiday.name}>
+                <div className="holiday-title">
+                {holiday.date.slice(5)}
+                </div>
+                <div className="holiday-name">
+                {holiday.name}
+                </div>
+            </div>
         );
     }
     const iconPaths = {
@@ -200,10 +241,16 @@ function SuggestionView(props){
         if(weather.temp_max){
             return (
                 <div key={weather.time} className="div-weather">
-                    <b>{weather.time}</b>
-                    <p className="weather-temp-max">{weather.temp_max}</p>
-                    <p className="weather-temp-min">{weather.temp_min}</p>
-                    <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                        <div className="weather-date">
+                        <b>{weather.time}</b>
+                        </div>
+                        <div className="weather-pic">
+                        <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                        </div>
+                        <div className="weather-temp-ranage">
+                            <p className="weather-temp-max">{weather.temp_max}</p>
+                            <p className="weather-temp-min">{weather.temp_min}</p>
+                        </div>
                 </div>
             );
         }
@@ -274,17 +321,30 @@ function SuggestionView(props){
     let holidaysTable;
     if(props.currentPlan.holidays.length > 0){
         holidaysTable = (
-            <table className="holidays-table-details">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.currentPlan.holidays.map(holidaysInfoCB)}
-                </tbody>
-            </table>
+            // <table className="holidays-table-details">
+            //     <thead>
+            //         <tr>
+            //             {/* <th>Date</th>
+            //             <th>Event</th> */}
+            //         </tr>
+            //     </thead>
+            //     <tbody>
+            //         {props.currentPlan.holidays.map(holidaysInfoCB)}
+            //     </tbody>
+            // </table>
+        // <div className="holidaysTable-container">
+        //     <p>
+        //     {props.currentPlan.holidays.map(holidaysInfoCB)}                 
+        //     </p>  
+        // </div>
+        <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>
+                <div className="holiday-title">
+                {props.currentPlan.holidays[0].date.slice(5)}
+                </div>
+                <div className="holiday-name">
+                {props.currentPlan.holidays[0].name}
+                </div>
+            </div>
         );
     }
     else{
@@ -293,54 +353,132 @@ function SuggestionView(props){
         );
     }
     return (
-         <div className="detailPage-container">
-            
-            {/* news information please put here */}
-            <div className="news-item">
-                <h3>
-                    Local News 
-                </h3>
-                    <table className="news-table-details">
-                        <thead>
-                            <tr>
-                                <th>news</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-            </div>
+        <div className="detailPage-container">
 
-            <div className="suggestion-container">
-                <div className="suggestion-item">
-                    <h3>
-                        Weather Forecasts(°C)
-                    </h3>
-                    <div className="div-weathers">
-                        {props.currentPlan.weathers.map(weatherInfoCB)}
+            <div className="plan-news-container">
+                <div className="planandAdd-item">
+                        <div className="plan-inside-item">
+                            <div className="plan-title">
+                                <div className="plan-title-name">
+                                {props.destMsg}
+                                </div>
+                                <div className="plan-title-date">
+                                {props.dateMsg}
+                                </div>
+                            </div>
+                            <div className="addbutton">
+                            {/* {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />} */}
+                            <Popconfirm
+                                title="Are you sure to delete this plan?"
+                                description=""
+                                onConfirm={confirmDeletePlanACB}
+                                onCancel={cancelDeletePlanACB}
+                                okText="Yes"
+                                cancelText="No"
+                                disabled={!props.currentPlanAdded}
+                                open={openPlanConfirm}
+                                >
+                                <AddButtonView 
+                                    currentPlanAdded={props.currentPlanAdded}
+                                    onDeletePlan={clickRemoveFromPlanACB}
+                                    onAddPlan={clickAddToPlanACB}/> 
+                            </Popconfirm>
+                            </div>
                     </div>
-                    <h3>
-                        Packing List
-                    </h3>
-                    <table className="suggestion-table-details">
-                        <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Item</th>
-                                    <th>Amount</th>
-                                    <th>Remark</th>
-                                    <th>Packed</th>
-                                </tr>
-                            </thead>
-                            {itemsTableBody}
-                            {contextHolder}
-                    </table>
                 </div>
-            <div className="dateEvent-item">
-                <h3>National Holidays</h3>
-                {holidaysTable}
-            </div>
-        </div>
+
+                <div className="holiday-news-container">
+                    {/* news information please put here */}
+                    <div className="news holiday">
+                        <div className="new-holiday-title">
+                        <h3>National Holidays</h3>
+                        </div>
+                        {holidaysTable}
+                    </div>
+
+                    <div className="news one">
+                        <div className="content-container">
+                            <div className="news-title">
+                            <h3>News title 1</h3>
+                            </div>
+                            <p>content 1</p>
+                        </div>
+                        <div className="hypelink-item">
+                            <button className="arrow-button">
+                                <span class="arrow-text">More Info</span>   
+                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                            </button>
+                        </div>
+                    </div> 
+
+                    <div className="news two">
+                        <div className="content-container">
+                        <div className="news-title">
+                            <h3>News title 2</h3>
+                        </div>
+                            <p>content 3</p>
+                        </div>
+                        <div className="hypelink-item">
+                            <button className="arrow-button">
+                                <span class="arrow-text">More Info</span>   
+                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="news three">
+                        <div className="content-container">
+                        <div className="news-title">
+                            <h3>News title 3</h3>
+                        </div>
+                            <p>content 3</p>
+                        </div>
+                        <div className="hypelink-item">
+                            <button className="arrow-button">
+                                <span class="arrow-text">More Info</span>   
+                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                            </button>
+                        </div>
+                    </div>    
+                </div>  
+            </div>    
+
+        <div className="weather-list-container">
+
+                    <div className="weather-container">
+                            <div className="weather-title-item">
+                                <h3>
+                                    Weather Forecasts(°C)
+                                </h3>
+                            </div> 
+                            <div className="div-weathers">
+                                {props.currentPlan.weathers.map(weatherInfoCB)}
+                            </div> 
+                    </div>
+
+                <div className="suggestion-container">
+                        <div className="suggestion-title-item">
+                            <h3>
+                                Packing List
+                            </h3>
+                        </div>
+                        <div className="suggestion-item">   
+                        <table className="suggestion-table-details">
+                            <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Item</th>
+                                        <th>Amount</th>
+                                        <th>Remark</th>
+                                        <th>Packed</th>
+                                    </tr>
+                            </thead>
+                                {itemsTableBody}
+                                {contextHolder}
+                        </table>
+                        </div>    
+                    </div>
+            </div>     
     </div>
     );
 }

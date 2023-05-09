@@ -16,7 +16,9 @@ function DetailsPresenter(props){
         console.log("current plan added: " + props.model.currentPlan +props.model.plans);
     },[window.location.href]);
     const plan = props.model.searchParams;
-    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' ~ '+plan.endDate);
+    const [destMsg, setDestMsg] = useState(plan.destination);
+    const [dateMsg, setDateMsg] = useState(plan.startDate+' ~ '+plan.endDate);
+    // const [msg, setMsg] = useState(plan.destination+', '+);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
@@ -57,7 +59,9 @@ function DetailsPresenter(props){
             setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
             console.log(props.model);
         }
-        setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
+        setDestMsg(destination);
+        setDateMsg(startDate + ' ~ ' + endDate);
+        // setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
         const tmp = {
             destination: destination, 
             startDate: startDate, 
@@ -157,27 +161,28 @@ function DetailsPresenter(props){
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
                 gmapsLoaded = {props.model.gmapsLoaded}
-                onAddPlan={handleAddPlanACB}
-                onDeletePlan={handleDeletePlanACB}
                 onMapsLoad={mapsLoadedACB}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}
                 onClickLogo={handleClickedLogoACB}
                 currentPlanAdded={currentPlanAdded}
-                planMsg={msg}
             />
             {   
                 promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
+                    onAddPlan={handleAddPlanACB}
+                    onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
                     onRemarkChange={handleRemarkChangeACB}
+                    destMsg={destMsg}
+                    dateMsg={dateMsg}
                     onUndoDeleteItem={handleUndoDeleteItemACB}
                 />
             }

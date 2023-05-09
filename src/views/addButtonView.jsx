@@ -13,10 +13,10 @@ function AddButtonView(props){
         return(
             <Button 
                 className="button-add-to-plan-detail"
-                type="primary" 
-                icon={<CheckOutlined />} 
+                // type="primary" 
+                // icon={<CheckOutlined />} 
                 onClick={clickRemoveFromPlanACB} >
-                In my plans
+                <img src="inplanbutton.png" alt="Button" />
             </Button>
         );
     }
@@ -24,10 +24,10 @@ function AddButtonView(props){
         return(
             <Button 
                 className="button-add-to-plan-detail"
-                type="default" 
-                icon={<PlusOutlined />} 
+                // type="default" 
+                // icon={<PlusOutlined />} 
                 onClick={clickAddToPlanACB} >
-                Add to plans
+                <img src="addbutton.png" alt="Button" />
             </Button>
         );
     }
