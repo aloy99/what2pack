@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Card } from 'antd';
 import { EditOutlined, CloseOutlined } from '@ant-design/icons';
-import useRerender from "../reactjs/useRerender.jsx";
 const { Meta } = Card;
 function PlansView(props){
-    const rerenderACB = useRerender();
     const navigate = useNavigate();
     function renderPlanCB(plan){
         const description = plan.startDate + " - " + plan.endDate;
@@ -19,7 +17,6 @@ function PlansView(props){
         function clickDeleteCardACB(){
             console.log("delete card", plan);
             props.onDeletePlan(plan);
-            rerenderACB();
         }
         return (
             <Card

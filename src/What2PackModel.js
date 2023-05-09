@@ -3,7 +3,7 @@ import { getWeatherDetails } from './api/weatherSource';
 import { getHolidayDetails } from './api/holidaySource';
 import { getNewsDetails } from './api/newsSource';
 import { getUnsplashImages } from './api/unsplashSource';
-import { suggestACB } from './utils';
+import { suggestACB, isPlanEqual } from './utils';
 import isEqual from 'lodash.isequal';
 
 class What2PackModel{
@@ -18,7 +18,7 @@ class What2PackModel{
     }
 
     setCurrentPlan(plan){
-        if (this.currentPlan == null || !isEqual(plan, this.currentPlan)){
+        if (!this.currentPlan || !isPlanEqual(plan, this.currentPlan)){
             this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});
         }
@@ -66,7 +66,7 @@ class What2PackModel{
 
     removeItemFromCurrentItems(itemToRemove){
         const oldItems = this.currentPlan.items;
-        this.currentPlan.items = this.currentPlan.items.filter(it => it !== itemToRemove);
+        this.currentPlan.items = this.currentPlan.items.filter(it => !isEqual(it, itemToRemove));
         if (this.currentPlan.items.length !== oldItems.length){
             this.notifyObservers({itemToRemove: itemToRemove});
         }
@@ -74,7 +74,7 @@ class What2PackModel{
 
     addPlan(planToAdd){
         for (const p of this.plans){
-            if(isEqual(p, planToAdd)){
+            if(isPlanEqual(p, planToAdd)){
                 return;
             }
         }
@@ -84,7 +84,7 @@ class What2PackModel{
 
     removePlan(planToRemove){
         const oldPlans = this.plans;
-        this.plans = this.plans.filter(p => p !== planToRemove);
+        this.plans = this.plans.filter(p => !isPlanEqual(p, planToRemove));
         if (this.plans.length !== oldPlans.length){
             this.notifyObservers({planToRemove: planToRemove});
         }
@@ -125,7 +125,6 @@ class What2PackModel{
 
     doSearch(searchParams){
         if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
-
             resolvePromise(Promise.all([
                 getWeatherDetails(searchParams),
                 getHolidayDetails(searchParams),
