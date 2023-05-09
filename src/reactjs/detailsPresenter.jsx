@@ -13,15 +13,14 @@ function DetailsPresenter(props){
     const currentUser = useAuth();
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-        console.log("current plan added: " + props.model.currentPlan +props.model.plans);
+        // console.log("current plan added: " + props.model.currentPlan +props.model.plans);
         rerenderACB();
     },[window.location.href]);
     const plan = props.model.searchParams;
     const [destMsg, setDestMsg] = useState(plan.destination);
     const [dateMsg, setDateMsg] = useState(plan.startDate+' ~ '+plan.endDate);
-    // const [msg, setMsg] = useState(plan.destination+', '+);
     const [promiseState,] = useState({});
-    useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
+    useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded"]);
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
@@ -62,7 +61,6 @@ function DetailsPresenter(props){
         }
         setDestMsg(destination);
         setDateMsg(startDate + ' ~ ' + endDate);
-        // setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
         const tmp = {
             destination: destination, 
             startDate: startDate, 
