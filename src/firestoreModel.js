@@ -1,30 +1,57 @@
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore'; 
-import { db } from './firebaseModel';
+// import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore'; 
+// import { db } from './firebaseModel';
 
-const TRIPS_DB = 'trips';
+// const TRIPS_DB = 'trips2';
 
-export function addTrip(uid, locationName, startDate, endDate) {
-  addDoc(collection(db, TRIPS_DB), { uid, locationName, startDate, endDate});
-}
+// export function addTrip(uid, locationName, startDate, endDate, items) {
+//   addDoc(collection(db, TRIPS_DB), { uid, locationName, startDate, endDate, items});
+// }
 
-export async function getTrips(uid, setTrips, setIsLoadingTrips) {
-  const tripsQuery = query(collection(db, TRIPS_DB), where("uid", "==", uid), orderBy("locationName", "desc"));
+// export async function getTrips(uid, setTrips, setIsLoadingTrips) {
+//   const tripsQuery = query(collection(db, TRIPS_DB), where("uid", "==", uid), orderBy("locationName", "desc"));
 
-  const unsubscribe = onSnapshot(tripsQuery, async (snapshot) => {
-    let allTrips = [];
-    for (const documentSnapshot of snapshot.docs) {
-      const trip = documentSnapshot.data();
-      allTrips.push({
-        ...trip, 
-        id: documentSnapshot.id,
-      });
-      console.log(trip);
-    }
-    setTrips(allTrips);
-    setIsLoadingTrips(false);
-  })
-  return unsubscribe;
-}
+//   const unsubscribe = onSnapshot(tripsQuery, async (snapshot) => {
+//     let allTrips = [];
+//     for (const documentSnapshot of snapshot.docs) {
+//       const trip = documentSnapshot.data();
+//       allTrips.push({
+//         ...trip, 
+//         id: documentSnapshot.id,
+//       });
+//       console.log(trip);
+//     }
+//     setTrips(allTrips);
+//     setIsLoadingTrips(false);
+//   })
+//   return unsubscribe;
+// }
+
+//start working code
+// const TRIPS_DB = 'trips';
+
+// export function addTrip(uid, locationName, startDate, endDate) {
+//   addDoc(collection(db, TRIPS_DB), { uid, locationName, startDate, endDate});
+// }
+
+// export async function getTrips(uid, setTrips, setIsLoadingTrips) {
+//   const tripsQuery = query(collection(db, TRIPS_DB), where("uid", "==", uid), orderBy("locationName", "desc"));
+
+//   const unsubscribe = onSnapshot(tripsQuery, async (snapshot) => {
+//     let allTrips = [];
+//     for (const documentSnapshot of snapshot.docs) {
+//       const trip = documentSnapshot.data();
+//       allTrips.push({
+//         ...trip, 
+//         id: documentSnapshot.id,
+//       });
+//       console.log(trip);
+//     }
+//     setTrips(allTrips);
+//     setIsLoadingTrips(false);
+//   })
+//   return unsubscribe;
+// }
+//end working code
 
 // // Updates receipt with @docId with given information.
 // export function updateReceipt(docId, uid, date, locationName, address, items, amount, imageBucket) {

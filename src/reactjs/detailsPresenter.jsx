@@ -5,7 +5,7 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
-import { addTrip } from '../firestoreModel.js';
+// import { addTrip } from '../firestoreModel.js';
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function DetailsPresenter(props){
@@ -13,7 +13,7 @@ function DetailsPresenter(props){
 
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-        // console.log("current plan added: " + currentPlanAdded);
+        console.log("current plan added: " + props.model.currentPlan +props.model.plans);
     },[window.location.href]);
     const plan = props.model.searchParams;
     const [destMsg, setDestMsg] = useState(plan.destination);
@@ -97,17 +97,18 @@ function DetailsPresenter(props){
         }
     }
     function handleAddPlanACB(){
-        handleSubmit();
+        // handleSubmit();
         props.model.addPlan(props.model.currentPlan);
         setCurrentPlanAdded(true);
         console.log(props.model);
     }
-    const handleSubmit = async () => {
-        try {
-        await addTrip(currentUser?.uid, props.model.currentPlan.destination, props.model.currentPlan.startDate, props.model.currentPlan.startDate);
-        } catch (error) {
-        }
-      };
+    //add data to database
+    // const handleSubmit = async () => {
+    //     try {
+    //     await addTrip(currentUser?.uid, props.model.currentPlan.destination, props.model.currentPlan.startDate, props.model.currentPlan.endDate, props.model.currentPlan.items);
+    //     } catch (error) {
+    //     }
+    //   };
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
         setCurrentPlanAdded(false);
