@@ -38,6 +38,7 @@ function PlansView(props){
     }
     return (
         <div className='plans-profile'>
+            {props.plans.map(plan => renderPlanCB(plan))}
             <Card
                 className='card-plan-profile'
                 key='card-add'
@@ -47,7 +48,6 @@ function PlansView(props){
             >
                 <Meta title="Add a new plan" description="...." />
             </Card>
-            {props.plans.map(plan => renderPlanCB(plan))}
         </div>
     );
 }

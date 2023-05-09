@@ -55,18 +55,18 @@ function AuthPresenter(props){
 
     return (
         <div className="App">
-                 <AuthView 
-              value={{user}}
-              email={props.email}
-              password={props.password}
-              currentUser={props.currentUser}
-              errorMessage = {errMsg}
-              onEmailChange= {handleEmailChangeACB}
-              onPasswordChange={handlePasswordChangeACB}
-              onUserSignIn={handleUserSignIn}
-              onUserSignUp={handleUserSignUp}
-              // onUserSignOut={handleUserSignOutACB}
-              />
+          <AuthView 
+            value={{user}}
+            email={props.email}
+            password={props.password}
+            currentUser={props.currentUser}
+            errorMessage = {errMsg}
+            onEmailChange= {handleEmailChangeACB}
+            onPasswordChange={handlePasswordChangeACB}
+            onUserSignIn={handleUserSignIn}
+            onUserSignUp={handleUserSignUp}
+            // onUserSignOut={handleUserSignOutACB}
+          />
 
         </div>
     );
