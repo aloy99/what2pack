@@ -154,7 +154,14 @@ function SuggestionView(props){
                         defaultValue={item.remark}
                         onChange={changeRemarkACB}/>
                 </td>
-                <td><input type="checkbox" className="checkbox-suggestion" onChange={itemCheckedACB} value={item.name}/></td>
+                <td><input 
+                        className="checkbox-suggestion" 
+                        type="checkbox" 
+                        // size="medium"
+                        // shape="circle"
+                        onChange={itemCheckedACB} 
+                        value={item.name}/>
+                </td>
             </tr>
         )
     }
@@ -328,8 +335,12 @@ function SuggestionView(props){
                 <div className="planandAdd-item">
                         <div className="plan-inside-item">
                             <div className="plan-title">
-                            <h2>{props.destMsg}</h2>
-                            <p>{props.dateMsg}</p>
+                                <div className="plan-title-name">
+                                {props.destMsg}
+                                </div>
+                                <div className="plan-title-date">
+                                {props.dateMsg}
+                                </div>
                             </div>
                             <div className="addbutton">
                             {/* {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />} */}
@@ -362,15 +373,48 @@ function SuggestionView(props){
                     </div>
 
                     <div className="news one">
-                        <h3>news</h3>
-                    </div>
+                        <div className="content-container">
+                            <div className="news-title">
+                            <h3>News title 1</h3>
+                            </div>
+                            <p>content 1</p>
+                        </div>
+                        <div className="hypelink-item">
+                            <button className="arrow-button">
+                                <span class="arrow-text">More Info</span>   
+                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                            </button>
+                        </div>
+                    </div> 
 
                     <div className="news two">
-                        <h3>news</h3>
+                        <div className="content-container">
+                        <div className="news-title">
+                            <h3>News title 2</h3>
+                        </div>
+                            <p>content 3</p>
+                        </div>
+                        <div className="hypelink-item">
+                            <button className="arrow-button">
+                                <span class="arrow-text">More Info</span>   
+                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                            </button>
+                        </div>
                     </div>
 
                     <div className="news three">
-                        <h3>news</h3>
+                        <div className="content-container">
+                        <div className="news-title">
+                            <h3>News title 3</h3>
+                        </div>
+                            <p>content 3</p>
+                        </div>
+                        <div className="hypelink-item">
+                            <button className="arrow-button">
+                                <span class="arrow-text">More Info</span>   
+                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                            </button>
+                        </div>
                     </div>    
                 </div>  
             </div>    

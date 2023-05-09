@@ -54,10 +54,12 @@ he} */
 
 .input-amount {
   text-align: center;
+  text-decoration: underline;
 }
 
 .input-remark {
   text-align: center;
+  /* text-decoration: underline; */
 }
 
 .profile-container{
@@ -141,7 +143,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   justify-content: space-between;
   align-items: stretch;
   gap: 2rem;
-  padding: 0 1rem;
+  padding: 0 2rem;
   font-family: 'Castoro Titling', cursive;
 }
 
@@ -187,7 +189,21 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   flex-direction: row;
   justify-content: space-between;
   height: 100vh;
+  padding-top: 15px;
 }
+
+.button-add-to-plan-detail {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.button-add-to-plan-detail img {
+  width: 60px;
+  height: 60px;
+  /* background-color: #47453f; */
+}
+
 .detailPage-container div{
   margin-bottom: 10px;
 }
@@ -196,11 +212,27 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   display: flex;
   flex-direction: column;
   width: 50%;
-  padding: 10px;
+  padding: 20px;
 }
 
 .plan-title {
+  display: flex;
+  flex-direction: column;
+  /* font-family: 'Castoro Titling', cursive; */
+  color: white;
+  width: 80%;
+}
+
+.plan-title-name {
+  padding-top: 20px;
   font-family: 'Castoro Titling', cursive;
+  font-size: 40px;
+  height: 70px;
+  color: white;
+}
+
+.plan-title-date {
+  /* font-family: 'Castoro Titling', cursive; */
   font-size: larger;
   color: white;
 }
@@ -237,6 +269,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   /* justify-content: space-between; */
   /* align-items: center;  */
   height: 70%;
+  /* width: 100%; */
 }
 
 
@@ -251,6 +284,37 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 
 .news.holiday {
   background-color:  #ecd8b2;
+}
+
+.news-title {
+  font-family: 'Castoro Titling', cursive;
+}
+
+.content-container {
+  height: 65%;
+}
+
+.hypelink-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.arrow-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: small;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.arrow-button img {
+  width: 10px;
+  height: 10px;
 }
 
 .holiday-title {
@@ -274,15 +338,13 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
  flex-direction: column;
  text-align: center;
  margin-top: -10px;
- color: white;
+ /* color: white; */
 }
 
 .news.holiday, .news.one {
   order: 1;
   padding-right: 20px;
-
 }
-
 .news.two, .news.three {
   order: 2;
   padding-right: 20px;
@@ -319,7 +381,12 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   overflow-y: scroll;
   background-color: #B5B48E;
 }
-
+.checkbox-suggestion {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
 /* .table-header {
   position: fixed;
   top: 0;
@@ -405,7 +472,8 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   display: flex;
   flex-direction: column;
   width: calc(50% - 20px);
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 20px;
 }
 
 .weather-list-container div{

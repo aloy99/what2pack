@@ -122,37 +122,34 @@ button:focus-visible {
 /*LandingPage End*/
 
 .login-item {
-  /* background-color: #b2b5ec; */
   margin-right: 0px;
   margin-left: auto; 
 }
 
 .logo-item {
-  /* background-color: #b2b5ec; */
-  /* margin-right: 0px;
-  margin-left: auto;  */
   padding: 40px;
+}
+
+.logo-login-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecd8b2;
+  margin-top: -20px;
 }
 
 .search-detail-item {
   /* padding: 15px; */
-  width: auto;
-  justify-content: center;
-  align-items: center;
-  /* background-color: #1a1a1a; */
+  /* width: auto; */
+  background-color: #ecd8b2;
+  /* width: 100%; */
+  padding-bottom: 20px;
 }
 
 .searchblock-item {
   margin: 60px;
   align-items: center;
   width: 500px;
-}
-
-.logo-login-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 }
 
 .mainContent {
