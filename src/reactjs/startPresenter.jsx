@@ -17,7 +17,8 @@ function StartPresenter(props){
                 items: props.model.searchResultsPromiseState.data.items,
                 weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays,
-                image: props.model.searchResultsPromiseState.data.image
+                image: props.model.searchResultsPromiseState.data.image,
+                news: props.model.searchResultsPromiseState.data.news.slice(0,3)
             };
             // console.log(plan)
             for(const it of plan.items){

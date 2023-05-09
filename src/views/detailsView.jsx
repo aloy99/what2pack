@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Popconfirm } from 'antd';
 import dayjs from 'dayjs';
 import SearchBarView from "./searchBarView";
-import AddButtonView from './addButtonView';
-import UserIconView from './userIconView';
 import { func } from "prop-types";
 
 function DetailsView(props){
@@ -15,13 +12,7 @@ function DetailsView(props){
         setDefaultRange(props.currentPlan ? [dayjs(props.currentPlan.startDate), dayjs(props.currentPlan.endDate)] : ["",""]);
     },[window.location.href]);
     const navigate = useNavigate();
-    const [openPlanConfirm, setOpenPlanConfirm] = useState(false);
-    const showPlanPopconfirm = () => {
-        setOpenPlanConfirm(true);
-    };
-    const closePlanPopconfirm = () => {
-        setOpenPlanConfirm(false);
-    };    
+
     function passSearchInputACB(destination, startDate, endDate){
         props.onSearchInput(destination, startDate, endDate);
     }
@@ -41,26 +32,6 @@ function DetailsView(props){
     function mapsLoadedACB(){
         props.onMapsLoad();
     }
-    function clickAddToPlanACB(){
-        if(!props.currentPlanAdded){
-            if (props.currentPlan.destination 
-                && props.currentPlan.startDate 
-                && props.currentPlan.endDate){
-                    props.onAddPlan();
-                }
-        }
-    }
-    function clickRemoveFromPlanACB(){
-        showPlanPopconfirm();
-    }
-    function confirmDeletePlanACB(){
-        closePlanPopconfirm();
-        props.onDeletePlan();
-        //TODO: Undo button.
-    }
-    function cancelDeletePlanACB(){
-        closePlanPopconfirm();
-    }
     return (
     <>
         <div className="logo-login-container">
@@ -73,7 +44,7 @@ function DetailsView(props){
                 onClick={clickLogoACB}>
             </img>
             </div> */}
-            <h2 id="msg-details">{props.planMsg}</h2>
+            {/* <h2 id="msg-details">{props.planMsg}</h2> */}
             <div className="search-detail-item">
                 <SearchBarView 
                     id="search-bar-details" 
@@ -85,7 +56,7 @@ function DetailsView(props){
                     onDestChanged={passDestACB} 
                     onRangeChanged={passRangeACB}
                 />
-                <Popconfirm
+                {/* <Popconfirm
                     title="Are you sure to delete this plan?"
                     description=""
                     onConfirm={confirmDeletePlanACB}
@@ -95,11 +66,11 @@ function DetailsView(props){
                     disabled={!props.currentPlanAdded}
                     open={openPlanConfirm}
                     >
-                    <AddButtonView 
+                     <AddButtonView 
                         currentPlanAdded={props.currentPlanAdded}
                         onDeletePlan={clickRemoveFromPlanACB}
-                        onAddPlan={clickAddToPlanACB}/>
-                </Popconfirm>
+                        onAddPlan={clickAddToPlanACB}/> 
+                </Popconfirm> */}
             </div>
 
             {/* <div className="login-item">

@@ -15,7 +15,7 @@ function PlansView(props){
         return (
             <Card
                 className='card-plan-profile'
-                key={plan}
+                key={plan.destination+" "+plan.startDate+" "+plan.endDate}
                 hoverable
                 cover={<img className='img-card-plan-profile' alt={plan.destination} src={plan.image} />}
                 onClick={clickCardACB}

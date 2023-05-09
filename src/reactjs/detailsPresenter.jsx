@@ -5,7 +5,7 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
-import { addTrip } from '../firestoreModel.js';
+// import { addTrip } from '../firestoreModel.js';
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function DetailsPresenter(props){
@@ -13,10 +13,12 @@ function DetailsPresenter(props){
 
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-        // console.log("current plan added: " + currentPlanAdded);
+        console.log("current plan added: " + props.model.currentPlan +props.model.plans);
     },[window.location.href]);
     const plan = props.model.searchParams;
-    const [msg, setMsg] = useState(plan.destination+', '+plan.startDate+' ~ '+plan.endDate);
+    const [destMsg, setDestMsg] = useState(plan.destination);
+    const [dateMsg, setDateMsg] = useState(plan.startDate+' ~ '+plan.endDate);
+    // const [msg, setMsg] = useState(plan.destination+', '+);
     const [promiseState,] = useState({});
     useModelProp(props.model, ["currentPlan", "plans", "searchParams"]);
     const rerenderACB = useRerender();
@@ -48,7 +50,8 @@ function DetailsPresenter(props){
                 items: props.model.searchResultsPromiseState.data.items,                
                 weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays,
-                image: props.model.searchResultsPromiseState.data.image
+                image: props.model.searchResultsPromiseState.data.image,
+                news: props.model.searchResultsPromiseState.data.news.slice(0,3)
             };
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
@@ -57,7 +60,9 @@ function DetailsPresenter(props){
             setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
             console.log(props.model);
         }
-        setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
+        setDestMsg(destination);
+        setDateMsg(startDate + ' ~ ' + endDate);
+        // setMsg(destination + ', ' + startDate + ' ~ ' + endDate);
         const tmp = {
             destination: destination, 
             startDate: startDate, 
@@ -92,17 +97,18 @@ function DetailsPresenter(props){
         }
     }
     function handleAddPlanACB(){
-        handleSubmit();
+        // handleSubmit();
         props.model.addPlan(props.model.currentPlan);
         setCurrentPlanAdded(true);
         console.log(props.model);
     }
-    const handleSubmit = async () => {
-        try {
-        await addTrip(currentUser?.uid, props.model.currentPlan.destination, props.model.currentPlan.startDate, props.model.currentPlan.startDate);
-        } catch (error) {
-        }
-      };
+    //add data to database
+    // const handleSubmit = async () => {
+    //     try {
+    //     await addTrip(currentUser?.uid, props.model.currentPlan.destination, props.model.currentPlan.startDate, props.model.currentPlan.endDate, props.model.currentPlan.items);
+    //     } catch (error) {
+    //     }
+    //   };
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
         setCurrentPlanAdded(false);
@@ -145,10 +151,7 @@ function DetailsPresenter(props){
         console.log(props.model);
     }
     function handleUndoDeleteItemACB(item){
-        //TODO: sort
-        props.model.addItemToCurrentItems(item);
-        rerenderACB();
-        console.log(props.model);
+        handleAddItemACB(item);
     }
     return (
         <>
@@ -156,27 +159,28 @@ function DetailsPresenter(props){
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
                 gmapsLoaded = {props.model.gmapsLoaded}
-                onAddPlan={handleAddPlanACB}
-                onDeletePlan={handleDeletePlanACB}
                 onMapsLoad={mapsLoadedACB}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}
                 onClickLogo={handleClickedLogoACB}
                 currentPlanAdded={currentPlanAdded}
-                planMsg={msg}
             />
             {   
                 promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
+                    onAddPlan={handleAddPlanACB}
+                    onDeletePlan={handleDeletePlanACB}
                     onItemChecked={handleItemPackedACB}
                     onAllItemsChecked={handleAllItemsPackedACB}
                     onDeleteItem={handleDeleteItemACB}
                     onAddItem={handleAddItemACB}
                     onAmountChange={handleAmountChangeACB}
                     onRemarkChange={handleRemarkChangeACB}
+                    destMsg={destMsg}
+                    dateMsg={dateMsg}
                     onUndoDeleteItem={handleUndoDeleteItemACB}
                 />
             }
