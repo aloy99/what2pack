@@ -13,7 +13,13 @@ function SuggestionView(props){
         for(const div of divsWeather){
             div.style.setProperty("--weather-width", weatherWidth);
         }
-    });
+        for(const item in props.currentPlan.items){
+            const checkbox = document.getElementById("checkbox-suggestion-"+ item.name);
+            if(checkbox){
+                checkbox.checked = item.ifPacked;
+            }
+        }
+    },[]);
     const [api, contextHolder] = notification.useNotification();    
     const openNotificationWithIconWarning = (type, msg, des) => {
         api[type]({
@@ -170,22 +176,27 @@ function SuggestionView(props){
                         type="number" 
                         className="input-amount" 
                         defaultValue={item.amount}
-                        onChange={changeAmountACB}/>
+                        onChange={changeAmountACB}
+                    />
                 </td>
                 <td>                    
                     <input  
                         className="input-remark" 
                         defaultValue={item.remark}
-                        onChange={changeRemarkACB}/>
+                        onChange={changeRemarkACB}
+                    />
                 </td>
                 <td>
                     <input 
-                        className="checkbox-suggestion" 
+                        className="checkbox-suggestion"
+                        id={"checkbox-suggestion-"+ item.name}
                         type="checkbox" 
                         // size="medium"
                         // shape="circle"
                         onChange={itemCheckedACB} 
-                        value={item.name}/>
+                        value={item.name}
+                        // checked={item.ifPacked}
+                    />
                 </td>
             </tr>
         )
@@ -244,16 +255,16 @@ function SuggestionView(props){
         if(weather.temp_max){
             return (
                 <div key={weather.time} className="div-weather">
-                        <div className="weather-date">
-                        <b>{weather.time}</b>
-                        </div>
-                        <div className="weather-pic">
-                        <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
-                        </div>
-                        <div className="weather-temp-ranage">
-                            <p className="weather-temp-max">{weather.temp_max}</p>
-                            <p className="weather-temp-min">{weather.temp_min}</p>
-                        </div>
+                    <div className="weather-date">
+                    <b>{weather.time}</b>
+                    </div>
+                    <div className="weather-pic">
+                    <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                    </div>
+                    <div className="weather-temp-ranage">
+                        <p className="weather-temp-max">{weather.temp_max}</p>
+                        <p className="weather-temp-min">{weather.temp_min}</p>
+                    </div>
                 </div>
             );
         }

@@ -15,7 +15,10 @@ function ProfilePresenter(props){
     function handleCurrentPlanChangeACB(plan){
         props.model.setCurrentPlan(plan);
     }
-
+    function handleDeletePlanACB(){
+        props.model.removePlan(props.model.currentPlan);
+        console.log(props.model);
+    } 
     return (
         <>
             <ProfileView 
@@ -25,6 +28,7 @@ function ProfilePresenter(props){
             <PlansView 
                 plans={props.model.plans}
                 onCurrentPlanChanged={handleCurrentPlanChangeACB}
+                onDeletePlan={handleDeletePlanACB}
             />
         </>
     );

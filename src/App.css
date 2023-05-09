@@ -519,9 +519,10 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 .div-weather{
   display: flex;
   flex-direction: column; 
-  width: 13%;
+  width: var(--weather-width);
   flex: 0 0 auto;
   margin: 0 5% 0 0%;
+  padding-bottom: 1%;
   border-radius: 5px;
   text-align: center;
   justify-content: center;

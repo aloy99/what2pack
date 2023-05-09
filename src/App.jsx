@@ -38,7 +38,7 @@ function App() {
     {/* <div className="nav-container"> */}
       <Routes>
         <Route path='/' element={<StartPresenter model={myModel}/>}></Route>
-        <Route path='/start' element={<StartPresenter model={myModel}/>}></Route>
+        {/* <Route path='/start' element={<StartPresenter model={myModel}/>}></Route> */}
         <Route path='/login' element={<AuthPresenter model={myModel}/>}></Route>
         <Route path='/details' element={<DetailsPresenter model={myModel}/>}></Route>
         <Route path='/profile' element={<ProfilePresenter model={myModel}/>}></Route>

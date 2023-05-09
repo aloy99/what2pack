@@ -7,12 +7,12 @@ import { useState, useEffect } from 'react';
 function ProfileView(props){
     const navigate = useNavigate();
     const currentUser = useAuth();
-    const [isLoadingTrips, setIsLoadingTrips] = useState(true);;
+    const [isLoadingTrips, setIsLoadingTrips] = useState(true);
     const [trips, setTrips] = useState([]);
 
     function handleuserSignOutACB(e){
         navigate('/')
-        props.onUserSignOut()
+        props.onUserSignOut();
     }  
 
     function handleGoHomeACB(e){
