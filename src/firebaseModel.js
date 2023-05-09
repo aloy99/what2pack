@@ -31,7 +31,7 @@ const db = getDatabase(app);
     console.log("model to per");
     // console.log("model to per TEST", getUidUser())
     const result = {
-      allPlans: model.plans,
+      plans: model.plans,
     };
     console.log(result);
     return result
