@@ -566,3 +566,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   width: 40px;
   height: 40px;
 }
+
+.auth-error{
+  color: #FC4F00;
+}

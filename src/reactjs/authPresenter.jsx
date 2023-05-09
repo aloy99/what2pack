@@ -9,6 +9,7 @@ function AuthPresenter(props){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState({});
+    const [errMsg, setErrorMsg] = useState('');
     const auth = getAuth();
     const currentUser = useAuth();
 
@@ -28,11 +29,11 @@ function AuthPresenter(props){
             const user = userCredential.user;
             console.log("Sign Up!")
             navigate('/profile')
+            setErrorMsg()
           })
           .catch((error) => {
             console.log(error);
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            setErrorMsg(error.message);
         });
     }
 
@@ -43,11 +44,12 @@ function AuthPresenter(props){
             const user = userCredential.user;
             console.log("Log In!")
             navigate('/profile')
+            setErrorMsg()
           })
           .catch((error) => {
             console.log(error);
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            setErrorMsg(error.message);
+            console.log(errMsg)
         });
     }      
 
@@ -58,7 +60,8 @@ function AuthPresenter(props){
               email={props.email}
               password={props.password}
               currentUser={props.currentUser}
-              onEmailChange={handleEmailChangeACB}
+              errorMessage = {errMsg}
+              onEmailChange= {handleEmailChangeACB}
               onPasswordChange={handlePasswordChangeACB}
               onUserSignIn={handleUserSignIn}
               onUserSignUp={handleUserSignUp}

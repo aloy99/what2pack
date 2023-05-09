@@ -1,11 +1,23 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+import { Popconfirm } from "antd";
 
 function AuthView(props){
     const [isSignUpShown, setIsSignUpShown] = useState(false);
     const [isSignInShown, setIsSignInShown] = useState(true);
     const [isLoggedInShown, setIsLoggedInShown] = useState(false);
+    const [openAuthError, setOpenAuthError] = useState(false);
+
+    console.log(/(?<=auth\/)[a-z-]*/.exec(props.errorMessage));
+    const showAuthErrorCB = () => {
+        if (props.errorMessage){
+        setOpenAuthError(true);
+        }
+    };
+    const closeAuthErrorCB = () => {
+        setOpenAuthError(false);
+    };   
     const currentUser = useAuth();
     const navigate = useNavigate();
 
@@ -39,7 +51,7 @@ function AuthView(props){
     if (currentUser){
         return (
         <div>
-            <p>You are allready signed In as: {currentUser?.email}</p> 
+            <p>You are already signed in as: {currentUser?.email}</p> 
             <button onClick={handelGoProfileButton}>Go to your profile page</button>
             <button onClick={handelGoHomeButton}>Go home</button>
         </div>
@@ -65,11 +77,13 @@ function AuthView(props){
                                             onChange={changeEmailACB}  
                                         ></input>
                                          <label for="password">Password</label>
-                                        <input type="password" placeholder="Enter your password" 
+                                         <input type="password" placeholder="Enter your password" 
                                             value={props.password}
                                             onChange={changePasswordACB}  
                                         ></input>
-                                        <button className="login-button" type="submit" >Log In</button>
+                                        <button className="login-button" type="submit" onClick={showAuthErrorCB}>Log In</button>
+                                        <div className="auth-error">{props.errorMessage ? /(?<=auth\/)[a-z-]*/.exec(props.errorMessage)[0].replaceAll('-',' ') :''}</div>
+
                                     </form>
                                 </div>
                             </div>
@@ -100,6 +114,7 @@ function AuthView(props){
                                             onChange={changePasswordACB} 
                                         ></input>
                                         <button className="login-button" type="submit" >Sign Up</button>
+                                        <div className="auth-error">{props.errorMessage ? /(?<=auth\/)[a-z-]*/.exec(props.errorMessage)[0].replaceAll('-',' ') :''}</div>
                                     </form>
                                 </div>
                             </div>
