@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 import { useState, useEffect } from 'react';
-import { addTrip, getTrips } from '../firestoreModel.js';
+// import { addTrip, getTrips } from '../firestoreModel.js';
 
 function ProfileView(props){
     const navigate = useNavigate();
@@ -16,9 +16,9 @@ function ProfileView(props){
     }  
 
     function handleGoHomeACB(e){
-        // navigate('/');
-        console.log(getTrips(currentUser.uid, setTrips, setIsLoadingTrips));
-        getTrips(currentUser.uid, setTrips, setIsLoadingTrips);
+        navigate('/');
+        // console.log(getTrips(currentUser.uid, setTrips, setIsLoadingTrips));
+        // getTrips(currentUser.uid, setTrips, setIsLoadingTrips);
     }  
 
     return (
@@ -31,7 +31,7 @@ function ProfileView(props){
                     <button onClick={handleuserSignOutACB}>Sign Out</button>
                     <button onClick={handleGoHomeACB}>Show user database info:</button>
                     {/* <button onClick={handleSubmit} >  Submit </button> */}
-                    <div> 
+                    {/* <div> 
                     {trips.length > 0 ? (
                             trips.map((trip) => <p key={trip.id}>uid:
                                 {trip.id} id:  
@@ -43,7 +43,7 @@ function ProfileView(props){
                         ) : (
                             <h1>no answers yet :</h1>
                         )}
-                      </div>
+                      </div> */}
                     </div> : 
                     <div>
                         <p>You are: signed out</p> 
