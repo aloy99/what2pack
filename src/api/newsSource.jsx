@@ -21,7 +21,8 @@ function getNewsDetails(searchTerms) {
     }
 
     function getNewsACB(json_response) {
-        return json_response.value;
+        const result = json_response.value;
+        return result;
     }
 
     return fetch(NEWS_BASE_URL + new URLSearchParams({'q':searchTerms.destination.split(', ').join(' '), ...newsParams}),

@@ -178,7 +178,8 @@ function SuggestionView(props){
                         defaultValue={item.remark}
                         onChange={changeRemarkACB}/>
                 </td>
-                <td><input 
+                <td>
+                    <input 
                         className="checkbox-suggestion" 
                         type="checkbox" 
                         // size="medium"
@@ -189,20 +190,24 @@ function SuggestionView(props){
             </tr>
         )
     }
-    function holidaysInfoCB(holiday){
+    function newsInfoCB(news){
         return(
-            // <tr key={holiday.name}>
-            //     <td>{holiday.date}</td>
-            //     <td>{holiday.name}</td>
-            // </tr>
-            <div className="holiday-date-name" key={holiday.name}>
-                <div className="holiday-title">
-                {holiday.date.slice(5)}
+            <>
+                <div className="content-container">
+                    {/* <div className="news-title">
+                        <h3>{news.}</h3>
+                    </div> */}
+                    <p>{news.name}</p>
                 </div>
-                <div className="holiday-name">
-                {holiday.name}
+                <div className="hypelink-item">
+                    <a href={news.url}  target="_blank">
+                        <button className="arrow-button">
+                            <span className="arrow-text">More Info</span>   
+                            <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
+                        </button>
+                    </a>
                 </div>
-            </div>
+            </>
         );
     }
     const iconPaths = {
@@ -213,8 +218,6 @@ function SuggestionView(props){
         'CLOUD': "/weather-icon/cloud.png"
     };
     function weatherInfoCB(weather){
-        // console.log(weather)
-        // const uv = weather
         let iconPath;
         const pre = weather.precipitation;
         const uv = weather.uv;
@@ -321,22 +324,6 @@ function SuggestionView(props){
     let holidaysTable;
     if(props.currentPlan.holidays.length > 0){
         holidaysTable = (
-            // <table className="holidays-table-details">
-            //     <thead>
-            //         <tr>
-            //             {/* <th>Date</th>
-            //             <th>Event</th> */}
-            //         </tr>
-            //     </thead>
-            //     <tbody>
-            //         {props.currentPlan.holidays.map(holidaysInfoCB)}
-            //     </tbody>
-            // </table>
-        // <div className="holidaysTable-container">
-        //     <p>
-        //     {props.currentPlan.holidays.map(holidaysInfoCB)}                 
-        //     </p>  
-        // </div>
         <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>
                 <div className="holiday-title">
                 {props.currentPlan.holidays[0].date.slice(5)}
@@ -354,7 +341,6 @@ function SuggestionView(props){
     }
     return (
         <div className="detailPage-container">
-
             <div className="plan-news-container">
                 <div className="planandAdd-item">
                         <div className="plan-inside-item">
@@ -367,7 +353,6 @@ function SuggestionView(props){
                                 </div>
                             </div>
                             <div className="addbutton">
-                            {/* {!props.currentPlanAdded && <AddButtonView onAddPlan={props.onAddPlan} />} */}
                             <Popconfirm
                                 title="Are you sure to delete this plan?"
                                 description=""
@@ -397,49 +382,16 @@ function SuggestionView(props){
                     </div>
 
                     <div className="news one">
-                        <div className="content-container">
-                            <div className="news-title">
-                            <h3>News title 1</h3>
-                            </div>
-                            <p>content 1</p>
-                        </div>
-                        <div className="hypelink-item">
-                            <button className="arrow-button">
-                                <span class="arrow-text">More Info</span>   
-                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
-                            </button>
-                        </div>
+                       {newsInfoCB(props.currentPlan.news[0])}
                     </div> 
 
                     <div className="news two">
-                        <div className="content-container">
-                        <div className="news-title">
-                            <h3>News title 2</h3>
-                        </div>
-                            <p>content 3</p>
-                        </div>
-                        <div className="hypelink-item">
-                            <button className="arrow-button">
-                                <span class="arrow-text">More Info</span>   
-                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
-                            </button>
-                        </div>
+                        {newsInfoCB(props.currentPlan.news[1])}
                     </div>
 
                     <div className="news three">
-                        <div className="content-container">
-                        <div className="news-title">
-                            <h3>News title 3</h3>
-                        </div>
-                            <p>content 3</p>
-                        </div>
-                        <div className="hypelink-item">
-                            <button className="arrow-button">
-                                <span class="arrow-text">More Info</span>   
-                                <img className="arrow-icon" src="arrowbutton.png" alt="Button" />
-                            </button>
-                        </div>
-                    </div>    
+                        {newsInfoCB(props.currentPlan.news[2])}
+                    </div>     
                 </div>  
             </div>    
 

@@ -50,7 +50,8 @@ function DetailsPresenter(props){
                 items: props.model.searchResultsPromiseState.data.items,                
                 weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays,
-                image: props.model.searchResultsPromiseState.data.image
+                image: props.model.searchResultsPromiseState.data.image,
+                news: props.model.searchResultsPromiseState.data.news.slice(0,3)
             };
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
@@ -149,10 +150,7 @@ function DetailsPresenter(props){
         console.log(props.model);
     }
     function handleUndoDeleteItemACB(item){
-        //TODO: sort
-        props.model.addItemToCurrentItems(item);
-        rerenderACB();
-        console.log(props.model);
+        handleAddItemACB(item);
     }
     return (
         <>
