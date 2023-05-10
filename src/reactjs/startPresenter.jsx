@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import useModelProp from './useModelProp.jsx';
 import useRerender from "./useRerender.jsx";
 import StartView from '../views/startView.jsx';
@@ -11,6 +11,7 @@ function StartPresenter(props){
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
             const plan = {
+                index: props.model.plans.length,
                 destination: destination, 
                 startDate: startDate, 
                 endDate: endDate, 
@@ -18,9 +19,9 @@ function StartPresenter(props){
                 weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays,
                 image: props.model.searchResultsPromiseState.data.image,
-                news: props.model.searchResultsPromiseState.data.news.slice(0,3)
+                news: props.model.searchResultsPromiseState.data.news.slice(0,3),
+                ifDeleteConfirmOpen: false
             };
-            // console.log(plan)
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
             }

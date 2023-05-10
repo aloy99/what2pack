@@ -8,7 +8,7 @@ import AddButtonView from './addButtonView';
 function SuggestionView(props){
     useEffect(()=>{
         const days = props.currentPlan.weathers.length;
-        let weatherWidth = (0.92/(days < 6? days : 6))*100+'%';
+        let weatherWidth = (0.8/(days < 6? days : 6))*100+'%';
         const divsWeather = document.getElementsByClassName("div-weather");
         for(const div of divsWeather){
             div.style.setProperty("--weather-width", weatherWidth);
@@ -66,8 +66,6 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
-    const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
     function clickRemoveFromItemsACB(item){
         showItemPopconfirm(item);
     }
@@ -90,6 +88,14 @@ function SuggestionView(props){
             ifPacked: false,
             index: props.currentPlan.items.length,
             ifDeleteConfirmOpen: false
+        }
+        if(item.name == ""){
+            openNotificationWithIconWarning('warning','Item name should not be empty','');
+            return;
+        }
+        if(!item.amount){
+            openNotificationWithIconWarning('warning','Item amount should not be empty','');
+            return;
         }
         for(const it of props.currentPlan.items)
         {
@@ -174,6 +180,7 @@ function SuggestionView(props){
                 <td>
                     <input 
                         type="number" 
+                        min="0"
                         className="input-amount" 
                         defaultValue={item.amount}
                         onChange={changeAmountACB}
@@ -280,10 +287,17 @@ function SuggestionView(props){
     }
     const addItemRow = (
         <tr>
-            <th></th>
-            <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
-            <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
-            <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th>
+            <th>
+            <Button 
+                className="button-add-item" 
+                type="defalt" 
+                size="medium"
+                icon={<PlusCircleOutlined/>} 
+                onClick={() => clickAddItemACB()}></Button>
+            </th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-name"/></th>
+            <th><Input type="number" min="0" className="input-add-item" id="input-add-item-amount" /></th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-remark" /></th>
             <th>
                 <Button 
                     className="button-add-item" 

@@ -1,12 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { Card } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Popconfirm, Card } from 'antd';
 import { EditOutlined, CloseOutlined } from '@ant-design/icons';
+import useRerender from "../reactjs/useRerender";
+
 const { Meta } = Card;
 function PlansView(props){
+    const rerenderACB = useRerender();
     const navigate = useNavigate();
+    const ifPlanConfirmOpen = props.plans.map(() => false);
+    const [openPlanConfirm, setOpenPlanConfirm] = useState(ifPlanConfirmOpen);
     function renderPlanCB(plan){
-        const description = plan.startDate + " - " + plan.endDate;
-        
+        const description = plan.startDate + " ~ " + plan.endDate;
         function clickCardACB(){
             navigate("/details");
             props.onCurrentPlanChanged(plan);
@@ -15,8 +20,26 @@ function PlansView(props){
             clickCardACB();
         }
         function clickDeleteCardACB(){
+            showPlanPopconfirm(plan);
+        }
+        function showPlanPopconfirm(plan){
+            const openPlanConfirmNew = openPlanConfirm;
+            openPlanConfirmNew[plan.index] = true;
+            setOpenPlanConfirm(openPlanConfirmNew);
+            rerenderACB();
+        }
+        function closeItemPopconfirm(plan){
+            const openPlanConfirmNew = openPlanConfirm;
+            openPlanConfirmNew[plan.index] = false;
+            setOpenPlanConfirm(openPlanConfirmNew);
+            rerenderACB();
+        };
+        function confirmDeletePlanACB(plan){
             console.log("delete card", plan);
             props.onDeletePlan(plan);
+        }
+        function cancelDeletePlanACB(plan){
+            closeItemPopconfirm(plan);
         }
         return (
             <Card
@@ -26,7 +49,18 @@ function PlansView(props){
                 cover={<img className='img-card-plan-profile' alt={plan.destination} src={plan.image} onClick={clickCardACB}/>}
                 actions={[
                     <EditOutlined key="edit" onClick={clickEditCardACB}/>,
-                    <CloseOutlined key="ellipsis" onClick={clickDeleteCardACB}/>
+                    <Popconfirm
+                        title="Are you sure to delete this plan?"
+                        description=""
+                        onConfirm={confirmDeletePlanACB}
+                        onCancel={cancelDeletePlanACB}
+                        okText="Yes"
+                        cancelText="No"
+                        // disabled={!props.currentPlanAdded}
+                        open={openPlanConfirm[plan.index]}
+                        >
+                        <CloseOutlined key="ellipsis" onClick={clickDeleteCardACB}/>
+                    </Popconfirm>
                 ]}
             >
                 <Meta title={plan.destination} description={description} />
@@ -46,7 +80,7 @@ function PlansView(props){
                 cover={<img className='img-card-plan-profile' alt="add a plan" src="/public/addPlanPic.jpg" />}
                 onClick={clickAddCardACB}
             >
-            <Meta title="Add a new plan" description="...." />
+                <Meta title="Add a new plan" description="...." />
             </Card>
         </div>
     );
