@@ -577,6 +577,8 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   background-color: #E8E8E8;
   height: calc(30% - 20px);
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .weather-inside-item {
@@ -586,26 +588,42 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 .weather-title-item {
   font-family: 'Castoro Titling', cursive;
   padding-left: 30px;
-  height: 25px;
+  height: 30%;
   font-size: large;
   content: attr(data-text);
 }
 
+.div-weathers-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
 .div-weathers{
-  height: calc(100% - 60px);
+  height: 70%;
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row; 
   justify-content: space-between;
   align-content: space-between;
-  margin: 0px 30px 0px 30px;
+  margin: 0 5% 0 5%;
+}
+
+#remark-na {
+  height: 30%;
+  font-size: x-small;
+  margin: 0 5% 0 5%;
+  visibility: hidden;
 }
 
 .div-weather{
   display: flex;
   flex-direction: column; 
   width: var(--weather-width);
+  height: 80%;
   flex: 0 0 auto;
   margin: 0 1% 0 0%;
   padding-bottom: 1%;
@@ -628,7 +646,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   gap: 10px;
   align-items: center;
   justify-content: center;
-  height: 20%;
+  height: 25%;
   /* justify-content: space-between; */
   /* background-color:  #ecd8b2; */
 }

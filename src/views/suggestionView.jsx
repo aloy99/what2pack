@@ -6,9 +6,10 @@ import { thresholdPrecipitation } from '../utils';
 import AddButtonView from './addButtonView';
 
 function SuggestionView(props){
+    let isNA = false;
     useEffect(()=>{
         const days = props.currentPlan.weathers.length;
-        let weatherWidth = (0.8/(days < 6? days : 6))*100+'%';
+        let weatherWidth = (0.85/(days < 6? days : 6))*100+'%';
         const divsWeather = document.getElementsByClassName("div-weather");
         for(const div of divsWeather){
             div.style.setProperty("--weather-width", weatherWidth);
@@ -19,7 +20,17 @@ function SuggestionView(props){
                 checkbox.checked = item.ifPacked;
             }
         }
+        const msgNA = document.getElementById("remark-na");
+        if(msgNA){
+            if(isNA){
+                msgNA.style.visibility = "visible";
+            }
+            else{
+                msgNA.style.visibility = "hidden";
+            }
+        }
     },[]);
+    
     const [api, contextHolder] = notification.useNotification();    
     const openNotificationWithIconWarning = (type, msg, des) => {
         api[type]({
@@ -282,11 +293,19 @@ function SuggestionView(props){
             );
         }
         else{
+            isNA = true;
             return (
                 <div key={weather.time} className="div-weather">
-                    <h3>{weather.time}</h3>
-                    <p>Not</p>
-                    <p>available</p>
+                    <div className="weather-date">
+                    <b>{weather.time}</b>
+                    </div>
+                    <div className="weather-pic">
+                        <img src='/public/unknown.png' className="weather-icon" alt="unknown-icon"></img>
+                    </div>
+                    <div className="weather-temp-ranage">
+                        <p className="weather-temp-max">Not</p>
+                        <p className="weather-temp-max">Available*</p>
+                    </div>
                 </div>
             );
         }
@@ -421,39 +440,40 @@ function SuggestionView(props){
 
         <div className="weather-list-container">
 
-                    <div className="weather-container">
-                            <div className="weather-title-item">
-                                <h3>
-                                    Weather Forecasts(°C)
-                                </h3>
-                            </div> 
-                            <div className="div-weathers">
-                                {props.currentPlan.weathers.map(weatherInfoCB)}
-                            </div> 
-                    </div>
+            <div className="weather-container">
+                <div className="weather-title-item">
+                    <h3>Weather Forecasts(°C)</h3>
+                </div> 
+                <div className="div-weathers-container">
+                    <div className="div-weathers">
+                        {props.currentPlan.weathers.map(weatherInfoCB)}
+                    </div> 
+                    <p id="remark-na">* We only provide weather forecast for the next 14 days. Please come back later :)</p>
+                </div>
+            </div>
 
-                <div className="suggestion-container">
-                        <div className="suggestion-title-item">
-                            <h3>
-                                Packing List
-                            </h3>
-                        </div>
-                        <div className="suggestion-item">   
-                        <table className="suggestion-table-details">
-                            <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Item</th>
-                                        <th>Amount</th>
-                                        <th>Remark</th>
-                                        <th>Packed</th>
-                                    </tr>
-                            </thead>
-                                {itemsTableBody}
-                                {contextHolder}
-                        </table>
-                        </div>    
+            <div className="suggestion-container">
+                    <div className="suggestion-title-item">
+                        <h3>
+                            Packing List
+                        </h3>
                     </div>
+                    <div className="suggestion-item">   
+                    <table className="suggestion-table-details">
+                        <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Item</th>
+                                    <th>Amount</th>
+                                    <th>Remark</th>
+                                    <th>Packed</th>
+                                </tr>
+                        </thead>
+                            {itemsTableBody}
+                            {contextHolder}
+                    </table>
+                    </div>    
+                </div>
             </div>     
     </div>
     );
