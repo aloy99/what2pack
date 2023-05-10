@@ -58,20 +58,19 @@ function SearchBarView(props){
     };
     return (
     <div className="search-bar-container">
-            <div className="destination-button">
-                <SearchCompleteView defaultValue={props.defaultDest} gmapsLoaded = {props.gmapsLoaded} onMapsLoad={mapsLoadedACB} onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
-            </div>
-            <div className="searchrange-button">
-                <RangePicker id="range-picker-search-bar" defaultValue={props.defaultRange} disabledDate={disabledDate} onChange={rangeChangeACB}/>
-            </div>
-        <div className="search-item">
-
-        {contextHolder}
-        <div className="packbutton">
-        <Button id="button-search-bar" type="primary" icon={<SearchOutlined />}  style={{ background: "#FA4C37" }} onClick={clickSearchACB}>
-            Pack!
-        </Button>
+        <div className="destination-button">
+            <SearchCompleteView defaultValue={props.defaultDest} gmapsLoaded = {props.gmapsLoaded} onMapsLoad={mapsLoadedACB} onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
         </div>
+        <div className="searchrange-button">
+            <RangePicker className="searchrange-button" id="range-picker-search-bar" defaultValue={props.defaultRange} disabledDate={disabledDate} onChange={rangeChangeACB}/>
+        </div>
+        <div className="search-item">
+        {contextHolder}
+            <div className="packbutton">
+                <Button className="packbutton" id="button-search-bar" type="primary" icon={<SearchOutlined />}  style={{ background: "#FA4C37" }} onClick={clickSearchACB}>
+                    Pack!
+                </Button>
+            </div>
         </div>
     </div>
     );
