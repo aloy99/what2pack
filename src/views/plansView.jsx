@@ -46,7 +46,7 @@ function PlansView(props){
                 cover={<img className='img-card-plan-profile' alt="add a plan" src="/public/addPlanPic.jpg" />}
                 onClick={clickAddCardACB}
             >
-                <Meta title="Add a new plan" description="...." />
+            <Meta title="Add a new plan" description="...." />
             </Card>
         </div>
     );

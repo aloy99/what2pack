@@ -27,8 +27,11 @@ class What2PackModel{
     setItemAmount(item, newAmount){
         for (const it of this.currentPlan.items){
             if(it.name === item.name){
-                it.amount = newAmount;
-                break;
+                if(it.amount !== item.amount){
+                    it.amount = newAmount;
+                    this.notifyObservers({item: it});
+                    break;
+                }
             }
         }
     }
@@ -36,17 +39,23 @@ class What2PackModel{
     setItemRemark(item, newRemark){
         for (const it of this.currentPlan.items){
             if(it.name === item.name){
-                it.remark = newRemark;
-                break;
+                if(it.remark !== item.remark){
+                    it.remark = newRemark;
+                    this.notifyObservers({item: it});
+                    break;
+                }
             }
         }
     }
 
     setItemPacked(itemToCheck, ifPacked){
-        for (const item of this.currentPlan.items){
-            if(isEqual(item, itemToCheck)){
-                item.ifPacked = ifPacked;
-                break;
+        for (const it of this.currentPlan.items){
+            if(isEqual(it, itemToCheck)){
+                if(it.ifPacked !== ifPacked){
+                    it.ifPacked = ifPacked;
+                    this.notifyObservers({item: it});
+                    break;
+                }
             }
         }
     }
