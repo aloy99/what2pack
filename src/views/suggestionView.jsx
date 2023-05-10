@@ -206,7 +206,6 @@ function SuggestionView(props){
                         // shape="circle"
                         onChange={itemCheckedACB} 
                         value={item.name}
-                        // checked={item.ifPacked}
                     />
                 </td>
             </tr>
