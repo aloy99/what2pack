@@ -41,19 +41,16 @@ function AuthView(props){
         // navigate('/profile')
     };
 
-    function handelGoProfileButton(e){
-        navigate('/profile')
-    }  
-    function handelGoHomeButton(e){
+    function handleuserSignOutACB(e){
         navigate('/')
+        props.onUserSignOut();
     }  
 
     if (currentUser){
         return (
         <div>
-            <p>You are already signed in as: {currentUser?.email}</p> 
-            <button onClick={handelGoProfileButton}>Go to your profile page</button>
-            <button onClick={handelGoHomeButton}>Go home</button>
+            <p>You are signed in as: {currentUser?.email}</p> 
+            <button onClick={handleuserSignOutACB}>Sign Out</button>
         </div>
         )
     }else {
