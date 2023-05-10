@@ -6,8 +6,6 @@ import UserIconView from './userIconView';
 
 function StartView(props){
     const currentPlan = props.currentPlan;
-    const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
-    const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
     const navigate = useNavigate();
     function passSearchInputACB(destination, startDate, endDate){
         props.onSearchInput(destination, startDate, endDate);
@@ -19,13 +17,13 @@ function StartView(props){
     function passRangeACB(startDate, endDate){
         props.onRangeChanged(startDate, endDate);
     }
-    function clickLoginACB(){
-        navigate("/login");
-    }
-    function clickLogoACB(){
-        props.onClickLogo();
-        navigate("/");
-    }
+    // function clickLoginACB(){
+    //     navigate("/login");
+    // }
+    // function clickLogoACB(){
+    //     props.onClickLogo();
+    //     navigate("/");
+    // }
     function mapsLoadedACB(){
         props.onMapsLoad();
     }
