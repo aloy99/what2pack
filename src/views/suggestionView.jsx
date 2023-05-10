@@ -19,11 +19,19 @@ function SuggestionView(props){
         for(const div of divsWeather){
             div.style.setProperty("--weather-width", weatherWidth);
         }
+        let checkedItemNumber = 0;
         for(const item of props.currentPlan.items){
             const id = "checkbox-suggestion-"+ generateUniqueId(item.name);
             const checkbox = document.getElementById(id);
             if(checkbox){
+                checkedItemNumber += item.ifPacked;
                 checkbox.checked = item.ifPacked;
+            }
+        }
+        if(checkedItemNumber >= props.currentPlan.items.length){
+            const checkboxAll = document.getElementById("checkbox-check-all");
+            if(checkboxAll){
+                checkboxAll.checked = true;
             }
         }
         const msgNA = document.getElementById("remark-na");
