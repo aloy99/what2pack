@@ -82,13 +82,14 @@ button:focus-visible {
   }
 }
 
+
 /*LandingPage Start*/
 .start-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 60px);
 }
 
 .start-container>div {
