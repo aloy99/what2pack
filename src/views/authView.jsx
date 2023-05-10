@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+import AuthContext from "../AuthContext";
 import { Popconfirm } from "antd";
 
 function AuthView(props){
@@ -18,7 +18,7 @@ function AuthView(props){
     const closeAuthErrorCB = () => {
         setOpenAuthError(false);
     };   
-    const currentUser = useAuth();
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     function changeEmailACB(e){
@@ -44,12 +44,13 @@ function AuthView(props){
     function handleuserSignOutACB(e){
         navigate('/')
         props.onUserSignOut();
+        console.log("props: sign out ",  props.onUserSignOut());
     }  
 
-    if (currentUser){
+    if (user){
         return (
         <div>
-            <p>You are signed in as: {currentUser?.email}</p> 
+            <p>You are signed in as: {user?.email}</p> 
             <button onClick={handleuserSignOutACB}>Sign Out</button>
         </div>
         )

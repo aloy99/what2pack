@@ -1,8 +1,11 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
-import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+import {useContext} from "react";
+import AuthContext from "../AuthContext";
+// import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 export default function Navbar() {
-  const currentUser = useAuth();
+  // const currentUser = useAuth();
+  const { user } = useContext(AuthContext);
 
   return (
     <nav className="nav">
@@ -12,9 +15,9 @@ export default function Navbar() {
       <ul>
         <CustomLink to="/">Home</CustomLink>
         {/* show trips if logged in */}
-        {currentUser ? <CustomLink to="/profile">All trips</CustomLink>  : ""}
+        {user ? <CustomLink to="/profile">All trips</CustomLink>  : ""}
         <CustomLink to="/login">
-        {currentUser ? "Signed In as: "+currentUser.email : "Login / SignUp"}
+        {user ? "Signed In as: "+user.email : "Login / SignUp"}
        </CustomLink> 
       </ul>
     </nav>
