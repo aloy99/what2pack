@@ -305,22 +305,7 @@ function SuggestionView(props){
             <th><Input type="text" className="input-add-item" id="input-add-item-name"/></th>
             <th><Input type="number" min="0" className="input-add-item" id="input-add-item-amount" /></th>
             <th><Input type="text" className="input-add-item" id="input-add-item-remark" /></th>
-            <th>
-            <Button 
-                    className="button-add-item" 
-                    type="defalt" 
-                    size="medium"
-                    icon={<PlusCircleOutlined/>} 
-                    onClick={() => clickAddItemACB()}></Button>
-            </th>
-            {/* <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
-            <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
-            <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th> */}
-            <th><Input type="text" className="input-add-item" id="input-add-item-name"/></th>
-            <th><Input type="number" className="input-add-item" id="input-add-item-amount" /></th>
-            <th><Input type="text" className="input-add-item" id="input-add-item-remark" /></th>
-            <th>
-            </th>
+            <th></th>
         </tr>
     );
     let itemsTableBody;
