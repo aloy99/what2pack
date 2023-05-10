@@ -12,13 +12,14 @@ function AddButtonView(props){
     if(props.currentPlanAdded){
         return(
             <div className="removetoplan-container">
-                <Button 
+                {/* <Button 
                     className="button-add-to-plan-detail"
                     onClick={clickRemoveFromPlanACB} >
                     <img src="inplanbutton.png" alt="Button"/>
-                </Button>
+                </Button> */}
+                <img  className="button-add-to-plan-detail" src="inplanbutton.png" alt="Button" onClick={clickRemoveFromPlanACB}/>
                 <div className="removetoplan-title">
-                        Remove to plan
+                        See my profile
                 </div>
             </div>
             
@@ -27,11 +28,8 @@ function AddButtonView(props){
     else{
         return(
             <div className="addtoplan-container">
-                <Button 
-                    className="button-add-to-plan-detail"
-                    onClick={clickAddToPlanACB} >
-                    <img src="addbutton.png" alt="Button" />
-                </Button>
+                 
+                <img className="button-add-to-plan-detail" src="addbutton.png" alt="Button" onClick={clickAddToPlanACB} />
                 <div className="addtoplan-title">
                     Add to plan
                 </div>
