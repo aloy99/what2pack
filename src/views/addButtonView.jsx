@@ -17,7 +17,7 @@ function AddButtonView(props){
                     onClick={clickRemoveFromPlanACB} >
                     <img src="inplanbutton.png" alt="Button"/>
                 </Button> */}
-                <img  className="button-add-to-plan-detail" src="inplanbutton.png" alt="Button" onClick={clickRemoveFromPlanACB}/>
+                <img className="button-add-to-plan-detail" src="inplanbutton.png" alt="Button" onClick={clickRemoveFromPlanACB}/>
                 <div className="removetoplan-title">
                         See my profile
                 </div>
