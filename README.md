@@ -1,17 +1,18 @@
-Welcome to the What2Pack Website!
-The aim of this website is that you can find information and prepare yourself for your next planned trip. Based on your destination and travel dates. 
+# What2Pack
+Welcome to What2Pack!
+The aim of this webapp is to enable you to information and prepare yourself for your next planned trip, based on your destination and travel dates. 
 
-The website gives you:
+The webapp gives you:
 Packing advice based on the weather (API)
-The Holidays that are happening during your planned trip (API)
+The local holidays that are happening during your planned trip (API)
 Current news on your planned destination (API)
 
-- What we have done:
+# What we have done:
 On the landing page, you can fill in your destination and travel date, when you click on search you will see packing advice based on the weather API.
 If you click on the login icon, you can sign up or log in on What2Pack and sign out. 
 User testing : https://docs.google.com/document/d/1jlsax-P4guY3SXY7rLVAtGeZ12kV93LXTaiUh6joi3U/edit
 
-- What we are planning to do:
+# What we are planning to do:
 providing holiday information based on your trip details
 providing news information based on your trip details
 save your planned trips to your account
@@ -19,11 +20,15 @@ Make packing list, local news and recent local holidays + save to account
 Ability to share packing lists with friends and assign packing tasks
 Modify some UI components based on the “think aloud” user testing
 
-- Our project file structure (short description/purpose of each file):
+# Our project file structure (short description/purpose of each file):
 [src]
+
     [assets]
+    
         react.svg (default file)
+        
     [reactjs]
+    
         LoginPresenter.jsx (redirect Login View (will handle login props later))
         detailsPresenter.jsx (trip details presenter, handles plan details and suggested item props)
         profilePresenter.jsx (user profile presenter, handles saved trip props)
