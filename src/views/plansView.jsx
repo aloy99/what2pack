@@ -61,7 +61,7 @@ function PlansView(props){
         };
         function confirmDeletePlanACB(){
             console.log("delete card", plan);
-            openNotificationWithUndoButton(plan,`Plan to ${plan.destination}(${plan.startDate}~${plan.endDate}) deleted.`,'')
+            openNotificationWithUndoButton(plan,`Trip to ${plan.destination}(${plan.startDate}~${plan.endDate}) deleted.`,'')
             props.onDeletePlan(plan);
         }
         function cancelDeletePlanACB(){
