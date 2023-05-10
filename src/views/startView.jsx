@@ -39,7 +39,6 @@ function StartView(props){
             {/* <UserIconView onIconClicked={clickLoginACB}/> */}
             </div>
             <div className="searchblock-item">
-
                 <h1>What to pack?</h1>
                 <h3>Pack the insights into your holidays</h3>
                 <SearchBarView 

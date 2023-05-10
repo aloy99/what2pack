@@ -260,6 +260,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   font-size: small;
   text-align: center;
   color: white;
+  cursor: pointer;
 }
 
 .detailPage-container div{
@@ -606,7 +607,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   flex-direction: column; 
   width: var(--weather-width);
   flex: 0 0 auto;
-  margin: 0 0% 0 0%;
+  margin: 0 1% 0 0%;
   padding-bottom: 1%;
   border-radius: 5px;
   text-align: center;
