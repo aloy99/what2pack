@@ -11,24 +11,31 @@ function AddButtonView(props){
     }
     if(props.currentPlanAdded){
         return(
-            <Button 
-                className="button-add-to-plan-detail"
-                // type="primary" 
-                // icon={<CheckOutlined />} 
-                onClick={clickRemoveFromPlanACB} >
-                <img src="inplanbutton.png" alt="Button" />
-            </Button>
+            <div className="removetoplan-container">
+                <Button 
+                    className="button-add-to-plan-detail"
+                    onClick={clickRemoveFromPlanACB} >
+                    <img src="inplanbutton.png" alt="Button"/>
+                </Button>
+                <div className="removetoplan-title">
+                        Remove to plan
+                </div>
+            </div>
+            
         );
     }
     else{
         return(
-            <Button 
-                className="button-add-to-plan-detail"
-                // type="default" 
-                // icon={<PlusOutlined />} 
-                onClick={clickAddToPlanACB} >
-                <img src="addbutton.png" alt="Button" />
-            </Button>
+            <div className="addtoplan-container">
+                <Button 
+                    className="button-add-to-plan-detail"
+                    onClick={clickAddToPlanACB} >
+                    <img src="addbutton.png" alt="Button" />
+                </Button>
+                <div className="addtoplan-title">
+                    Add to plan
+                </div>
+            </div>
         );
     }
 }

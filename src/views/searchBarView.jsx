@@ -67,10 +67,11 @@ function SearchBarView(props){
         <div className="search-item">
 
         {contextHolder}
-      
+        <div className="packbutton">
         <Button id="button-search-bar" type="primary" icon={<SearchOutlined />}  style={{ background: "#FA4C37" }} onClick={clickSearchACB}>
             Pack!
         </Button>
+        </div>
         </div>
     </div>
     );

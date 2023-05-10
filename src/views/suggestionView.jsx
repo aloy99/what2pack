@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { notification, Popconfirm, Button, Input } from 'antd';
-import { PlusOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
 import AddButtonView from './addButtonView';
@@ -176,7 +176,11 @@ function SuggestionView(props){
                             onClick={() => clickRemoveFromItemsACB(item)}/>
                     </Popconfirm>
                 </td>
-                <td>{item.name}</td>
+                <td>
+                    {/* <div className="input-name"> */}
+                    {item.name}
+                    {/* </div> */}
+                    </td>
                 <td>
                     <input 
                         type="number" 
@@ -213,9 +217,12 @@ function SuggestionView(props){
             <>
                 <div className="content-container">
                     {/* <div className="news-title">
-                        <h3>{news.}</h3>
+                        <h3>{news.title}</h3>
                     </div> */}
-                    <p>{news.name}</p>
+                     <div className="news-title">
+                     <p>{news.name}.</p>
+                    </div>
+
                 </div>
                 <div className="hypelink-item">
                     <a href={news.url}  target="_blank">
@@ -299,10 +306,20 @@ function SuggestionView(props){
             <th><Input type="number" min="0" className="input-add-item" id="input-add-item-amount" /></th>
             <th><Input type="text" className="input-add-item" id="input-add-item-remark" /></th>
             <th>
-                <Button 
+            <Button 
                     className="button-add-item" 
-                    type="primary" icon={<PlusOutlined/>} 
-                    onClick={() => clickAddItemACB()}>Add</Button>
+                    type="defalt" 
+                    size="medium"
+                    icon={<PlusCircleOutlined/>} 
+                    onClick={() => clickAddItemACB()}></Button>
+            </th>
+            {/* <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
+            <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th> */}
+            <th><Input type="text" className="input-add-item" id="input-add-item-name"/></th>
+            <th><Input type="number" className="input-add-item" id="input-add-item-amount" /></th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-remark" /></th>
+            <th>
             </th>
         </tr>
     );
@@ -318,10 +335,8 @@ function SuggestionView(props){
                         <th></th>
                         <th></th>
                         <th>select all</th>
-                    </tr>
-                    <tr>
                         <th>
-                        <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                        <input className="checkbox-all" id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
                         <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
                         </th>
                     </tr>
@@ -339,7 +354,7 @@ function SuggestionView(props){
                     <th></th>
                     <th>select all</th>
                     <th>
-                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                    <input className="checkbox-all" id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
                     <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
                     </th>
                 </tbody>

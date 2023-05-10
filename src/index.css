@@ -81,6 +81,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* start profile */
+.profileViewH1 {
+  font-family: 'Castoro Titling', cursive;
+  color: #595549;
+  margin-left: 30px;
+}
+/* end profile */
 
 /*LandingPage Start*/
 .start-container {
@@ -88,7 +95,7 @@ button:focus-visible {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 60px);
 }
 
 .start-container>div {
