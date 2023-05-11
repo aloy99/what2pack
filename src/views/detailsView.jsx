@@ -41,8 +41,6 @@ function DetailsView(props){
             <div className="search-detail-item">
                 <SearchBarView 
                     id="search-bar-details" 
-                    defaultDest={defaultDest}
-                    defaultRange={defaultRange}
                     locationSuggestions={props.locationSuggestions}
                     destValue={props.destValue}
                     onLocationClicked={passLocationClickACB}
