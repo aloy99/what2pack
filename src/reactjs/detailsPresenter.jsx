@@ -10,6 +10,7 @@ import { onAuthStateChanged, getAuth} from "firebase/auth";
 // import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function DetailsPresenter(props){
+    useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded"]);
     const rerenderACB = useRerender();
     // const currentUser = useAuth();
     const [currentUser, setCurrentUser] = useState();
@@ -20,14 +21,11 @@ function DetailsPresenter(props){
         },[]);
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-        // console.log("current plan added: " + props.model.currentPlan +props.model.plans);
         rerenderACB();
     },[window.location.href]);
-    const plan = props.model.searchParams;
-    const [destMsg, setDestMsg] = useState(plan.destination);
-    const [dateMsg, setDateMsg] = useState(plan.startDate+' ~ '+plan.endDate);
+    const [destMsg, setDestMsg] = useState(props.model.searchParams.destination);
+    const [dateMsg, setDateMsg] = useState(props.model.searchParams.startDate + " ~ " + props.model.searchParams.endDate);
     const [promiseState,] = useState({});
-    useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded"]);
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
@@ -50,6 +48,7 @@ function DetailsPresenter(props){
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
             const plan = {
+                index: props.model.plans.length,
                 destination: destination, 
                 startDate: startDate, 
                 endDate: endDate, 
@@ -57,7 +56,8 @@ function DetailsPresenter(props){
                 weathers: props.model.searchResultsPromiseState.data.weathers,
                 holidays: props.model.searchResultsPromiseState.data.holidays,
                 image: props.model.searchResultsPromiseState.data.image,
-                news: props.model.searchResultsPromiseState.data.news.slice(0,3)
+                news: props.model.searchResultsPromiseState.data.news.slice(0,3),
+                ifDeleteConfirmOpen: false
             };
             for(const it of plan.items){
                 it.ifDeleteConfirmOpen = false;
@@ -68,6 +68,7 @@ function DetailsPresenter(props){
         }
         setDestMsg(destination);
         setDateMsg(startDate + ' ~ ' + endDate);
+        rerenderACB();
         const tmp = {
             destination: destination, 
             startDate: startDate, 

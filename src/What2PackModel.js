@@ -4,7 +4,6 @@ import { getHolidayDetails } from './api/holidaySource';
 import { getNewsDetails } from './api/newsSource';
 import { getUnsplashImages } from './api/unsplashSource';
 import { suggestACB, isPlanEqual } from './utils';
-import isEqual from 'lodash.isequal';
 
 class What2PackModel{
     constructor(plans = []) {
@@ -27,11 +26,9 @@ class What2PackModel{
     setItemAmount(item, newAmount){
         for (const it of this.currentPlan.items){
             if(it.name === item.name){
-                if(it.amount !== item.amount){
-                    it.amount = newAmount;
-                    this.notifyObservers({item: it});
-                    break;
-                }
+                it.amount = newAmount;
+                this.notifyObservers({item: it});
+                break;
             }
         }
     }
@@ -39,23 +36,19 @@ class What2PackModel{
     setItemRemark(item, newRemark){
         for (const it of this.currentPlan.items){
             if(it.name === item.name){
-                if(it.remark !== item.remark){
-                    it.remark = newRemark;
-                    this.notifyObservers({item: it});
-                    break;
-                }
+                it.remark = newRemark;
+                this.notifyObservers({item: it});
+                break;
             }
         }
     }
 
     setItemPacked(itemToCheck, ifPacked){
         for (const it of this.currentPlan.items){
-            if(isEqual(it, itemToCheck)){
-                if(it.ifPacked !== ifPacked){
-                    it.ifPacked = ifPacked;
-                    this.notifyObservers({item: it});
-                    break;
-                }
+            if(it.name === itemToCheck.name){
+                it.ifPacked = ifPacked;
+                this.notifyObservers({item: it});
+                break;
             }
         }
     }
@@ -65,7 +58,7 @@ class What2PackModel{
             return a.index - b.index;
         }
         for (const item of this.currentPlan.items){
-            if(isEqual(item, itemToAdd)){
+            if(item.name === itemToAdd.name){
                 return;
             }
         }
@@ -74,8 +67,10 @@ class What2PackModel{
     }
 
     removeItemFromCurrentItems(itemToRemove){
+        console.log(this.currentPlan.items)
         const oldItems = this.currentPlan.items;
-        this.currentPlan.items = this.currentPlan.items.filter(it => !isEqual(it, itemToRemove));
+        this.currentPlan.items = this.currentPlan.items.filter(it => it.name !== itemToRemove.name);
+        console.log(this.currentPlan.items)
         if (this.currentPlan.items.length !== oldItems.length){
             this.notifyObservers({itemToRemove: itemToRemove});
         }
