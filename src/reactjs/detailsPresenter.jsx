@@ -13,6 +13,7 @@ function DetailsPresenter(props){
     useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded"]);
     const rerenderACB = useRerender();
     // const currentUser = useAuth();
+    const auth = getAuth();
     const [currentUser, setCurrentUser] = useState();
 
     useEffect(() => {
