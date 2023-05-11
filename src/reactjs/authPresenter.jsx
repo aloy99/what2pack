@@ -4,6 +4,7 @@ import {auth} from "../firebaseModel";
 import AuthView from "../views/authView.jsx";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+import {signOut} from "firebase/auth";
 
 function AuthPresenter(props){
     const [email, setEmail] = useState('');
@@ -21,6 +22,11 @@ function AuthPresenter(props){
     function handlePasswordChangeACB(givenPassword) {
         setPassword(givenPassword);
       }  
+    const handleUserSignOutACB = () =>{
+      signOut(auth).then(() =>{
+          console.log("sign out successful");
+      }).catch(error => console.log(error));
+    }
 
     const handleUserSignUp = (e) =>{
         e.preventDefault();
@@ -55,18 +61,18 @@ function AuthPresenter(props){
 
     return (
         <div className="App">
-                 <AuthView 
-              value={{user}}
-              email={props.email}
-              password={props.password}
-              currentUser={props.currentUser}
-              errorMessage = {errMsg}
-              onEmailChange= {handleEmailChangeACB}
-              onPasswordChange={handlePasswordChangeACB}
-              onUserSignIn={handleUserSignIn}
-              onUserSignUp={handleUserSignUp}
-              // onUserSignOut={handleUserSignOutACB}
-              />
+          <AuthView 
+            value={{user}}
+            email={props.email}
+            password={props.password}
+            currentUser={props.currentUser}
+            errorMessage = {errMsg}
+            onEmailChange= {handleEmailChangeACB}
+            onPasswordChange={handlePasswordChangeACB}
+            onUserSignIn={handleUserSignIn}
+            onUserSignUp={handleUserSignUp}
+            onUserSignOut={handleUserSignOutACB}
+          />
 
         </div>
     );

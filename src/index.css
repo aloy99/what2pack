@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Inter, system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -81,6 +81,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* start profile */
+.profileViewH1 {
+  font-family: 'Castoro Titling', cursive;
+  color: #595549;
+  margin-left: 30px;
+}
+/* end profile */
 
 /*LandingPage Start*/
 .start-container {
@@ -88,17 +95,18 @@ button:focus-visible {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 60px);
 }
 
 .start-container>div {
-  width: 50%;
+  /* width: 50%; */
   /* height: auto; */
   vertical-align: middle;
   display: inline-block; 
 }
 
 .startL-container {
+  width: 45%;
   margin-left: 60px;
   background-color: #ecd8b2;
   background-image: url(/travel.png);
@@ -117,6 +125,7 @@ button:focus-visible {
 .startR-container {
   display: flex;
   flex-direction: column;
+  width: 55%;
   /* background-color: #897653; */
 }
 /*LandingPage End*/

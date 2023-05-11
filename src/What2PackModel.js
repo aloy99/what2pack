@@ -3,8 +3,7 @@ import { getWeatherDetails } from './api/weatherSource';
 import { getHolidayDetails } from './api/holidaySource';
 import { getNewsDetails } from './api/newsSource';
 import { getUnsplashImages } from './api/unsplashSource';
-import { suggestACB } from './utils';
-import isEqual from 'lodash.isequal';
+import { suggestACB, isPlanEqual } from './utils';
 
 class What2PackModel{
     constructor(plans = []) {
@@ -18,7 +17,7 @@ class What2PackModel{
     }
 
     setCurrentPlan(plan){
-        if (this.currentPlan == null || !isEqual(plan, this.currentPlan)){
+        if (!this.currentPlan || !isPlanEqual(plan, this.currentPlan)){
             this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});
         }
@@ -28,6 +27,7 @@ class What2PackModel{
         for (const it of this.currentPlan.items){
             if(it.name === item.name){
                 it.amount = newAmount;
+                this.notifyObservers({item: it});
                 break;
             }
         }
@@ -37,15 +37,17 @@ class What2PackModel{
         for (const it of this.currentPlan.items){
             if(it.name === item.name){
                 it.remark = newRemark;
+                this.notifyObservers({item: it});
                 break;
             }
         }
     }
 
     setItemPacked(itemToCheck, ifPacked){
-        for (const item of this.currentPlan.items){
-            if(isEqual(item, itemToCheck)){
-                item.ifPacked = ifPacked;
+        for (const it of this.currentPlan.items){
+            if(it.name === itemToCheck.name){
+                it.ifPacked = ifPacked;
+                this.notifyObservers({item: it});
                 break;
             }
         }
@@ -56,7 +58,7 @@ class What2PackModel{
             return a.index - b.index;
         }
         for (const item of this.currentPlan.items){
-            if(isEqual(item, itemToAdd)){
+            if(item.name === itemToAdd.name){
                 return;
             }
         }
@@ -65,8 +67,10 @@ class What2PackModel{
     }
 
     removeItemFromCurrentItems(itemToRemove){
+        console.log(this.currentPlan.items)
         const oldItems = this.currentPlan.items;
-        this.currentPlan.items = this.currentPlan.items.filter(it => it !== itemToRemove);
+        this.currentPlan.items = this.currentPlan.items.filter(it => it.name !== itemToRemove.name);
+        console.log(this.currentPlan.items)
         if (this.currentPlan.items.length !== oldItems.length){
             this.notifyObservers({itemToRemove: itemToRemove});
         }
@@ -74,7 +78,7 @@ class What2PackModel{
 
     addPlan(planToAdd){
         for (const p of this.plans){
-            if(isEqual(p, planToAdd)){
+            if(isPlanEqual(p, planToAdd)){
                 return;
             }
         }
@@ -84,7 +88,7 @@ class What2PackModel{
 
     removePlan(planToRemove){
         const oldPlans = this.plans;
-        this.plans = this.plans.filter(p => p !== planToRemove);
+        this.plans = this.plans.filter(p => !isPlanEqual(p, planToRemove));
         if (this.plans.length !== oldPlans.length){
             this.notifyObservers({planToRemove: planToRemove});
         }
@@ -125,7 +129,6 @@ class What2PackModel{
 
     doSearch(searchParams){
         if('latlng' in searchParams && 'startDate' in searchParams && 'endDate' in searchParams){
-
             resolvePromise(Promise.all([
                 getWeatherDetails(searchParams),
                 getHolidayDetails(searchParams),

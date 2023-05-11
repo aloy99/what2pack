@@ -10,12 +10,12 @@ export default function Navbar() {
         What2Pack
       </Link>
       <ul>
-        <CustomLink to="/start">Home</CustomLink>
+        <CustomLink to="/">Home</CustomLink>
+        {/* show trips if logged in */}
+        {currentUser ? <CustomLink to="/profile">All trips</CustomLink>  : ""}
         <CustomLink to="/login">
-         {currentUser ? "Signed In as: "+currentUser.email : "Login / SignUp"}
-          {/* Login/SignUp OR Signed In as: {currentUser?.email} */}
-          </CustomLink>
-        <CustomLink to="/profile">Profile</CustomLink>
+        {currentUser ? "Signed In as: "+currentUser.email : "Login / SignUp"}
+       </CustomLink> 
       </ul>
     </nav>
   )

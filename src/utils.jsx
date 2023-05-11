@@ -1,5 +1,11 @@
 const thresholdPrecipitation = [0.2, 4, 9, 40];
 
+function isPlanEqual(planA, planB){
+    return planA.destination == planB.destination
+    && planA.startDate == planB.startDate
+    && planA.endDate == planB.endDate;
+}
+
 function meanIfNotNull(arr){
     let sum = 0;
     let cnt = 0;
@@ -358,4 +364,4 @@ function suggestACB(response){
     return {'weathers':weathers, 'items':suggestions, 'holidays':holiday_data, 'news':news_data, 'image':unsplash_data};
 }
 
-export {thresholdPrecipitation, suggestACB};
+export {isPlanEqual, thresholdPrecipitation, suggestACB};

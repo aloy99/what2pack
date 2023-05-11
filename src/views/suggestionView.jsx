@@ -1,19 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { notification, Popconfirm, Button, Input } from 'antd';
-import { PlusOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-design/icons';
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
 import AddButtonView from './addButtonView';
+import { SHA1 } from 'crypto-js';
 
-function SuggestionView(props){
+function SuggestionView(props){  
+
+    function generateUniqueId(text) {
+        return SHA1(text).toString();
+    }
+    let isNA = false;
     useEffect(()=>{
         const days = props.currentPlan.weathers.length;
-        let weatherWidth = (0.92/(days < 6? days : 6))*100+'%';
+        let weatherWidth = (0.85/(days < 6? days : 6))*100+'%';
         const divsWeather = document.getElementsByClassName("div-weather");
         for(const div of divsWeather){
             div.style.setProperty("--weather-width", weatherWidth);
         }
-    });
+        let checkedItemNumber = 0;
+        for(const item of props.currentPlan.items){
+            const id = "checkbox-suggestion-"+ generateUniqueId(item.name);
+            const checkbox = document.getElementById(id);
+            if(checkbox){
+                checkedItemNumber += item.ifPacked;
+                checkbox.checked = item.ifPacked;
+            }
+        }
+        if(checkedItemNumber >= props.currentPlan.items.length){
+            const checkboxAll = document.getElementById("checkbox-check-all");
+            if(checkboxAll){
+                checkboxAll.checked = true;
+            }
+        }
+        const msgNA = document.getElementById("remark-na");
+        if(msgNA){
+            if(isNA){
+                msgNA.style.visibility = "visible";
+            }
+            else{
+                msgNA.style.visibility = "hidden";
+            }
+        }
+    },[]);
+    
     const [api, contextHolder] = notification.useNotification();    
     const openNotificationWithIconWarning = (type, msg, des) => {
         api[type]({
@@ -24,7 +55,6 @@ function SuggestionView(props){
     };
     const openNotificationWithUndoButton = (item, msg, des) => {
         function undoButtonClickedACB(){
-            console.log("undo");
             api.destroy();
             props.onUndoDeleteItem(item);
         }
@@ -60,12 +90,11 @@ function SuggestionView(props){
         setOpenItemConfirm(openItemConfirmNew);
         rerenderACB();
     };
-    const defaultDest = (props.currentPlan) ?  props.currentPlan.destination : "";
-    const defaultRange = (props.currentPlan) ? [props.currentPlan.startDate, props.currentPlan.endDate] : ["",""];
     function clickRemoveFromItemsACB(item){
         showItemPopconfirm(item);
     }
     function confirmDeleteItemACB(item){
+        console.log("delete",item)
         closeItemPopconfirm(item);
         openNotificationWithUndoButton(item,`${item.name} deleted.`,'')
         props.onDeleteItem(item);
@@ -85,9 +114,17 @@ function SuggestionView(props){
             index: props.currentPlan.items.length,
             ifDeleteConfirmOpen: false
         }
+        if(!item.name){
+            openNotificationWithIconWarning('warning','Item name should not be empty','');
+            return;
+        }
+        if(!item.amount){
+            openNotificationWithIconWarning('warning','Item amount should not be empty','');
+            return;
+        }
         for(const it of props.currentPlan.items)
         {
-            if(it.name == item.name){
+            if(it.name === item.name){
                 openNotificationWithIconWarning('warning',`${it.name} already exists in current plan.`,'');
                 return;
             }
@@ -164,28 +201,33 @@ function SuggestionView(props){
                             onClick={() => clickRemoveFromItemsACB(item)}/>
                     </Popconfirm>
                 </td>
-                <td>{item.name}</td>
+                <td>
+                    {item.name}
+                </td>
                 <td>
                     <input 
                         type="number" 
+                        min="0"
                         className="input-amount" 
                         defaultValue={item.amount}
-                        onChange={changeAmountACB}/>
+                        onChange={changeAmountACB}
+                    />
                 </td>
                 <td>                    
                     <input  
                         className="input-remark" 
                         defaultValue={item.remark}
-                        onChange={changeRemarkACB}/>
+                        onChange={changeRemarkACB}
+                    />
                 </td>
                 <td>
                     <input 
-                        className="checkbox-suggestion" 
+                        className="checkbox-suggestion"
+                        id={"checkbox-suggestion-"+ generateUniqueId(item.name)}
                         type="checkbox" 
-                        // size="medium"
-                        // shape="circle"
                         onChange={itemCheckedACB} 
-                        value={item.name}/>
+                        value={item.name}
+                    />
                 </td>
             </tr>
         )
@@ -195,9 +237,12 @@ function SuggestionView(props){
             <>
                 <div className="content-container">
                     {/* <div className="news-title">
-                        <h3>{news.}</h3>
+                        <h3>{news.title}</h3>
                     </div> */}
-                    <p>{news.name}</p>
+                    <div className="news-title">
+                        <p>{news.name}</p>
+                    </div>
+
                 </div>
                 <div className="hypelink-item">
                     <a href={news.url}  target="_blank">
@@ -244,94 +289,92 @@ function SuggestionView(props){
         if(weather.temp_max){
             return (
                 <div key={weather.time} className="div-weather">
-                        <div className="weather-date">
-                        <b>{weather.time}</b>
-                        </div>
-                        <div className="weather-pic">
-                        <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
-                        </div>
-                        <div className="weather-temp-ranage">
-                            <p className="weather-temp-max">{weather.temp_max}</p>
-                            <p className="weather-temp-min">{weather.temp_min}</p>
-                        </div>
+                    <div className="weather-date">
+                    <b>{weather.time}</b>
+                    </div>
+                    <div className="weather-pic">
+                    <img src={iconPath} className="weather-icon" alt="weather-icon"></img>
+                    </div>
+                    <div className="weather-temp-ranage">
+                        <p className="weather-temp-max">{weather.temp_max}</p>
+                        <p className="weather-temp-min">{weather.temp_min}</p>
+                    </div>
                 </div>
             );
         }
         else{
+            isNA = true;
             return (
                 <div key={weather.time} className="div-weather">
-                    <h3>{weather.time}</h3>
-                    <p>Not</p>
-                    <p>available</p>
+                    <div className="weather-date">
+                    <b>{weather.time}</b>
+                    </div>
+                    <div className="weather-pic">
+                        <img src='/public/unknown.png' className="weather-icon" alt="unknown-icon"></img>
+                    </div>
+                    <div className="weather-temp-ranage">
+                        <p className="weather-temp-max">Not</p>
+                        <p className="weather-temp-max">Available*</p>
+                    </div>
                 </div>
             );
         }
     }
     const addItemRow = (
         <tr>
-            <th></th>
-            <th><Input type="text" className="input-add-item" id="input-add-item-name" placeholder="Name"/></th>
-            <th><Input type="number" className="input-add-item" id="input-add-item-amount" placeholder="Amount"/></th>
-            <th><Input type="text" className="input-add-item" id="input-add-item-remark" placeholder="Remark"/></th>
             <th>
-                <Button 
-                    className="button-add-item" 
-                    type="primary" icon={<PlusOutlined/>} 
-                    onClick={() => clickAddItemACB()}>Add</Button>
+            <Button 
+                className="button-add-item" 
+                type="defalt" 
+                size="medium"
+                icon={<PlusCircleOutlined/>} 
+                onClick={() => clickAddItemACB()}></Button>
             </th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-name"/></th>
+            <th><Input type="number" min="0" className="input-add-item" id="input-add-item-amount" /></th>
+            <th><Input type="text" className="input-add-item" id="input-add-item-remark" /></th>
+            <th></th>
         </tr>
     );
-    let itemsTableBody;
-    if(props.currentPlan.items.length > 0){
-        itemsTableBody =(
-            <>
-                <tbody>
-                    {props.currentPlan.items.map(itemInfoCB)}
-                    {addItemRow}
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>select all</th>
-                    </tr>
-                    <tr>
-                        <th>
-                        <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                        <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
-                        </th>
-                    </tr>
-                </tbody>
-            </>
-        );
-    }
-    else{
-        itemsTableBody = (
-            <>
-                <p>No items to pack.</p>;
-                <tbody>
-                    {addItemRow}
+    const itemsTableBody = (
+        <table className="suggestion-table-details">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Remark</th>
+                    <th>Packed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.currentPlan.items.length > 0? props.currentPlan.items.map(itemInfoCB):null}
+                {addItemRow}
+                <tr>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th>select all</th>
                     <th>
-                    <input id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
+                    <input className="checkbox-all" id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
                     <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
                     </th>
-                </tbody>
-            </>
-        );
-    }
+                </tr>
+            </tbody>
+            {contextHolder}
+        </table>
+    );
     let holidaysTable;
     if(props.currentPlan.holidays.length > 0){
         holidaysTable = (
         <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>
-                <div className="holiday-title">
-                {props.currentPlan.holidays[0].date.slice(5)}
-                </div>
-                <div className="holiday-name">
-                {props.currentPlan.holidays[0].name}
-                </div>
+            <div className="holiday-title">
+            {props.currentPlan.holidays[0].date.slice(5)}
             </div>
+            <div className="holiday-name">
+            {props.currentPlan.holidays[0].name}
+            </div>
+        </div>
         );
     }
     else{
@@ -343,32 +386,32 @@ function SuggestionView(props){
         <div className="detailPage-container">
             <div className="plan-news-container">
                 <div className="planandAdd-item">
-                        <div className="plan-inside-item">
-                            <div className="plan-title">
-                                <div className="plan-title-name">
-                                {props.destMsg}
-                                </div>
-                                <div className="plan-title-date">
-                                {props.dateMsg}
-                                </div>
+                    <div className="plan-inside-item">
+                        <div className="plan-title">
+                            <div className="plan-title-name">
+                            {props.destMsg}
                             </div>
-                            <div className="addbutton">
-                            <Popconfirm
-                                title="Are you sure to delete this plan?"
-                                description=""
-                                onConfirm={confirmDeletePlanACB}
-                                onCancel={cancelDeletePlanACB}
-                                okText="Yes"
-                                cancelText="No"
-                                disabled={!props.currentPlanAdded}
-                                open={openPlanConfirm}
-                                >
-                                <AddButtonView 
-                                    currentPlanAdded={props.currentPlanAdded}
-                                    onDeletePlan={clickRemoveFromPlanACB}
-                                    onAddPlan={clickAddToPlanACB}/> 
-                            </Popconfirm>
+                            <div className="plan-title-date">
+                            {props.dateMsg}
                             </div>
+                        </div>
+                        <div className="addbutton">
+                        <Popconfirm
+                            title="Are you sure to delete this plan?"
+                            description=""
+                            onConfirm={confirmDeletePlanACB}
+                            onCancel={cancelDeletePlanACB}
+                            okText="Yes"
+                            cancelText="No"
+                            disabled={!props.currentPlanAdded}
+                            open={openPlanConfirm}
+                            >
+                            <AddButtonView 
+                                currentPlanAdded={props.currentPlanAdded}
+                                onDeletePlan={clickRemoveFromPlanACB}
+                                onAddPlan={clickAddToPlanACB}/> 
+                        </Popconfirm>
+                        </div>
                     </div>
                 </div>
 
@@ -397,39 +440,28 @@ function SuggestionView(props){
 
         <div className="weather-list-container">
 
-                    <div className="weather-container">
-                            <div className="weather-title-item">
-                                <h3>
-                                    Weather Forecasts(°C)
-                                </h3>
-                            </div> 
-                            <div className="div-weathers">
-                                {props.currentPlan.weathers.map(weatherInfoCB)}
-                            </div> 
-                    </div>
+            <div className="weather-container">
+                <div className="weather-title-item">
+                    <h3>Weather Forecasts(°C)</h3>
+                </div> 
+                <div className="div-weathers-container">
+                    <div className="div-weathers">
+                        {props.currentPlan.weathers.map(weatherInfoCB)}
+                    </div> 
+                    <p id="remark-na">* We only provide weather forecast for the next 14 days. Please come back later :)</p>
+                </div>
+            </div>
 
-                <div className="suggestion-container">
-                        <div className="suggestion-title-item">
-                            <h3>
-                                Packing List
-                            </h3>
-                        </div>
-                        <div className="suggestion-item">   
-                        <table className="suggestion-table-details">
-                            <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Item</th>
-                                        <th>Amount</th>
-                                        <th>Remark</th>
-                                        <th>Packed</th>
-                                    </tr>
-                            </thead>
-                                {itemsTableBody}
-                                {contextHolder}
-                        </table>
-                        </div>    
+            <div className="suggestion-container">
+                    <div className="suggestion-title-item">
+                        <h3>
+                            Packing List
+                        </h3>
                     </div>
+                    <div className="suggestion-item">   
+                    {props.currentPlan.items.length > 0?itemsTableBody: <p>No items.</p>}
+                    </div>    
+                </div>
             </div>     
     </div>
     );
