@@ -53,12 +53,13 @@ he} */
 }
 
 .input-amount {
-  text-align: center;
+  /* text-align: center; */
+  text-decoration: underline;
 }
 
 .input-remark {
-  text-align: center;
-  /* font-size:  */
+  /* text-align: center; */
+  /* text-decoration: underline; */
 }
 
 .profile-container{
@@ -67,7 +68,6 @@ he} */
   align-items: center;
   /* height: 100px; */
 }
-
 
 .profile-container>div{
   margin-left: 10px;
@@ -82,12 +82,30 @@ he} */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* background-color: aqua; */
-  /* width: 500px; */
+  /* height: 100px; */
+  align-items: stretch;
+}
+.destination-button{
+  z-index: 2;
+  width: 260px;
+  height: 100%;
+  /* background-color: rgb(109, 103, 92); */
+}
+
+.searchrange-button {
+  width: 220px;
+  height: 35px;
+  /* background-color: rgb(124, 120, 111); */
+}
+
+.packbutton {
+  z-index: 1;
+  height: 35px;
 }
 
 .search-bar-container>div{
     margin-top: 20px;
+    height: 40px;
 }
 
 .destination-container {
@@ -97,27 +115,29 @@ he} */
 .search-suggestions {
   background-color: rgba(255, 255, 255, 0.87);
   position: relative;
-  display:block;
+  /* display:block; */
 }
-
-/* .country-search {
-  display: flex;
-  min-width: 500px;
-  margin: 0;
-  padding: 0;
+/* .destination-button, .searchrange-button {
+    position: absolute;
 } */
 
+.country-search {
+  height: 32px;
+}
+
+/* .input-destination {
+  position: absolute;
+} */
 /* .date-picker {
   display: flex;  
 } */
 
-.holidays-table-details {
+/* .holidays-table-details {
   align-items: left;
   padding: 20px;
   margin-right: 0px;
   margin-left: 20px; 
-}
-
+} */
 
 input[type="search"].input-destination {
   -webkit-appearance: searchfield;
@@ -138,13 +158,13 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   text-align: center;
 }
 .nav {
-  background-color:  #F9F2E0;
-  color: #595549;
+  background-color:  #ecd8b2;
+  color: #47453f;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
   gap: 2rem;
-  padding: 0 1rem;
+  padding: 0 2rem;
   font-family: 'Castoro Titling', cursive;
 }
 
@@ -184,94 +204,354 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 /* navigation end */
 
 
-/* detailPage start */
+/* detailPage left part start */
 .detailPage-container{
   display: flex;
   flex-direction: row;
-  /* background-color: #888; */
+  justify-content: space-between;
+  height: 100vh;
+  padding-top: 15px;
 }
 
-.news-item {
-  width: 60% ;
-  /* background-color: #B5B48E; */
-  margin-top: 2em;
-  padding: 2em
+@media only screen and (max-width: 1000px) {
+  .detailPage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    /* width: 1000px; */
+  }
+  .holiday-news-container{
+    width: 100%;
+    height: 100%;
+    /* width: 400px; */
+    /* padding: 20px; */
+  }
+  .holiday-news-container{
+    width: 100%;
+    height: 100%;
+    /* width: 400px; */
+    /* padding: 20px; */
+  }
+  .weather-list-container{
+    width: calc(100% - 20px);
+    /* width: 400px; */
+    /* padding: 20px; */
+  }
 }
 
-.news-table-details {
-  /* background-color: #B5B48E; */
-  width: 50% ;
+.addtoplan-container, .removetoplan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    gap: 5px;
 }
+
+.button-add-to-plan-detail {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  height: 40%;
+}
+
+.button-add-to-plan-detail img {
+  width: 60px;
+  height: 60px;
+  /* background-color: #47453f; */
+}
+
+.addtoplan-title, .removetoplan-title {
+  font-size: small;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.addtoplan-container, .removetoplan-container button:focus, button:active, button:hover {
+  outline: none;
+  box-shadow: none;
+}
+.button-add-to-plan-detail button:focus{
+  outline: none;
+  box-shadow: none;
+}
+
+.detailPage-container div{
+  margin-bottom: 10px;
+}
+
+.plan-news-container{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 20px;
+}
+
+.plan-title {
+  display: flex;
+  flex-direction: column;
+  /* font-family: 'Castoro Titling', cursive; */
+  color: white;
+  width: 90%;
+}
+
+.plan-title-name {
+  padding-top: 20px;
+  font-family: 'Castoro Titling', cursive;
+  font-size: 1.9rem;
+  /* height: 70px; */
+  color: white;
+}
+
+.plan-title-date {
+  /* font-family: 'Castoro Titling', cursive; */
+  font-size: larger;
+  color: white;
+}
+
+.plan-news-container div{
+  box-sizing: border-box;
+  border-radius: 15px;
+
+} 
+
+.planandAdd-item{
+  display: flex;
+  /* background-color: #B5B48E; */
+  height: calc(30% - 20px);
+}
+
+.plan-inside-item {
+  /* padding: 20px; */
+  margin: 0 10px 0 10px;
+  background-color: #B5B48E;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+}
+
+.holiday-news-container{
+  display: flex; /* 使用flexbox */
+  flex-wrap: wrap; /* 設定flex容器可換行 */
+  /* justify-content: space-between; */
+  /* align-items: center;  */
+  height: 70%;
+  /* width: 100%; */
+}
+
+.news {
+  box-sizing: border-box;
+  width: calc(50% - 20px);
+  height:calc(50% - 20px); 
+  margin: 10px;
+  padding-left: 20px;
+  background-color: #E8E8E8;
+}
+
+.news.holiday {
+  background-color:  #ecd8b2;
+}
+
+.news-title {
+  font-family: 'Castoro Titling', cursive;
+}
+
+.content-container {
+  height: 65%;
+}
+
+.hypelink-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.arrow-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: small;
+  width: 100%;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.arrow-text {
+  text-decoration: none;
+}
+
+.arrow-button img {
+  width: 10px;
+  height: 10px;
+}
+
+.holiday-title {
+ font-size:  60px;
+ font-weight: bold;
+ height: 70px;
+}
+
+.holiday-name {
+  font-size:  20px;
+  font-weight: bold;
+}
+
+/* .holiday-news-container div :not(.holidays-item) {
+  background-color: #9f9f9f;
+  width:  calc(100% - 20px);
+} */
+
+.holiday-date-name {
+ display: flex;
+ flex-direction: column;
+ text-align: center;
+ margin-top: -10px;
+ /* color: white; */
+}
+
+.news.holiday, .news.one {
+  order: 1;
+  padding-right: 20px;
+}
+.news.two, .news.three {
+  order: 2;
+  padding-right: 20px;
+}
+
+.new-holiday-title{
+  font-family: 'Castoro Titling', cursive;
+}
+
+/* Detail page right part start */
 
 /* suggestion page start*/
-
 .suggestion-container {
-  /* display: flex; */
-  background-color: #ecd8b2;
-  flex-direction: column;
-  width: 40%;
-  margin: 2em;
-  padding: 2em
+  background-color: #B5B48E;
+  height: calc(70% - 20px);
+  width: 100%;
+  margin: 10px 0px 0px 0px;
 }
 
+.suggestion-title-item {
+  /* background-color: #e3e342; */
+  height: 30px;  
+  padding-left: 30px;
+  font-family: 'Castoro Titling', cursive;
+  font-size:large;
+  color: white;
+}
 .suggestion-item {
   justify-content: center;
   align-items: center;
+  height: calc(100% - 80px);
+  margin: 0px 30px 0px 30px;
+  /* position: relative; */
+  overflow-y: scroll;
+  background-color: #B5B48E;
+}
+
+/* .suggestion-table-details td:first-child, th:first-child {
+  border-left: none;
+}
+
+.suggestion-table-details td:last-child, th:last-child {
+  border-right: none;
+} */
+.checkbox-suggestion{
+  width: 15px;
+  height: 15px;
+}
+
+ .checkbox-all{
+  width: 15px;
+  height: 15px;
+  background-color: #c07373;
 }
 
 .suggestion-table-details {
   border-collapse: collapse;
-  margin: 25px 0;
+  /* margin: 10px 0; */
   font-size: 0.9em;
-  min-width: 400px;
-  border-radius: 5px 5px 0 0; 
-  overflow: hidden;
-  background-color: #F6E3C3;
+  border-radius: 3px 3px 0 0; 
+  background-color: #B5B48E;
+  margin-bottom: 20px;
 }
+
 .suggestion-table-details thead tr {
-  background-color: #DBC29A;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #B5B48E;
   text-align: left;
   font-weight: bold;
+  font-size: small;
 }
+
 .suggestion-table-details th,
 .suggestion-table-details td {
-  padding: 12px 15px;
+  padding: 5px 5px;
+  border-right: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
 }
+
 .suggestion-table-details tbody tr {
-  border-bottom: 1px solid #DBC29A;
-}
-/* .suggestion-table-details tbody tr:nth-of-type(even) {
-  background-color: #DBC29A;
-} */
-
-/* suggestion page end*/
-
-.holidays-table-details {
-  border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 0.9em;
-  min-width: 100%;
-  border-radius: 5px 5px 0 0; 
-  overflow: hidden;
-  background-color: #F6E3C3;
-}
-.holidays-table-details thead tr {
-  background-color: #DBC29A;
-  color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+  color: white;
   text-align: left;
-  font-weight: bold;
 }
-.holidays-table-details th,
-.holidays-table-details td {
-  padding: 12px 15px;
+
+.button-add-item{
+  color: white;
 }
-.holidays-table-details tbody tr {
-  border-bottom: 1px solid #DBC29A;
+
+.input-amount {
+  background-color: #B5B48E;
+  outline: none;
+  border: none;
+  color: white;
+  border-bottom: 1px #ffffff;
+  text-align: left;
+  /* width: 20%; */
 }
-/* .holidays-table-details tbody tr:nth-of-type(even) {
-  background-color: #DBC29A;
+
+.input-add-item {
+  background-color: #B5B48E;
+  outline: none;
+  border: none;
+  color: white;
+  border-bottom: 1px #ffffff;
+  text-align: left;
+}
+
+.button-delete-item, .button-add-item {
+  color: white;
+  margin-left: 10px;
+  width: 10%;
+}
+
+.input-remark {
+  background-color: #B5B48E;
+  outline: none;
+  border: none;
+  color: white;
+  border-bottom: 1px #ffffff;
+  width: 50%;
+  font-size: large;
+  /* text-align: left; */
+}
+/* .input-remark, .input-amount, .input-name{
+  padding-left: 10px;
 } */
+
+/* detail page end*/
 
 /* detailPage end */
 .card-plan-profile{
@@ -296,42 +576,117 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   flex-direction: row;
 }
 
-.div-weathers{
+.weather-list-container{
+  display: flex;
+  flex-direction: column;
+  width: calc(50% - 20px);
+  /* padding: 10px; */
+  padding: 20px;
+}
+
+.weather-list-container div{
+  border-radius: 15px;
+}
+
+.weather-container {
+  background-color: #E8E8E8;
+  height: calc(30% - 20px);
   width: 100%;
-  height: min-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-inside-item {
+  background-color: #c07373;
+}
+
+.weather-title-item {
+  font-family: 'Castoro Titling', cursive;
+  padding-left: 30px;
+  height: 30%;
+  font-size: large;
+  content: attr(data-text);
+}
+
+.div-weathers-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.div-weathers{
+  height: 70%;
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row; 
   justify-content: space-between;
   align-content: space-between;
+  margin: 0 5% 0 5%;
+}
+
+#remark-na {
+  height: 30%;
+  font-size: x-small;
+  margin: 0 5% 0 5%;
+  visibility: hidden;
 }
 
 .div-weather{
+  display: flex;
+  flex-direction: column; 
   width: var(--weather-width);
-  height: 100%;
+  height: 80%;
   flex: 0 0 auto;
-  margin: 0.5%;
-  padding: 3% 0 0 0;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #863A2C;
+  margin: 0 1% 0 0%;
+  padding-bottom: 1%;
   border-radius: 5px;
   text-align: center;
+  justify-content: center;
   vertical-align: middle;
   font-size: small;
-  line-height: 80%;
+  /* line-height: 120%; */
+  background-color: #ffffff;
+}
+
+.weather-pic {
+  height: 30%;
+}
+
+.weather-temp-ranage {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 25%;
+  /* justify-content: space-between; */
+  /* background-color:  #ecd8b2; */
 }
 
 .weather-temp-max{
-  color: #FC4F00;
+  color: #505050; 
+  font-size: x-small; 
 }
 
 .weather-temp-min{
-  color: #617A55;
+  color: #989797;
+  font-size: x-small;
+}
+
+.weather-date {
+  padding-top: 10%;
+  height: 12%;
+  font-size: medium;
 }
 
 .weather-icon{
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+}
+
+.auth-error{
+  color: #FC4F00;
 }
