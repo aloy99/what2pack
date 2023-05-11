@@ -114,7 +114,7 @@ class What2PackModel{
     }
 
     setSearchDestination(info){
-        this.searchParams.destination = info.description;
+        this.searchParams.destination = info.destination;
         this.searchParams.latlng = info.latlng;
     }
 

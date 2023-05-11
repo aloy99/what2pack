@@ -9,6 +9,7 @@ function StartView(props){
     const defaultDest = (currentPlan === null) ? "" : currentPlan.destination;
     const defaultRange = (currentPlan === null) ? ["",""] : [currentPlan.startDate, currentPlan.endDate];
     const navigate = useNavigate();
+
     function passSearchInputACB(destination, startDate, endDate){
         props.onSearchInput(destination, startDate, endDate);
         navigate("/details");
@@ -26,8 +27,11 @@ function StartView(props){
         props.onClickLogo();
         navigate("/");
     }
-    function mapsLoadedACB(){
-        props.onMapsLoad();
+    function setValueACB(args){
+        props.setValue.apply(null,arguments)
+    }
+    function passLocationClickACB(dest_value){
+        props.onLocationClick(dest_value)
     }
     return (
      <div className="start-container">
@@ -45,7 +49,10 @@ function StartView(props){
                 <SearchBarView 
                     id="search-bar-start" 
                     gmapsLoaded = {props.gmapsLoaded}
-                    onMapsLoad={mapsLoadedACB}
+                    locationSuggestions={props.locationSuggestions}
+                    destValue={props.destValue}
+                    onLocationClicked={passLocationClickACB}
+                    setValue={setValueACB}
                     onSearchInput={passSearchInputACB} 
                     onDestChanged={passDestACB} 
                     onRangeChanged={passRangeACB}

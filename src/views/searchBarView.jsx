@@ -46,11 +46,12 @@ function SearchBarView(props){
         const endDate = range[1].format('YYYY-MM-DD');
         props.onRangeChanged(startDate, endDate);
     }
-    function locationClickedACB(dest){
-        props.onDestChanged(dest);
+    function locationClickedACB(dest_raw){
+        props.onLocationClicked(dest_raw);
     }
-    function mapsLoadedACB(){
-        props.onMapsLoad();
+    function setValueACB(args){
+        props.setValue.apply(null, arguments);
+        // props.setValue(value);
     }
     const disabledDate = (current) => {
         // Can not select days before today
@@ -59,7 +60,14 @@ function SearchBarView(props){
     return (
     <div className="search-bar-container">
             <div>
-                <SearchCompleteView defaultValue={props.defaultDest} gmapsLoaded = {props.gmapsLoaded} onMapsLoad={mapsLoadedACB} onChange={destChangeACB} onLocationClicked={locationClickedACB}/>
+                <SearchCompleteView
+                    defaultValue={props.defaultDest}
+                    locationSuggestions={props.locationSuggestions}
+                    destValue={props.destValue}
+                    setValue={setValueACB}
+                    onChange={destChangeACB}
+                    onLocationClicked={locationClickedACB}
+                    />
             </div>
             <div>
                 <RangePicker id="range-picker-search-bar" defaultValue={props.defaultRange} disabledDate={disabledDate} onChange={rangeChangeACB}/>

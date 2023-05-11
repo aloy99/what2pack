@@ -29,8 +29,11 @@ function DetailsView(props){
         props.onClickLogo();
         navigate("/");
     }
-    function mapsLoadedACB(){
-        props.onMapsLoad();
+    function setValueACB(args){
+        props.setValue.apply(null,arguments)
+    }
+    function passLocationClickACB(dest_value){
+        props.onLocationClick(dest_value)
     }
     return (
     <>
@@ -50,8 +53,10 @@ function DetailsView(props){
                     id="search-bar-details" 
                     defaultDest={defaultDest}
                     defaultRange={defaultRange}
-                    gmapsLoaded={props.gmapsLoaded}
-                    onMapsLoad={mapsLoadedACB}
+                    locationSuggestions={props.locationSuggestions}
+                    destValue={props.destValue}
+                    onLocationClicked={passLocationClickACB}
+                    setValue={setValueACB}
                     onSearchInput={passSearchInputACB} 
                     onDestChanged={passDestACB} 
                     onRangeChanged={passRangeACB}
