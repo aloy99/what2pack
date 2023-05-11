@@ -1,7 +1,5 @@
-import React, {useState, useContext} from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../AuthContext";
-import { Popconfirm } from "antd";
 
 function AuthView(props){
     const [isSignUpShown, setIsSignUpShown] = useState(false);
@@ -9,7 +7,8 @@ function AuthView(props){
     const [isLoggedInShown, setIsLoggedInShown] = useState(false);
     const [openAuthError, setOpenAuthError] = useState(false);
 
-    console.log(/(?<=auth\/)[a-z-]*/.exec(props.errorMessage));
+    // console.log(/(?<=auth\/)[a-z-]*/.exec(props.errorMessage));
+
     const showAuthErrorCB = () => {
         if (props.errorMessage){
         setOpenAuthError(true);
@@ -18,7 +17,7 @@ function AuthView(props){
     const closeAuthErrorCB = () => {
         setOpenAuthError(false);
     };   
-    const { user } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     function changeEmailACB(e){
@@ -31,26 +30,21 @@ function AuthView(props){
     const handleSignUpClick = event => {
         setIsSignUpShown(true);
         setIsSignInShown(false);
-        // navigate('/profile')
       };
     const handleSignInClick = event => {
-        // setIsShown(current => !current);
-        // 👇️ or simply set it to true
         setIsSignInShown(true);
         setIsSignUpShown(false);
-        // navigate('/profile')
     };
 
     function handleuserSignOutACB(e){
         navigate('/')
         props.onUserSignOut();
-        console.log("props: sign out ",  props.onUserSignOut());
     }  
 
-    if (user){
+    if (props.currentUser){
         return (
         <div>
-            <p>You are signed in as: {user?.email}</p> 
+            <p>You are signed in as: {props.currentUser?.email}</p> 
             <button onClick={handleuserSignOutACB}>Sign Out</button>
         </div>
         )
