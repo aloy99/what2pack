@@ -1,16 +1,34 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
 import CustomLinkView from '../views/customlinkView.jsx';
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar(props) {
+
+  const navigate = useNavigate();
+
+  function handleuserSignOutACB(e){
+    navigate('/')
+    props.onUserSignOut();
+    console.log("LOG OUT Nav CLICK")
+}  
 
   return (
     <nav className="nav">
       <Link to="/" className="site-title">What2Pack</Link>
       <ul>
         <CustomLinkView to="/">Home</CustomLinkView>
-        <CustomLinkView to="/details">details</CustomLinkView>  
-        <CustomLinkView to="/profile">All trips</CustomLinkView>  
-        <CustomLinkView to="/login">Login / SignUp</CustomLinkView> 
+        
+        {props.currentUser ? <CustomLinkView to="/details">Details</CustomLinkView>  : ""}
+        
+        {props.currentUser ? <CustomLinkView to="/profile">All trips</CustomLinkView>  : ""}
+        
+        <CustomLinkView to="/login">
+        {props.currentUser ? "Signed In as: "+props.currentUser.email : "Login / SignUp"}
+       </CustomLinkView> 
+
+       {props.currentUser ? <Button onClick={handleuserSignOutACB} >Sign out</Button>  : ""}
+        
       </ul>
     </nav>
   )
