@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import StartPresenter from './reactjs/startPresenter.jsx';
 import DetailsPresenter from './reactjs/detailsPresenter.jsx';
 import ProfilePresenter from './reactjs/profilePresenter.jsx';
+// import NavPresenter from './reactjs/profilePresenter.jsx';
 import What2PackModel from './What2PackModel';
 import './App.css';
 import AuthPresenter from './reactjs/authPresenter.jsx';
@@ -48,17 +49,6 @@ function App() {
     );
 },[]);
 
-
-  // useEffect(() => {
-  //   resolvePromise(firebaseModelPromise(myModel), promiseState);
-  //   console.log('promiseState: HELLO',promiseState);
-  //   updateOnPromise(promiseState.promise, reRenderACB);
-  // }, [myModel.user]);
-  // const [, forceReRender] = useState();
-
-
-  // }
-
   return (
     <>
     <Navbar />
@@ -73,3 +63,10 @@ function App() {
 }
 
 export default App;
+
+  // useEffect(() => {
+  //   resolvePromise(firebaseModelPromise(myModel), promiseState);
+  //   console.log('promiseState: HELLO',promiseState);
+  //   updateOnPromise(promiseState.promise, reRenderACB);
+  // }, [myModel.user]);
+  // const [, forceReRender] = useState();

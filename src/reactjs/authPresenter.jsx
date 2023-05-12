@@ -20,7 +20,7 @@ function AuthPresenter(props){
       }  
     const handleUserSignOutACB = async () => {
       await signOut2();
-      console.log("sign out NEW successful");
+      console.log("sign out Presenter successful");
     };
 
     const handleUserSignUp = async (e) => {

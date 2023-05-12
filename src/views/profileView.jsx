@@ -21,13 +21,13 @@ function ProfileView(props){
     return (
         <div className="App">
             {
-                props.currentUser ? <div>
-                    <h1 className="profileViewH1">All your saved trips</h1> 
-                    </div> : 
-                    <div>
-                        <p>You are: signed out</p> 
-                        <button onClick={handleGoHomeACB}>Go Home</button>
-                    </div>
+                // props.currentUser ? <div>
+                //     <h1 className="profileViewH1">All your saved trips</h1> 
+                //     </div> : 
+                //     <div>
+                //         <p>You are: signed out</p> 
+                //         <button onClick={handleGoHomeACB}>Go Home</button>
+                //     </div>
             }
         </div>
     );
