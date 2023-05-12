@@ -118,8 +118,16 @@ button:focus-visible {
 
 @media only screen and (max-width: 1000px) {
 
+  .startOutside-container{
+    display: flex;
+    justify-content: center;
+    margin-left: -30%;
+  }
+
   .start-container {
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   /* background-color: #F9F2E0; */
   }
   
@@ -131,7 +139,7 @@ button:focus-visible {
   }
   .startR-container {
     width: 100%;
-    }
+  }
 }
 
 /* .startL-container img {

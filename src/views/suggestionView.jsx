@@ -384,8 +384,9 @@ function SuggestionView(props){
         );
     }
     return (
-        <div className="detailPage-container">
-            <div className="plan-news-container">
+        <div className="detailPageOutside-container">
+            <div className="detailPage-container">
+                <div className="plan-news-container">
                 <div className="planandAdd-item">
                         <div className="plan-inside-item">
                             <div className="plan-title">
@@ -476,6 +477,7 @@ function SuggestionView(props){
                     </div>    
                 </div>
             </div>     
+        </div>
     </div>
     );
 }

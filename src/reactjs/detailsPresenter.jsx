@@ -21,13 +21,16 @@ function DetailsPresenter(props){
     const [promiseState,] = useState({});
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
+        if(planToAdd){
         for (const p of plans){
-            if(p.destination == planToAdd.destination
+                if(p.destination == planToAdd.destination
                 && p.startDate == planToAdd.startDate
                 && p.endDate == planToAdd.endDate){
                     return true;
                 }
             }
+            
+        }
         return false;
     }
     function handleDestACB(dest){

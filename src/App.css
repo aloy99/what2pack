@@ -178,22 +178,45 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   padding-top: 15px;
 }
 
+@media only screen and (min-width: 1000px) and (max-width: 1400px) {
+  
+  .plan-title-name{
+    line-height: 94%;
+  }
+  .new-holiday-title {
+    height: 4rem;
+  }
+}
+
+
 @media only screen and (max-width: 1000px) {
   
+  .detailPageOutside-container{
+    display: flex;
+    justify-content: center;
+  }
+
   .detailPage-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
     height: 100%;
     width: 900px;
   }
 
-  .plan-news-container, .weather-list-container{
+  .weather-list-container {
+    padding-left: 100px;
+  }
+
+  /* .plan-news-container, .weather-list-container{
     width: 900px;
     display: flex;
     flex-direction: column;
     align-items:center;
     justify-items:center;
-  }
+  } */
 
   .holiday-title {
     font-size: 3rem;
@@ -281,16 +304,15 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .plan-title-name {
-  padding-top: 20px;
+  padding-top: 10%;
   font-family: 'Castoro Titling', cursive;
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   /* height: 70px; */
   color: white;
 }
 
 .plan-title-date {
-  /* font-family: 'Castoro Titling', cursive; */
-  font-size: larger;
+  font-size: large;
   color: white;
 }
 
@@ -382,6 +404,11 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
  font-size: 3rem;
  font-weight: bold;
  margin-top: -1rem;
+ /* line-height: 0.8; */
+}
+
+.plan-title-date{
+ line-height: 0.6;
 }
 
 .holiday-name {

@@ -28,27 +28,29 @@ function StartView(props){
         props.onMapsLoad();
     }
     return (
-     <div className="start-container">
-        <div className="startL-container"> 
-        {/* <img src="/travel.png" alt="travel" width="100%" height="100%"></img> */}
-        </div>
-        <div className="startR-container">  
-            <div className="login-item">
-            {/* <UserIconView onIconClicked={clickLoginACB}/> */}
+    <div className="startOutside-container">
+        <div className="start-container">
+            <div className="startL-container"> 
+            {/* <img src="/travel.png" alt="travel" width="100%" height="100%"></img> */}
             </div>
-            <div className="searchblock-item">
-                <h1>What to pack?</h1>
-                <h3>Pack the insights into your holidays</h3>
-                <SearchBarView 
-                    id="search-bar-start" 
-                    gmapsLoaded = {props.gmapsLoaded}
-                    onMapsLoad={mapsLoadedACB}
-                    onSearchInput={passSearchInputACB} 
-                    onDestChanged={passDestACB} 
-                    onRangeChanged={passRangeACB}
-                />
+            <div className="startR-container">  
+                <div className="login-item">
+                {/* <UserIconView onIconClicked={clickLoginACB}/> */}
+                </div>
+                <div className="searchblock-item">
+                    <h1>What to pack?</h1>
+                    <h3>Pack the insights into your holidays</h3>
+                    <SearchBarView 
+                        id="search-bar-start" 
+                        gmapsLoaded = {props.gmapsLoaded}
+                        onMapsLoad={mapsLoadedACB}
+                        onSearchInput={passSearchInputACB} 
+                        onDestChanged={passDestACB} 
+                        onRangeChanged={passRangeACB}
+                    />
+                </div>
             </div>
-        </div>   
+        </div>     
     </div>
     );
 }   
