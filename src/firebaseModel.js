@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 const app = initializeApp(firebaseConfig);
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, getAuth, signOut} from "firebase/auth";
 
-const auth = getAuth(app);
+// const auth = getAuth(app);
 
 const signUp = async (email, password) => {
   try {
@@ -53,19 +53,21 @@ var userUid = "";
 
 import { getDatabase, ref, get, set, onValue } from "firebase/database";
 var 
-PATH = "allTrips";
+PATH = "allTrips/";
 
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        userUid = user.uid;
-        PATH = "allTrips/"+ userUid;
-    console.log("UIIDDD:" ,user.uid);
+//GET user uid from the user in the model
 
-    } else{
-        PATH = "guest";
-        userUid = "guest";
-    }
-});
+// auth.onAuthStateChanged((user) => {
+//     if (user) {
+//         userUid = user.uid;
+//         PATH = "allTrips/"+ userUid;
+//     console.log("UIIDDD:" ,user.uid);
+
+//     } else{
+//         PATH = "guest";
+//         userUid = "guest";
+//     }
+// });
 
 
 const db = getDatabase(app);
@@ -99,20 +101,24 @@ async function persistenceToModel(persistedData = {}, model) {
 }
 
   function obsSetACB(model) {
-    set(ref(db, PATH), modelToPersistence(model));
+
+    // PATH += model.user.uid;
+    set(ref(db, PATH+model.user.uid), modelToPersistence(model));
     console.log("HERE");
     return model;
   
   }
   
   export default function firebaseModelPromise(model) {
-    let dataFromFirebase = get(ref(db, PATH))
+    // PATH += model.user.uid;
+
+    let dataFromFirebase = get(ref(db, PATH+model.user.uid))
       .then( res => {
         return persistenceToModel(res.val(), model);
       })
       .then(res => {
         model.addObserver(() => {
-          set(ref(db, PATH), modelToPersistence(model));
+          set(ref(db, PATH+model.user.uid), modelToPersistence(model));
         });
         obsSetACB(model);
         return model;
@@ -120,8 +126,14 @@ async function persistenceToModel(persistedData = {}, model) {
     return dataFromFirebase;
 }
 
+async function firebaseModelPromise2(model){
+  //PATH += model.user.uid;
+  const data = await get(ref(db, PATH+model.user.uid));
+  persistenceToModel(data.val(),model);
+}
+
 export {
-    auth,
+    // auth,
     signUp,
     signIn,
     signOut2,

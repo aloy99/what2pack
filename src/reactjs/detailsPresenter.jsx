@@ -30,12 +30,16 @@ function DetailsPresenter(props){
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         for (const p of plans){
-            if(p.destination == planToAdd.destination
+            if(p){
+                console.log(p)
+                if(p.destination == planToAdd.destination
                 && p.startDate == planToAdd.startDate
                 && p.endDate == planToAdd.endDate){
                     return true;
                 }
             }
+            
+        }
         return false;
     }
     function handleDestACB(dest){
