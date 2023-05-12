@@ -30,7 +30,8 @@ function App() {
   }
   const [promiseState,] = useState({});
   const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log("app user:", user)
       myModel.user = user;
@@ -42,8 +43,11 @@ function App() {
       // myModel =  new What2PackModel();
       myModel.user = null;
 
+      }
     }
-});
+    );
+},[]);
+
 
   // useEffect(() => {
   //   resolvePromise(firebaseModelPromise(myModel), promiseState);
