@@ -310,7 +310,7 @@ function SuggestionView(props){
                     <b>{weather.time}</b>
                     </div>
                     <div className="weather-pic">
-                        <img src='/public/unknown.png' className="weather-icon" alt="unknown-icon"></img>
+                        <img src='/unknown.png' className="weather-icon" alt="unknown-icon"></img>
                     </div>
                     <div className="weather-temp-ranage">
                         <p className="weather-temp-max">Not</p>
@@ -406,8 +406,9 @@ function SuggestionView(props){
                             cancelText="No"
                             disabled={!props.currentPlanAdded}
                             open={openPlanConfirm}
-                            >
+                        >
                             <AddButtonView 
+                                user={props.user}
                                 currentPlanAdded={props.currentPlanAdded}
                                 onDeletePlan={clickRemoveFromPlanACB}
                                 onAddPlan={clickAddToPlanACB}/> 

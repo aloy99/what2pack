@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 const app = initializeApp(firebaseConfig);
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, getAuth, signOut} from "firebase/auth";
 
-// const auth = getAuth(app);
+const auth = getAuth(app);
 
 const signUp = async (email, password) => {
   try {
@@ -14,10 +14,10 @@ const signUp = async (email, password) => {
       password
       );
       const user = userCredential.user;
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        email: user.email,
-      });
+      // await addDoc(collection(db, "users"), {
+      //   uid: user.uid,
+      //   email: user.email,
+      // });
       return true;
     } catch (error) {
       return {error: error.message}
@@ -46,42 +46,22 @@ const signOut2 = async() => {
   } catch (error) {
     return false;
   }
-  };   
-
-//db
-var userUid = "";
+};   
 
 import { getDatabase, ref, get, set, onValue } from "firebase/database";
-var 
-PATH = "allTrips/";
-
-//GET user uid from the user in the model
-
-// auth.onAuthStateChanged((user) => {
-//     if (user) {
-//         userUid = user.uid;
-//         PATH = "allTrips/"+ userUid;
-//     console.log("UIIDDD:" ,user.uid);
-
-//     } else{
-//         PATH = "guest";
-//         userUid = "guest";
-//     }
-// });
-
+const PATH = "allTrips/";
 
 const db = getDatabase(app);
 
-
-  function modelToPersistence(model) {
-    console.log("model to per");
-    // console.log("model to per TEST", getUidUser())
-    const result = {
-      plans: model.plans,
-    };
-    console.log(result);
-    return result
-  }
+function modelToPersistence(model) {
+  console.log("model to per");
+  // console.log("model to per TEST", getUidUser())
+  const result = {
+    plans: model.plans,
+  };
+  console.log(result);
+  return result;
+}
 
 async function persistenceToModel(persistedData = {}, model) {
     if(persistedData){
@@ -102,7 +82,6 @@ async function persistenceToModel(persistedData = {}, model) {
 
   function obsSetACB(model) {
 
-    // PATH += model.user.uid;
     set(ref(db, PATH+model.user.uid), modelToPersistence(model));
     console.log("HERE");
     return model;
@@ -110,7 +89,6 @@ async function persistenceToModel(persistedData = {}, model) {
   }
   
   export default function firebaseModelPromise(model) {
-    // PATH += model.user.uid;
 
     let dataFromFirebase = get(ref(db, PATH+model.user.uid))
       .then( res => {
@@ -127,7 +105,6 @@ async function persistenceToModel(persistedData = {}, model) {
 }
 
 async function firebaseModelPromise2(model){
-  //PATH += model.user.uid;
   const data = await get(ref(db, PATH+model.user.uid));
   persistenceToModel(data.val(),model);
 }

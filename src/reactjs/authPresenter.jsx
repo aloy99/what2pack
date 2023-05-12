@@ -3,21 +3,14 @@ import { onAuthStateChanged, getAuth} from "firebase/auth";
 import AuthView from "../views/authView.jsx";
 import { useNavigate } from "react-router-dom";
 import { signUp, signIn, signOut2 } from "../firebaseModel.js";
+import useModelProp from './useModelProp.jsx';
 
 
 function AuthPresenter(props){
+    useModelProp(props.model, ["user"]); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUser] = useState({});
     const [errMsg, setErrorMsg] = useState('');
-    const auth = getAuth();
-    const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState();
-
-    useEffect(() => {
-        const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
-          return unsub;
-        },[]);
 
     function handleEmailChangeACB(givenEmail) {
         setEmail(givenEmail);
@@ -51,10 +44,10 @@ function AuthPresenter(props){
     return (
         <div className="App">
           <AuthView 
-            value={{user}}
+            // value={{user}}
             email={props.email}
             password={props.password}
-            currentUser={currentUser}
+            currentUser={props.model.user}
             errorMessage = {errMsg}
             onEmailChange= {handleEmailChangeACB}
             onPasswordChange={handlePasswordChangeACB}

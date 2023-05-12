@@ -1,15 +1,43 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PlusOutlined, CheckOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button,notification } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 
 function AddButtonView(props){
     const navigate = useNavigate();
+    const [api, contextHolder] = notification.useNotification();    
+    const openNotificationNeedLogIn = (msg, des) => {
+        function loginButtonClickedACB(){
+            navigate('/login');
+            api.destroy();
+        }
+        const btn = (
+            <>
+              <Button type="link" size="small" onClick={() => api.destroy()}>
+                Cancel
+              </Button>
+              <Button type="primary" size="small" onClick={() => loginButtonClickedACB()}>
+                Login/SignUp
+              </Button>
+            </>
+        );
+        api.open({
+          message: msg,
+          description: des,
+          icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+          btn
+        });
+    };
     function clickRemoveFromPlanACB(){
         props.onDeletePlan();
     }
     function clickAddToPlanACB(){
-        props.onAddPlan();
+        if(props.user){
+            props.onAddPlan();
+        }
+        else{
+            openNotificationNeedLogIn("need log in","");
+        }
     }
     function clickSeeMyProfileACB(){
         navigate("/profile");
@@ -22,7 +50,6 @@ function AddButtonView(props){
                     See my profile {'>>'}
                 </u>
             </div>
-            
         );
     }
     else{
@@ -32,6 +59,7 @@ function AddButtonView(props){
                 <div className="addtoplan-title">
                     Add to plan
                 </div>
+                {contextHolder}
             </div>
         );
     }
