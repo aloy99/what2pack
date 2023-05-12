@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Card } from 'antd';
-import { EditOutlined, CloseOutlined } from '@ant-design/icons';
+import { notification, Popconfirm, Card, Button } from 'antd';
+import { EditOutlined, CloseOutlined, SmileOutlined  } from '@ant-design/icons';
+
 import useRerender from "../reactjs/useRerender";
 
 const { Meta } = Card;
@@ -9,7 +10,31 @@ function PlansView(props){
     const rerenderACB = useRerender();
     const navigate = useNavigate();
     const ifPlanConfirmOpen = props.plans.map(() => false);
-    const [openPlanConfirm, setOpenPlanConfirm] = useState(ifPlanConfirmOpen);
+    const [openPlanConfirm, setOpenPlanConfirm] = useState(ifPlanConfirmOpen); 
+    const [api, contextHolder] = notification.useNotification();    
+    const openNotificationWithUndoButton = (plan, msg, des) => {
+        function undoButtonClickedACB(){
+            api.destroy();
+            openPlanConfirm[plan.index] = false;
+            props.onUndoDeletePlan(plan);
+        }
+        const btn = (
+            <>
+              <Button type="link" size="small" onClick={() => api.destroy()}>
+                Close
+              </Button>
+              <Button type="primary" size="small" onClick={() => undoButtonClickedACB()}>
+                Undo
+              </Button>
+            </>
+        );
+        api.open({
+          message: msg,
+          description: des,
+          icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+          btn
+        });
+    };
     function renderPlanCB(plan){
         const description = plan.startDate + " ~ " + plan.endDate;
         function clickCardACB(){
@@ -34,11 +59,12 @@ function PlansView(props){
             setOpenPlanConfirm(openPlanConfirmNew);
             rerenderACB();
         };
-        function confirmDeletePlanACB(plan){
+        function confirmDeletePlanACB(){
             console.log("delete card", plan);
+            openNotificationWithUndoButton(plan,`Trip to ${plan.destination}(${plan.startDate}~${plan.endDate}) deleted.`,'')
             props.onDeletePlan(plan);
         }
-        function cancelDeletePlanACB(plan){
+        function cancelDeletePlanACB(){
             closeItemPopconfirm(plan);
         }
         return (
@@ -72,6 +98,7 @@ function PlansView(props){
     }
     return (
         <div className='plans-profile'>
+            {contextHolder}
             {props.plans.map(plan => renderPlanCB(plan))}
             <Card
                 className='card-plan-profile'

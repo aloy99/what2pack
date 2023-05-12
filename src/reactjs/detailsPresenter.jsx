@@ -1,3 +1,4 @@
+import usePlacesAutocomplete, { getLatLng, getGeocode } from "use-places-autocomplete";
 import React, { useState, useEffect } from 'react';
 import useModelProp from './useModelProp.jsx';
 import useRerender from "./useRerender.jsx";
@@ -5,13 +6,22 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
+import { onAuthStateChanged, getAuth} from "firebase/auth";
 // import { addTrip } from '../firestoreModel.js';
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
 
 function DetailsPresenter(props){
     useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded"]);
     const rerenderACB = useRerender();
-    const currentUser = useAuth();
+    // const currentUser = useAuth();
+    const auth = getAuth();
+    const [currentUser, setCurrentUser] = useState();
+
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
+          return unsub;
+        },[]);
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         rerenderACB();
@@ -34,6 +44,7 @@ function DetailsPresenter(props){
         return false;
     }
     function handleDestACB(dest){
+        console.log(dest)
         props.model.setSearchDestination(dest);
         console.log(props.model);
     }
@@ -141,9 +152,6 @@ function DetailsPresenter(props){
         rerenderACB();
         console.log(props.model);
     }
-    function mapsLoadedACB(){
-        props.model.gmapsLoaded = true;
-    }
     function handleAmountChangeACB(item, newAmount){
         props.model.setItemAmount(item, newAmount);
         console.log(props.model);
@@ -155,13 +163,60 @@ function DetailsPresenter(props){
     function handleUndoDeleteItemACB(item){
         handleAddItemACB(item);
     }
+
+    useEffect(() => {
+        scriptLoader();
+        return () => {
+        };
+    })
+
+    const scriptLoader = () => {
+        const url = GMAPS_BASE_URL + GMAPS_API_KEY + "&libraries=places&callback=initMap"
+        // if (!document.getElementById('googleMapsScript').src) {
+        //     document.getElementById('googleMapsScript').src = url;
+        // }
+        window.initMap = () => {};
+        document.getElementById('googleMapsScript').src = url;
+        document.getElementById('googleMapsScript').onload = () => {props.model.gmapsLoaded = true; console.log('script loaded'); init()} 
+    }
+
+    const {
+        init,
+        ready,
+        value,
+        suggestions: {status, data},
+        setValue,
+        clearSuggestions,
+    } = usePlacesAutocomplete({
+        initOnMount: false,
+        requestOptions: {
+            types: ['(cities)']
+        },
+        debounce: 500,
+    });
+    
+    if (props.model.gmapsLoaded) {
+        init();
+    }
+
+    function handleLocationClickACB(dest_raw) {
+        clearSuggestions();
+        getGeocode({address: dest_raw.description}).then((results) => {
+            const { lat, lng } = getLatLng(results[0]);
+            handleDestACB({'destination':dest_raw.description, 'latlng':{'latitude':lat, 'longitude':lng}});
+        }).catch((err) => console.log(err))
+    }
+
     return (
         <>
             <DetailsView 
+                currentUser={currentUser}
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
-                gmapsLoaded = {props.model.gmapsLoaded}
-                onMapsLoad={mapsLoadedACB}
+                onLocationClick={handleLocationClickACB}
+                locationSuggestions = {{'status':status,'data':data}}
+                destValue={value}
+                setValue = {setValue}
                 onSearchInput={handleSearchInputACB}
                 onDestChanged={handleDestACB}
                 onRangeChanged={handleRangeACB}

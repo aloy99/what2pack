@@ -4,8 +4,13 @@ import { PlusCircleOutlined, MinusCircleOutlined, SmileOutlined } from '@ant-des
 import useRerender from "../reactjs/useRerender";
 import { thresholdPrecipitation } from '../utils';
 import AddButtonView from './addButtonView';
+import { SHA1 } from 'crypto-js';
 
-function SuggestionView(props){
+function SuggestionView(props){  
+
+    function generateUniqueId(text) {
+        return SHA1(text).toString();
+    }
     let isNA = false;
     useEffect(()=>{
         const days = props.currentPlan.weathers.length;
@@ -14,10 +19,19 @@ function SuggestionView(props){
         for(const div of divsWeather){
             div.style.setProperty("--weather-width", weatherWidth);
         }
-        for(const item in props.currentPlan.items){
-            const checkbox = document.getElementById("checkbox-suggestion-"+ item.name);
+        let checkedItemNumber = 0;
+        for(const item of props.currentPlan.items){
+            const id = "checkbox-suggestion-"+ generateUniqueId(item.name);
+            const checkbox = document.getElementById(id);
             if(checkbox){
+                checkedItemNumber += item.ifPacked;
                 checkbox.checked = item.ifPacked;
+            }
+        }
+        if(checkedItemNumber >= props.currentPlan.items.length){
+            const checkboxAll = document.getElementById("checkbox-check-all");
+            if(checkboxAll){
+                checkboxAll.checked = true;
             }
         }
         const msgNA = document.getElementById("remark-na");
@@ -41,7 +55,6 @@ function SuggestionView(props){
     };
     const openNotificationWithUndoButton = (item, msg, des) => {
         function undoButtonClickedACB(){
-            console.log("undo");
             api.destroy();
             props.onUndoDeleteItem(item);
         }
@@ -81,6 +94,7 @@ function SuggestionView(props){
         showItemPopconfirm(item);
     }
     function confirmDeleteItemACB(item){
+        console.log("delete",item)
         closeItemPopconfirm(item);
         openNotificationWithUndoButton(item,`${item.name} deleted.`,'')
         props.onDeleteItem(item);
@@ -100,7 +114,7 @@ function SuggestionView(props){
             index: props.currentPlan.items.length,
             ifDeleteConfirmOpen: false
         }
-        if(item.name == ""){
+        if(!item.name){
             openNotificationWithIconWarning('warning','Item name should not be empty','');
             return;
         }
@@ -110,7 +124,7 @@ function SuggestionView(props){
         }
         for(const it of props.currentPlan.items)
         {
-            if(it.name == item.name){
+            if(it.name === item.name){
                 openNotificationWithIconWarning('warning',`${it.name} already exists in current plan.`,'');
                 return;
             }
@@ -188,10 +202,8 @@ function SuggestionView(props){
                     </Popconfirm>
                 </td>
                 <td>
-                    {/* <div className="input-name"> */}
                     {item.name}
-                    {/* </div> */}
-                    </td>
+                </td>
                 <td>
                     <input 
                         type="number" 
@@ -211,10 +223,8 @@ function SuggestionView(props){
                 <td>
                     <input 
                         className="checkbox-suggestion"
-                        id={"checkbox-suggestion-"+ item.name}
+                        id={"checkbox-suggestion-"+ generateUniqueId(item.name)}
                         type="checkbox" 
-                        // size="medium"
-                        // shape="circle"
                         onChange={itemCheckedACB} 
                         value={item.name}
                     />
@@ -229,9 +239,8 @@ function SuggestionView(props){
                     {/* <div className="news-title">
                         <h3>{news.title}</h3>
                     </div> */}
-                    {/* <h3 className="news-title">News</h3> */}
-                     <div className="news-title">
-                     <p>{news.name}.</p>
+                    <div className="news-title">
+                        <p>{news.name}</p>
                     </div>
 
                 </div>
@@ -327,33 +336,22 @@ function SuggestionView(props){
             <th></th>
         </tr>
     );
-    let itemsTableBody;
-    if(props.currentPlan.items.length > 0){
-        itemsTableBody =(
-            <>
-                <tbody>
-                    {props.currentPlan.items.map(itemInfoCB)}
-                    {addItemRow}
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>select all</th>
-                        <th>
-                        <input className="checkbox-all" id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
-                        <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
-                        </th>
-                    </tr>
-                </tbody>
-            </>
-        );
-    }
-    else{
-        itemsTableBody = (
-            <>
-                <p>No items to pack.</p>;
-                <tbody>
-                    {addItemRow}
+    const itemsTableBody = (
+        <table className="suggestion-table-details">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Remark</th>
+                    <th>Packed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.currentPlan.items.length > 0? props.currentPlan.items.map(itemInfoCB):null}
+                {addItemRow}
+                <tr>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th>select all</th>
@@ -361,21 +359,22 @@ function SuggestionView(props){
                     <input className="checkbox-all" id="checkbox-check-all" type="checkbox" onClick={chooseAllACB}/>
                     <label htmlFor="checkbox-check-all" id="checkbox-check-all-label"></label>
                     </th>
-                </tbody>
-            </>
-        );
-    }
+                </tr>
+            </tbody>
+            {contextHolder}
+        </table>
+    );
     let holidaysTable;
     if(props.currentPlan.holidays.length > 0){
         holidaysTable = (
         <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>
-                <div className="holiday-title">
-                {props.currentPlan.holidays[0].date.slice(5)}
-                </div>
-                <div className="holiday-name">
-                {props.currentPlan.holidays[0].name}
-                </div>
+            <div className="holiday-title">
+            {props.currentPlan.holidays[0].date.slice(5)}
             </div>
+            <div className="holiday-name">
+            {props.currentPlan.holidays[0].name}
+            </div>
+        </div>
         );
     }
     else{
@@ -388,32 +387,32 @@ function SuggestionView(props){
             <div className="detailPage-container">
                 <div className="plan-news-container">
                 <div className="planandAdd-item">
-                        <div className="plan-inside-item">
-                            <div className="plan-title">
-                                <div className="plan-title-name">
-                                {props.destMsg}
-                                </div>
-                                <div className="plan-title-date">
-                                {props.dateMsg}
-                                </div>
+                    <div className="plan-inside-item">
+                        <div className="plan-title">
+                            <div className="plan-title-name">
+                            {props.destMsg}
                             </div>
-                            <div className="addbutton">
-                            <Popconfirm
-                                title="Are you sure to delete this plan?"
-                                description=""
-                                onConfirm={confirmDeletePlanACB}
-                                onCancel={cancelDeletePlanACB}
-                                okText="Yes"
-                                cancelText="No"
-                                disabled={!props.currentPlanAdded}
-                                open={openPlanConfirm}
-                                >
-                                <AddButtonView 
-                                    currentPlanAdded={props.currentPlanAdded}
-                                    onDeletePlan={clickRemoveFromPlanACB}
-                                    onAddPlan={clickAddToPlanACB}/> 
-                            </Popconfirm>
+                            <div className="plan-title-date">
+                            {props.dateMsg}
                             </div>
+                        </div>
+                        <div className="addbutton">
+                        <Popconfirm
+                            title="Are you sure to delete this plan?"
+                            description=""
+                            onConfirm={confirmDeletePlanACB}
+                            onCancel={cancelDeletePlanACB}
+                            okText="Yes"
+                            cancelText="No"
+                            disabled={!props.currentPlanAdded}
+                            open={openPlanConfirm}
+                            >
+                            <AddButtonView 
+                                currentPlanAdded={props.currentPlanAdded}
+                                onDeletePlan={clickRemoveFromPlanACB}
+                                onAddPlan={clickAddToPlanACB}/> 
+                        </Popconfirm>
+                        </div>
                     </div>
                 </div>
 
@@ -461,19 +460,7 @@ function SuggestionView(props){
                         </h3>
                     </div>
                     <div className="suggestion-item">   
-                    <table className="suggestion-table-details">
-                        <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Item</th>
-                                    <th>Amount</th>
-                                    <th>Remark</th>
-                                    <th>Packed</th>
-                                </tr>
-                        </thead>
-                            {itemsTableBody}
-                            {contextHolder}
-                    </table>
+                    {props.currentPlan.items.length > 0?itemsTableBody: <p>No items.</p>}
                     </div>    
                 </div>
             </div>     
