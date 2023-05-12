@@ -229,6 +229,7 @@ function SuggestionView(props){
                     {/* <div className="news-title">
                         <h3>{news.title}</h3>
                     </div> */}
+                    {/* <h3 className="news-title">News</h3> */}
                      <div className="news-title">
                      <p>{news.name}.</p>
                     </div>
@@ -379,7 +380,7 @@ function SuggestionView(props){
     }
     else{
         holidaysTable = (
-            <p>No public holidays during this period.</p>
+            <p className="nohoilday-item">No public holidays during this period.</p>
         );
     }
     return (
@@ -442,13 +443,13 @@ function SuggestionView(props){
 
             <div className="weather-container">
                 <div className="weather-title-item">
-                    <h3>Weather Forecasts(°C)</h3>
+                    <h3 className="weather-title">Weather Forecasts(°C)</h3>
+                    <p className="div-weathers-warm" id="remark-na">* We only provide 14 days weather forecast.</p>
                 </div> 
                 <div className="div-weathers-container">
                     <div className="div-weathers">
                         {props.currentPlan.weathers.map(weatherInfoCB)}
                     </div> 
-                    <p id="remark-na">* We only provide weather forecast for the next 14 days. Please come back later :)</p>
                 </div>
             </div>
 
