@@ -47,7 +47,6 @@ function StartView(props){
                     <SearchBarView 
                         id="search-bar-start" 
                         gmapsLoaded = {props.gmapsLoaded}
-                        onMapsLoad={mapsLoadedACB}
                         onSearchInput={passSearchInputACB} 
                         onDestChanged={passDestACB} 
                         onRangeChanged={passRangeACB}
