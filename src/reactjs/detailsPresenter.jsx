@@ -213,6 +213,7 @@ function DetailsPresenter(props){
             {   
                 promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
+                //between view
                     user={props.model.user}
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}

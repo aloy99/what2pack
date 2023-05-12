@@ -1,8 +1,11 @@
 export default
 function promiseNoData(PromiseState){
-    // if(!PromiseState.promise){ //1
-    //     return <div>No data</div>;
-    // }
+    if(PromiseState === {}){
+        return false;
+    }
+    if(!PromiseState.promise){ //1
+        return <div>No data</div>;
+    }
     if(PromiseState.data){ //4
         return false;
     }
