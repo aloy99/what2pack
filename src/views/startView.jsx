@@ -7,6 +7,7 @@ import UserIconView from './userIconView';
 function StartView(props){
     const currentPlan = props.currentPlan;
     const navigate = useNavigate();
+
     function passSearchInputACB(destination, startDate, endDate){
         props.onSearchInput(destination, startDate, endDate);
         navigate("/details");
@@ -17,16 +18,19 @@ function StartView(props){
     function passRangeACB(startDate, endDate){
         props.onRangeChanged(startDate, endDate);
     }
+    function setValueACB(args){
+        props.setValue.apply(null,arguments)
+    }
+    function passLocationClickACB(dest_value){
+        props.onLocationClick(dest_value)
+    }
     // function clickLoginACB(){
     //     navigate("/login");
     // }
     // function clickLogoACB(){
     //     props.onClickLogo();
     //     navigate("/");
-    // }
-    function mapsLoadedACB(){
-        props.onMapsLoad();
-    }
+    // 
     return (
      <div className="start-container">
         <div className="startL-container"> 
@@ -42,7 +46,10 @@ function StartView(props){
                 <SearchBarView 
                     id="search-bar-start" 
                     gmapsLoaded = {props.gmapsLoaded}
-                    onMapsLoad={mapsLoadedACB}
+                    locationSuggestions={props.locationSuggestions}
+                    destValue={props.destValue}
+                    onLocationClicked={passLocationClickACB}
+                    setValue={setValueACB}
                     onSearchInput={passSearchInputACB} 
                     onDestChanged={passDestACB} 
                     onRangeChanged={passRangeACB}
