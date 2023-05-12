@@ -14,7 +14,10 @@ function ProfilePresenter(props){
         }).catch(error => console.log(error));
     }
     function handleCurrentPlanChangeACB(plan){
+        console.log("current plan",plan);
+        console.log("model",props.model);
         props.model.setCurrentPlan(plan);
+        rerenderACB();
     }
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
