@@ -5,7 +5,7 @@ import useModelProp from './useModelProp.jsx';
 import {signOut} from "firebase/auth";
 import useRerender from "./useRerender.jsx";
 import {auth} from "../firebaseModel";
-import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+// import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 
 function ProfilePresenter(props){
     useModelProp(props.model, ["plans"]);

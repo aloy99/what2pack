@@ -6,6 +6,7 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
+import { onAuthStateChanged, getAuth} from "firebase/auth";
 // import { addTrip } from '../firestoreModel.js';
 import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
@@ -13,7 +14,14 @@ import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
 function DetailsPresenter(props){
     useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded"]);
     const rerenderACB = useRerender();
-    const currentUser = useAuth();
+    // const currentUser = useAuth();
+    const auth = getAuth();
+    const [currentUser, setCurrentUser] = useState();
+
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
+          return unsub;
+        },[]);
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         rerenderACB();
@@ -199,6 +207,7 @@ function DetailsPresenter(props){
     return (
         <>
             <DetailsView 
+                currentUser={currentUser}
                 plans={props.model.plans}
                 currentPlan={props.model.currentPlan}
                 onLocationClick={handleLocationClickACB}

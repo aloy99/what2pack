@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+// import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 import { useState, useEffect } from 'react';
 
 function ProfileView(props){
     const navigate = useNavigate();
-    const currentUser = useAuth();
+    // const currentUser = useAuth();
     const [isLoadingTrips, setIsLoadingTrips] = useState(true);
     const [trips, setTrips] = useState([]);
 
@@ -21,7 +21,7 @@ function ProfileView(props){
     return (
         <div className="App">
             {
-                currentUser ? <div>
+                props.currentUser ? <div>
                     <h1 className="profileViewH1">All your saved trips</h1> 
                     </div> : 
                     <div>
