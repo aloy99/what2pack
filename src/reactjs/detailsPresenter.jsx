@@ -22,9 +22,9 @@ function DetailsPresenter(props){
     function ifPlanAdded(planToAdd, plans){
         if(planToAdd){
             for (const p of plans){
-                if(p.destination == planToAdd.destination
-                && p.startDate == planToAdd.startDate
-                && p.endDate == planToAdd.endDate){
+                if(p.destination === planToAdd.destination
+                && p.startDate === planToAdd.startDate
+                && p.endDate === planToAdd.endDate){
                     return true;
                 }
             }
@@ -82,9 +82,9 @@ function DetailsPresenter(props){
         else{ // if the searched plan is already in my plans
             let currentPlan = {};
             for(const p of props.model.plans){
-                if(p.destination == destination
-                    && p.startDate == startDate
-                    && p.endDate == endDate){
+                if(p.destination === destination
+                    && p.startDate === startDate
+                    && p.endDate === endDate){
                         currentPlan = p;
                         break;
                     }
