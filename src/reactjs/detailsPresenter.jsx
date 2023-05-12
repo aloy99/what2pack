@@ -6,7 +6,6 @@ import DetailsView from "../views/detailsView.jsx";
 import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
-import { onAuthStateChanged, getAuth} from "firebase/auth";
 import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
 
 function DetailsPresenter(props){
@@ -15,17 +14,17 @@ function DetailsPresenter(props){
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         rerenderACB();
-    },[window.location.href]);
-    const [destMsg, setDestMsg] = useState(props.model.searchParams.destination);
-    const [dateMsg, setDateMsg] = useState(props.model.searchParams.startDate + " ~ " + props.model.searchParams.endDate);
+    },[props.model.plans]);
+    const [destMsg, setDestMsg] = useState(props.model.currentPlan.destination);
+    const [dateMsg, setDateMsg] = useState(props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate);
     const [promiseState,] = useState({});
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
         if(planToAdd){
             for (const p of plans){
-                if(p.destination == planToAdd.destination
-                && p.startDate == planToAdd.startDate
-                && p.endDate == planToAdd.endDate){
+                if(p.destination === planToAdd.destination
+                && p.startDate === planToAdd.startDate
+                && p.endDate === planToAdd.endDate){
                     return true;
                 }
             }
@@ -83,9 +82,9 @@ function DetailsPresenter(props){
         else{ // if the searched plan is already in my plans
             let currentPlan = {};
             for(const p of props.model.plans){
-                if(p.destination == destination
-                    && p.startDate == startDate
-                    && p.endDate == endDate){
+                if(p.destination === destination
+                    && p.startDate === startDate
+                    && p.endDate === endDate){
                         currentPlan = p;
                         break;
                     }
