@@ -310,7 +310,7 @@ function SuggestionView(props){
                     <b>{weather.time}</b>
                     </div>
                     <div className="weather-pic">
-                        <img src='/public/unknown.png' className="weather-icon" alt="unknown-icon"></img>
+                        <img src='/unknown.png' className="weather-icon" alt="unknown-icon"></img>
                     </div>
                     <div className="weather-temp-ranage">
                         <p className="weather-temp-max">Not</p>
@@ -365,7 +365,8 @@ function SuggestionView(props){
         </table>
     );
     let holidaysTable;
-    if(props.currentPlan.holidays.length > 0){
+    console.log(props.currentPlan)
+    if(props.currentPlan.holidays && props.currentPlan.holidays.length > 0){
         holidaysTable = (
         <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>
             <div className="holiday-title">
@@ -406,8 +407,9 @@ function SuggestionView(props){
                             cancelText="No"
                             disabled={!props.currentPlanAdded}
                             open={openPlanConfirm}
-                            >
+                        >
                             <AddButtonView 
+                                user={props.user}
                                 currentPlanAdded={props.currentPlanAdded}
                                 onDeletePlan={clickRemoveFromPlanACB}
                                 onAddPlan={clickAddToPlanACB}/> 

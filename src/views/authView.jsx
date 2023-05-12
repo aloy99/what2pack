@@ -39,6 +39,7 @@ function AuthView(props){
     function handleuserSignOutACB(e){
         navigate('/')
         props.onUserSignOut();
+        console.log("LOG OUT CLICK")
     }  
 
     if (props.currentUser){

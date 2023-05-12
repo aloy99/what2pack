@@ -2,16 +2,14 @@ import React from "react";
 import ProfileView from '../views/profileView.jsx';
 import PlansView from '../views/plansView.jsx';
 import useModelProp from './useModelProp.jsx';
-import {signOut} from "firebase/auth";
 import useRerender from "./useRerender.jsx";
-import {auth} from "../firebaseModel";
-// import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
+import {signOut2} from "../firebaseModel";
 
 function ProfilePresenter(props){
     useModelProp(props.model, ["plans"]);
     const rerenderACB = useRerender();
     const handleUserSignOutACB = () =>{
-        signOut(auth).then(() =>{
+        signOut2().then(() =>{
             console.log("sign out successful");
         }).catch(error => console.log(error));
     }
@@ -20,7 +18,6 @@ function ProfilePresenter(props){
     }
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
-        // console.log(props.model);
     } 
     function handleUndoDeletePlanACB(plan){
         props.model.addPlan(plan);

@@ -3,23 +3,22 @@ import { useState, useEffect } from 'react';
 import StartPresenter from './reactjs/startPresenter.jsx';
 import DetailsPresenter from './reactjs/detailsPresenter.jsx';
 import ProfilePresenter from './reactjs/profilePresenter.jsx';
+// import NavPresenter from './reactjs/profilePresenter.jsx';
 import What2PackModel from './What2PackModel';
 import './App.css';
 import AuthPresenter from './reactjs/authPresenter.jsx';
 import Navbar from './views/Navbar.jsx';
-import firebaseModelPromise from "./firebaseModel.js";
+// import firebaseModelPromise from "./firebaseModel.js";
+import {firebaseModelPromise} from "./firebaseModel.js";
 import resolvePromise from "./resolvePromise.js";
+import {getAuth,onAuthStateChanged} from "firebase/auth";
 
 
 const myModel = new What2PackModel();
+// const auth = getAuth(app);
+
 
 function App() {
-  const [promiseState,] = useState({});
-  useEffect(() => {
-    resolvePromise(firebaseModelPromise(myModel), promiseState);
-    console.log('promiseState: HELLO',promiseState);
-    updateOnPromise(promiseState.promise, reRenderACB);
-  }, [myModel]);
   const [, forceReRender] = useState();
   function reRenderACB() {
     forceReRender(new Object());
@@ -30,6 +29,25 @@ function App() {
       reRender();
     }
   }
+  const [promiseState,] = useState({});
+  const auth = getAuth();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("app user:", user)
+      myModel.user = user;
+      resolvePromise(firebaseModelPromise(myModel), promiseState);
+      console.log('promiseState: HELLO',promiseState);
+      updateOnPromise(promiseState.promise, reRenderACB);
+
+    } else{
+      // myModel =  new What2PackModel();
+      myModel.user = null;
+
+      }
+    }
+    );
+},[]);
 
   return (
     <>
@@ -45,3 +63,10 @@ function App() {
 }
 
 export default App;
+
+  // useEffect(() => {
+  //   resolvePromise(firebaseModelPromise(myModel), promiseState);
+  //   console.log('promiseState: HELLO',promiseState);
+  //   updateOnPromise(promiseState.promise, reRenderACB);
+  // }, [myModel.user]);
+  // const [, forceReRender] = useState();

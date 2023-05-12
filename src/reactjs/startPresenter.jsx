@@ -89,7 +89,7 @@ function StartPresenter(props){
 
     function handleLocationClickACB(dest_raw) {
         clearSuggestions();
-        console.log(dest_raw)
+        // console.log(dest_raw)
         getGeocode({address: dest_raw.description}).then((results) => {
             const { lat, lng } = getLatLng(results[0]);
             handleDestACB({'destination':dest_raw.description, 'latlng':{'latitude':lat, 'longitude':lng}});
