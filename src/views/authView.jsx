@@ -63,12 +63,12 @@ function AuthView(props){
                                     <form  className="" onSubmit={props.onUserSignIn}>
                                         <h1>Log In to account</h1>
                                         <p >No account yet?<button className="sign-button" onClick={handleSignUpClick}>Sign Up here</button></p>
-                                        <label for="email">Email</label>
+                                        <label htmlFor="email">Email</label>
                                         <input type="email" placeholder="Enter your email" 
                                             value={props.email}
                                             onChange={changeEmailACB}  
                                         ></input>
-                                         <label for="password">Password</label>
+                                         <label htmlFor="password">Password</label>
                                          <input type="password" placeholder="Enter your password" 
                                             value={props.password}
                                             onChange={changePasswordACB}  
@@ -95,12 +95,12 @@ function AuthView(props){
                                     <form  onSubmit={props.onUserSignUp}>
                                         <h1>Create account</h1>  
                                         <p >All ready have an account? <button className="sign-button"  onClick={handleSignInClick}>Log In here</button></p> 
-                                        <label for="email">Email</label>
+                                        <label htmlFor="email">Email</label>
                                         <input type="email" placeholder="Enter your email" 
                                             value={props.email}
                                             onChange={changeEmailACB}   
                                         ></input>
-                                        <label for="password">Password</label>
+                                        <label htmlFor="password">Password</label>
                                         <input type="password" placeholder="Enter your password" 
                                             value={props.password}
                                             onChange={changePasswordACB} 

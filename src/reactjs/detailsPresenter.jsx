@@ -7,8 +7,6 @@ import SuggestionView from "../views/suggestionView.jsx";
 import promiseNoData from "../views/promiseNoData.jsx";
 import resolvePromise from '../resolvePromise.js';
 import { onAuthStateChanged, getAuth} from "firebase/auth";
-// import { addTrip } from '../firestoreModel.js';
-// import {useAuth} from "../reactjs/firebase-auth-hook.jsx";
 import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
 
 function DetailsPresenter(props){
