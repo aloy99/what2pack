@@ -1,10 +1,6 @@
 #root {
-  /* max-width: 1280px; */
   margin: 0 auto;
   background-color: #F9F2E0;
-  /* padding: 2rem; */
-  /* text-align: center; */
-  /* background-image: url("/images/travel.jpg"); */
 }
 
 /* .travelimage {
@@ -40,10 +36,6 @@ he} */
   }
 }
 
-/* .card {
-  padding: 2em;
-} */
-
 .read-the-docs {
   color: #888;
 }
@@ -57,11 +49,6 @@ he} */
   text-decoration: underline;
 }
 
-.input-remark {
-  /* text-align: center; */
-  /* text-decoration: underline; */
-}
-
 .profile-container{
   display: flex;
   flex-direction: row;
@@ -73,11 +60,6 @@ he} */
   margin-left: 10px;
 }
 
-/* .text-center {
-  text-align: center;
-  vertical-align: middle;
-} */
-
 .search-bar-container {
   display: flex;
   flex-direction: row;
@@ -85,6 +67,7 @@ he} */
   /* height: 100px; */
   align-items: stretch;
 }
+
 .destination-button{
   z-index: 2;
   width: 260px;
@@ -117,27 +100,10 @@ he} */
   position: relative;
   /* display:block; */
 }
-/* .destination-button, .searchrange-button {
-    position: absolute;
-} */
 
 .country-search {
   height: 32px;
 }
-
-/* .input-destination {
-  position: absolute;
-} */
-/* .date-picker {
-  display: flex;  
-} */
-
-/* .holidays-table-details {
-  align-items: left;
-  padding: 20px;
-  margin-right: 0px;
-  margin-left: 20px; 
-} */
 
 input[type="search"].input-destination {
   -webkit-appearance: searchfield;
@@ -152,7 +118,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 /* navigation start */
-
 .nav-container {
   margin: 1rem;
   text-align: center;
@@ -213,30 +178,72 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   padding-top: 15px;
 }
 
+@media only screen and (min-width: 1000px) and (max-width: 1400px) {
+  
+  .plan-title-name{
+    line-height: 94%;
+  }
+  .new-holiday-title {
+    height: 4rem;
+  }
+}
+
+
 @media only screen and (max-width: 1000px) {
+  
+  .detailPageOutside-container{
+    display: flex;
+    justify-content: center;
+  }
+
   .detailPage-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    flex-shrink: 0;
     height: 100%;
-    /* width: 1000px; */
+    width: 900px;
   }
-  .holiday-news-container{
-    width: 100%;
-    height: 100%;
-    /* width: 400px; */
-    /* padding: 20px; */
+
+  .weather-list-container {
+    padding-left: 100px;
   }
-  .holiday-news-container{
-    width: 100%;
-    height: 100%;
-    /* width: 400px; */
-    /* padding: 20px; */
+
+  /* .plan-news-container, .weather-list-container{
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-items:center;
+  } */
+
+  .holiday-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 1.8rem;
+   }
+   
+   .holiday-name {
+     height: 1rem;
+     /* margin-top: -1.4rem; */
+   }
+   
+   .holiday-date-name {
+    margin-top: -1.4rem;
+    padding-bottom: 2.4rem;
+   }
+
+  .news.holiday, .news.one {
+    height: 200px;
   }
+  .news.two, .news.three {
+    height: 200px;
+  }
+
   .weather-list-container{
     width: calc(100% - 20px);
-    /* width: 400px; */
-    /* padding: 20px; */
+    margin-top: -30px;
   }
 }
 
@@ -259,7 +266,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 .button-add-to-plan-detail img {
   width: 60px;
   height: 60px;
-  /* background-color: #47453f; */
 }
 
 .addtoplan-title, .removetoplan-title {
@@ -298,28 +304,25 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .plan-title-name {
-  padding-top: 20px;
+  padding-top: 10%;
   font-family: 'Castoro Titling', cursive;
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   /* height: 70px; */
   color: white;
 }
 
 .plan-title-date {
-  /* font-family: 'Castoro Titling', cursive; */
-  font-size: larger;
+  font-size: large;
   color: white;
 }
 
 .plan-news-container div{
   box-sizing: border-box;
   border-radius: 15px;
-
 } 
 
 .planandAdd-item{
   display: flex;
-  /* background-color: #B5B48E; */
   height: calc(30% - 20px);
 }
 
@@ -338,10 +341,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 .holiday-news-container{
   display: flex; /* 使用flexbox */
   flex-wrap: wrap; /* 設定flex容器可換行 */
-  /* justify-content: space-between; */
-  /* align-items: center;  */
   height: 70%;
-  /* width: 100%; */
 }
 
 .news {
@@ -354,15 +354,20 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .news.holiday {
+  display: flex;
+  flex-direction: column;
   background-color:  #ecd8b2;
-}
-
-.news-title {
-  font-family: 'Castoro Titling', cursive;
+  height:calc(50% - 20px); 
+  color: #6e6e6e;
 }
 
 .content-container {
-  height: 65%;
+  height: 70%;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hypelink-item {
@@ -396,39 +401,43 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .holiday-title {
- font-size:  60px;
+ font-size: 3rem;
  font-weight: bold;
- height: 70px;
+ margin-top: -1rem;
+ /* line-height: 0.8; */
+}
+
+.plan-title-date{
+ line-height: 0.6;
 }
 
 .holiday-name {
-  font-size:  20px;
+  font-size:  large;
   font-weight: bold;
+  height: 1rem;
+  margin-top: -1rem;
 }
-
-/* .holiday-news-container div :not(.holidays-item) {
-  background-color: #9f9f9f;
-  width:  calc(100% - 20px);
-} */
 
 .holiday-date-name {
  display: flex;
  flex-direction: column;
  text-align: center;
- margin-top: -10px;
- /* color: white; */
+ /* margin-top: -0.8rem; */
+ padding-bottom: 2.2rem;
 }
 
 .news.holiday, .news.one {
   order: 1;
   padding-right: 20px;
+  /* height: 100%; */
 }
 .news.two, .news.three {
   order: 2;
   padding-right: 20px;
+  /* height: 100%; */
 }
 
-.new-holiday-title{
+.new-holiday-title {
   font-family: 'Castoro Titling', cursive;
 }
 
@@ -460,13 +469,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   background-color: #B5B48E;
 }
 
-/* .suggestion-table-details td:first-child, th:first-child {
-  border-left: none;
-}
-
-.suggestion-table-details td:last-child, th:last-child {
-  border-right: none;
-} */
 .checkbox-suggestion{
   width: 15px;
   height: 15px;
@@ -475,7 +477,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
  .checkbox-all{
   width: 15px;
   height: 15px;
-  background-color: #c07373;
+  margin-bottom: -20px;
 }
 
 .suggestion-table-details {
@@ -500,6 +502,8 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   padding: 5px 5px;
   border-right: 1px solid #ffffff;
   border-left: 1px solid #ffffff;
+  vertical-align: middle;
+  /* text-align: center; */
 }
 
 .suggestion-table-details tbody tr {
@@ -547,11 +551,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   font-size: large;
   /* text-align: left; */
 }
-/* .input-remark, .input-amount, .input-name{
-  padding-left: 10px;
-} */
-
-/* detail page end*/
 
 /* detailPage end */
 .card-plan-profile{
@@ -580,7 +579,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   display: flex;
   flex-direction: column;
   width: calc(50% - 20px);
-  /* padding: 10px; */
   padding: 20px;
 }
 
@@ -601,11 +599,30 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .weather-title-item {
-  font-family: 'Castoro Titling', cursive;
+  display: flex;
+  flex-direction: row;
   padding-left: 30px;
   height: 30%;
   font-size: large;
   content: attr(data-text);
+}
+
+.weather-title {
+  width: 75%;
+  font-family: 'Castoro Titling', cursive;
+}
+
+.nohoilday-item {
+  padding-bottom: 1rem;
+}
+
+.div-weathers-warm {
+  width: 25%;
+  font-size: 5px;
+  /* background-color: #863A2C; */
+  padding-top: 20px;
+  height: 100%;
+  color: #838383
 }
 
 .div-weathers-container{
@@ -617,7 +634,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 }
 
 .div-weathers{
-  height: 70%;
+  height: 60%;
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
@@ -662,8 +679,6 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   align-items: center;
   justify-content: center;
   height: 25%;
-  /* justify-content: space-between; */
-  /* background-color:  #ecd8b2; */
 }
 
 .weather-temp-max{

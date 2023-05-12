@@ -110,16 +110,42 @@ button:focus-visible {
   margin-left: 60px;
   background-color: #ecd8b2;
   background-image: url(/travel.png);
-  background-size: cover;
+  background-size:cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 60%;
 }
 
-.startL-container img {
-  width: 500px;
-  height: 400px;
+@media only screen and (max-width: 1000px) {
+
+  .startOutside-container{
+    display: flex;
+    justify-content: center;
+    margin-left: -30%;
+  }
+
+  .start-container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #F9F2E0; */
+  }
+  
+  .startL-container {
+  display: none;
+  height: 10%;
+  background-image: none;
+  background-color: #F9F2E0;
+  }
+  .startR-container {
+    width: 100%;
+  }
 }
+
+/* .startL-container img {
+  width: 600px;
+  height: 400px;
+} */
 
 
 .startR-container {
@@ -164,7 +190,7 @@ button:focus-visible {
 .mainContent {
     display: block;
     margin: auto;
-    /* width: 200px; */
+    width: 30%;
 }
 
 /* login/signup Start */

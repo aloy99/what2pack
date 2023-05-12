@@ -1,60 +1,19 @@
-import usePlacesAutocomplete, { getLatLng, getGeocode } from "use-places-autocomplete";
 import React, { useEffect, useRef } from "react";
 import { Input, List } from 'antd';
 import { GMAPS_BASE_URL, GMAPS_API_KEY } from "../apiConfig.jsx";
 
 function SearchCompleteView(props){
-
-    useEffect(() => {
-        scriptLoader();
-        return () => {
-        };
-    })
-
-    const scriptLoader = () => {
-        const url = GMAPS_BASE_URL + GMAPS_API_KEY + "&libraries=places&callback=initMap"
-        // if (!document.getElementById('googleMapsScript').src) {
-        //     document.getElementById('googleMapsScript').src = url;
-        // }
-        window.initMap = () => {};
-        document.getElementById('googleMapsScript').src = url;
-        document.getElementById('googleMapsScript').onload = () => {props.onMapsLoad(); console.log('script loaded'); init()} 
-    }
-
-    const {
-        init,
-        ready,
-        value,
-        suggestions: {status, data},
-        setValue,
-        clearSuggestions,
-    } = usePlacesAutocomplete({
-        initOnMount: false,
-        requestOptions: {
-            types: ['(cities)']
-        },
-        debounce: 500,
-    });
-    
-    if (props.gmapsLoaded) {
-        init();
-    }
-    
-    // to do: getDetails, get country, and store country in model to use for holidays api
+// to do: getDetails, get country, and store country in model to use for holidays api
 
     function inputChangeACB(e){
-        setValue(e.target.value);
+        props.setValue(e.target.value);
         props.onChange(e);
     }
 
     function onLocationClickACB({description}) {
         return () => {
-            setValue(description, false);
-            clearSuggestions();
-            getGeocode({ address: description }).then((results) => {
-                const { lat, lng } = getLatLng(results[0]);
-                props.onLocationClicked({description, 'latlng':{'latitude':lat, 'longitude':lng}});
-            })    
+            props.setValue(description, false);
+            props.onLocationClicked({ description })  
         }
     }
 
@@ -93,14 +52,14 @@ function SearchCompleteView(props){
                 ng-disabled="'@ViewBag.EditaConteudo'"
                 className="input-destination"
                 defaultValue={props.defaultDest}
-                value={value}
+                value={props.destValue}
                 onChange={inputChangeACB}
                 // disabled={ready}
             />
             <div className="search-suggestions">
-            {status === "OK" && <List
+            {props.locationSuggestions.status === "OK" && <List
                 bordered
-                dataSource={data}
+                dataSource={props.locationSuggestions.data}
                 renderItem={(item) => <List.Item onClick={onLocationClickACB(item)}><strong>{item.structured_formatting.main_text}</strong> <small>{item.structured_formatting.secondary_text}</small></List.Item>}
             />}
             </div>
