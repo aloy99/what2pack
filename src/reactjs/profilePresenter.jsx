@@ -21,6 +21,7 @@ function ProfilePresenter(props){
     }
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
+        rerenderACB();
     } 
     function handleUndoDeletePlanACB(plan){
         props.model.addPlan(plan);
