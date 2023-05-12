@@ -365,7 +365,6 @@ function SuggestionView(props){
         </table>
     );
     let holidaysTable;
-    console.log(props.currentPlan)
     if(props.currentPlan.holidays && props.currentPlan.holidays.length > 0){
         holidaysTable = (
         <div className="holiday-date-name" key={props.currentPlan.holidays[0].name}>

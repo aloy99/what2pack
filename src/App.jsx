@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import StartPresenter from './reactjs/startPresenter.jsx';
 import DetailsPresenter from './reactjs/detailsPresenter.jsx';
 import ProfilePresenter from './reactjs/profilePresenter.jsx';
-// import NavPresenter from './reactjs/profilePresenter.jsx';
+import NavPresenter from './reactjs/navPresenter.jsx';
 import What2PackModel from './What2PackModel';
 import './App.css';
 import AuthPresenter from './reactjs/authPresenter.jsx';
@@ -51,7 +51,8 @@ function App() {
 
   return (
     <>
-    <Navbar />
+    {/* <Navbar /> */}
+    <NavPresenter model={myModel} />
       <Routes>
         <Route path='/' element={<StartPresenter model={myModel}/>}></Route>
         <Route path='/login' element={<AuthPresenter model={myModel}/>}></Route>

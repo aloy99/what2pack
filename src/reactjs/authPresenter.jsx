@@ -12,6 +12,8 @@ function AuthPresenter(props){
     const [password, setPassword] = useState('');
     const [errMsg, setErrorMsg] = useState('');
 
+    const navigate = useNavigate();
+
     function handleEmailChangeACB(givenEmail) {
         setEmail(givenEmail);
       }
@@ -19,6 +21,7 @@ function AuthPresenter(props){
         setPassword(givenPassword);
       }  
     const handleUserSignOutACB = async () => {
+      navigate('/profile')
       await signOut2();
       console.log("sign out Presenter successful");
     };

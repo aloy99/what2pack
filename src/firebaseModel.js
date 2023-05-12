@@ -54,12 +54,12 @@ const PATH = "allTrips/";
 const db = getDatabase(app);
 
 function modelToPersistence(model) {
-  console.log("model to per");
+  // console.log("model to per");
   // console.log("model to per TEST", getUidUser())
   const result = {
     plans: model.plans,
   };
-  console.log(result);
+  // console.log(result);
   return result;
 }
 
@@ -75,8 +75,8 @@ async function persistenceToModel(persistedData = {}, model) {
     else{
         model.plans = [];
     }
-    console.log("per to model")
-    console.log("per to model:",model);
+    // console.log("per to model")
+    // console.log("per to model:",model);
     return model; //  return a promise
 }
 

@@ -14,9 +14,9 @@ function DetailsPresenter(props){
     useEffect(() =>{
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         rerenderACB();
-    },[props.model.plans]);
-    const [destMsg, setDestMsg] = useState(props.model.currentPlan.destination);
-    const [dateMsg, setDateMsg] = useState(props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate);
+    },[props.model.currentPlan]);
+    const [destMsg, setDestMsg] = useState(props.model.currentPlan?props.model.currentPlan.destination:props.model.searchParams.destination);
+    const [dateMsg, setDateMsg] = useState(props.model.currentPlan?props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate:props.model.searchParams.startDate + " ~ " + props.model.searchParams.endDate);
     const [promiseState,] = useState({});
     const [currentPlanAdded, setCurrentPlanAdded] = useState(false);
     function ifPlanAdded(planToAdd, plans){
@@ -213,6 +213,7 @@ function DetailsPresenter(props){
             {   
                 promiseNoData(props.model.searchResultsPromiseState) ||
                 <SuggestionView
+                //between view
                     user={props.model.user}
                     currentPlanAdded={currentPlanAdded}
                     currentPlan={props.model.currentPlan}
