@@ -30,15 +30,7 @@ function maxIfNotNull(arr){
     return max;
 }
 
-function countDaysBetween(start, end){
-    const date_start = new Date(start);
-    const date_end = new Date(end);
-    const diff = date_end.getTime() - date_start.getTime();
-    console.log(diff);
-    return diff;
-}
-
-function suggestFromTemperature(temps_max, temps_min){
+function suggestFromTemperature(temps_max){
     const temp_max_mean = meanIfNotNull(temps_max);
     if(temp_max_mean > 30){
         return(
@@ -332,12 +324,6 @@ function suggestACB(response){
     const uvs = weather_data.uv_index_max;
     const precipitations = weather_data.precipitation_sum;
     const times = weather_data.time;
-    // const suggestions_concat = suggestFromTemperature(temps_max, temps_min).concat(suggestFromWind(winds))
-    //                                                                        .concat(suggestFromUV(uvs))
-    //                                                                        .concat(suggestFromPrecipitation(precipitations));
-    // // filter out the items with the same name                                                                
-    // const suggestions = [...new Map(suggestions_concat.map(s => [s['name'], s])).values()];
-    // console.log(weather_data)
     let weathers = [];
     times.forEach((time, i) => {
         weathers.push({
@@ -349,9 +335,8 @@ function suggestACB(response){
             uv: uvs[i]
         });
     });
-    // console.log(weathers)
     // get packing suggestions from all weather perspectives
-    const suggestions = [...new Set([...suggestFromTemperature(temps_max, temps_min),
+    const suggestions = [...new Set([...suggestFromTemperature(temps_max),
         ...suggestFromWind(winds),
         ...suggestFromUV(uvs),
         ...suggestFromPrecipitation(precipitations)])];

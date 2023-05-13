@@ -36,7 +36,7 @@ function AddButtonView(props){
             props.onAddPlan();
         }
         else{
-            openNotificationNeedLogIn("need log in","");
+            openNotificationNeedLogIn("You need to login/sign up first.","");
         }
     }
     function clickSeeMyProfileACB(){

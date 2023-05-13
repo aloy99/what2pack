@@ -1,7 +1,6 @@
 export default
 function promiseNoData(PromiseState){
     if(PromiseState.promise === undefined){
-        console.log("empty")
         return false;
     }
     if(!PromiseState.promise){ //1
