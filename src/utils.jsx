@@ -1,9 +1,9 @@
 const thresholdPrecipitation = [0.2, 4, 9, 40];
 
 function isPlanEqual(planA, planB){
-    return planA.destination == planB.destination
-    && planA.startDate == planB.startDate
-    && planA.endDate == planB.endDate;
+    return planA.destination === planB.destination
+    && planA.startDate === planB.startDate
+    && planA.endDate === planB.endDate;
 }
 
 function meanIfNotNull(arr){

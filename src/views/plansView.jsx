@@ -53,7 +53,7 @@ function PlansView(props){
             setOpenPlanConfirm(openPlanConfirmNew);
             rerenderACB();
         }
-        function closeItemPopconfirm(plan){
+        function closePlanPopconfirm(plan){
             const openPlanConfirmNew = openPlanConfirm;
             openPlanConfirmNew[plan.index] = false;
             setOpenPlanConfirm(openPlanConfirmNew);
@@ -63,9 +63,10 @@ function PlansView(props){
             console.log("delete card", plan);
             openNotificationWithUndoButton(plan,`Trip to ${plan.destination}(${plan.startDate}~${plan.endDate}) deleted.`,'')
             props.onDeletePlan(plan);
+            closePlanPopconfirm(plan);
         }
         function cancelDeletePlanACB(){
-            closeItemPopconfirm(plan);
+            closePlanPopconfirm(plan);
         }
         return (
             <Card
@@ -76,6 +77,7 @@ function PlansView(props){
                 actions={[
                     <EditOutlined key="edit" onClick={clickEditCardACB}/>,
                     <Popconfirm
+                        key="delete"
                         title="Are you sure to delete this plan?"
                         description=""
                         onConfirm={confirmDeletePlanACB}

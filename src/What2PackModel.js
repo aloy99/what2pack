@@ -78,16 +78,20 @@ class What2PackModel{
     }
 
     addPlan(planToAdd){
+        function compareItemsCB(a,b){
+            return a.index - b.index;
+        }
         for (const p of this.plans){
             if(isPlanEqual(p, planToAdd)){
                 return;
             }
         }
-        this.plans = [...this.plans, planToAdd];
+        this.plans = [...this.plans, planToAdd].sort(compareItemsCB);
         this.notifyObservers({planToAdd: planToAdd});
     }
 
     removePlan(planToRemove){
+        console.log("model remove plan", planToRemove)
         const oldPlans = this.plans;
         this.plans = this.plans.filter(p => !isPlanEqual(p, planToRemove));
         if (this.plans.length !== oldPlans.length){
