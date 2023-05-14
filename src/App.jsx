@@ -33,10 +33,10 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log("app user:", user)
+      // console.log("app user:", user)
       myModel.user = user;
       resolvePromise(firebaseModelPromise(myModel), promiseState);
-      console.log('promiseState: HELLO',promiseState);
+      // console.log('promiseState: HELLO',promiseState);
       updateOnPromise(promiseState.promise, reRenderACB);
 
     } else{

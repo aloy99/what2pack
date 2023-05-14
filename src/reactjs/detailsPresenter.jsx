@@ -12,12 +12,14 @@ function DetailsPresenter(props){
     useModelProp(props.model, ["currentPlan", "plans", "searchParams", "searchResultsPromiseState", "gmapsLoaded","user"]);
     const rerenderACB = useRerender();
     useEffect(() =>{
-        setDestMsg(props.model.currentPlan.destination);
-        setDateMsg(props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate);
+        if(props.model.currentPlan){
+            setDestMsg(props.model.currentPlan.destination);
+            setDateMsg(props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate);
+        }
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         rerenderACB();
     },[props.model.currentPlan]);
-    console.log(props.model.currentPlan)
+    // console.log(props.model.currentPlan)
     const [destMsg, setDestMsg] = useState(props.model.currentPlan?props.model.currentPlan.destination:props.model.searchParams.destination);
     const [dateMsg, setDateMsg] = useState(props.model.currentPlan?props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate:props.model.searchParams.startDate + " ~ " + props.model.searchParams.endDate);
     const [promiseState,] = useState({});

@@ -10,7 +10,7 @@ export default function NavbarView(props) {
   function handleuserSignOutACB(e){
     navigate('/')
     props.onUserSignOut();
-    console.log("LOG OUT Nav CLICK")
+    // console.log("LOG OUT Nav CLICK")
 }  
 
   return (
