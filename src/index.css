@@ -182,9 +182,14 @@ button:focus-visible {
 }
 
 .searchblock-item {
+  font-family: 'Castoro Titling', cursive;
   margin: 60px;
   align-items: center;
   width: 500px;
+}
+
+.searchblock-item h1 {
+  font-weight: bold;
 }
 
 .mainContent {

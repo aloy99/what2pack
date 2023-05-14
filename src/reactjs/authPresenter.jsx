@@ -27,6 +27,11 @@ function AuthPresenter(props){
     };
 
     const handleUserSignUp = async (e) => {
+      if (props.model.currentPlan){
+        navigate('/details')
+      } else {
+        navigate('/profile')
+      }
       e.preventDefault();
         setEmail("");
         setPassword("");
@@ -36,6 +41,11 @@ function AuthPresenter(props){
     };
 
     const handleUserSignIn = async (e) => {
+      if (props.model.currentPlan){
+        navigate('/details')
+      } else {
+        navigate('/profile')
+      }
      e.preventDefault();
       setEmail("");
       setPassword("");
