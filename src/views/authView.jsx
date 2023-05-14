@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
+
 
 function AuthView(props){
     const [isSignUpShown, setIsSignUpShown] = useState(false);
@@ -46,7 +48,7 @@ function AuthView(props){
         return (
         <div>
             <p>You are signed in as: {props.currentUser?.email}</p> 
-            <button onClick={handleuserSignOutACB}>Sign Out</button>
+            <p class="signout-button" onClick={handleuserSignOutACB}>Sign Out</p>
         </div>
         )
     }else {
