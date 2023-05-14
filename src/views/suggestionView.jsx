@@ -76,7 +76,7 @@ function SuggestionView(props){
         });
     };
     const rerenderACB = useRerender();
-    console.log(props.currentPlan)
+    // console.log(props.currentPlan)
     const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
     const showItemPopconfirm = (item) => {
@@ -95,7 +95,7 @@ function SuggestionView(props){
         showItemPopconfirm(item);
     }
     function confirmDeleteItemACB(item){
-        console.log("delete",item)
+        // console.log("delete",item)
         closeItemPopconfirm(item);
         openNotificationWithUndoButton(item,`${item.name} deleted.`,'')
         props.onDeleteItem(item);
