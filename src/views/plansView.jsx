@@ -106,7 +106,7 @@ function PlansView(props){
                 className='card-plan-profile'
                 key='card-add'
                 hoverable
-                cover={<img className='img-card-plan-profile' alt="add a plan" src="/public/addPlanPic.png" />}
+                cover={<img className='img-card-plan-profile' alt="add a plan" src="/addPlanPic.png" />}
                 onClick={clickAddCardACB}
             >
                 <Meta title="Add a new plan" description="...." />
