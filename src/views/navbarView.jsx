@@ -1,9 +1,9 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
-import CustomLinkView from '../views/customlinkView.jsx';
+import CustomLinkView from './customlinkView.jsx';
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar(props) {
+export default function NavbarView(props) {
 
   const navigate = useNavigate();
 

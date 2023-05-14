@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../views/Navbar.jsx";
+import Navbar from "../views/navbarView.jsx";
 import useModelProp from './useModelProp.jsx';
 import { signOut2 } from "../firebaseModel.js";
 import useRerender from "./useRerender.jsx";

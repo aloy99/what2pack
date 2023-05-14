@@ -161,6 +161,12 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   text-decoration: underline;
 }
 
+.nav--active {
+  /* background-color: #BB9B75; */
+  color: #863A2C;
+  text-decoration: underline;
+}
+
 .nav li:hover {
   /* background-color: #BB9B75; */
   color: #863A2C;
