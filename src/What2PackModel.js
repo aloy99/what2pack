@@ -18,6 +18,7 @@ class What2PackModel{
     }
 
     setCurrentPlan(plan){
+        console.log(plan.news.length)
         if (!this.currentPlan || !isPlanEqual(plan, this.currentPlan)){
             this.currentPlan = plan;
             this.notifyObservers({currentPlan: plan});

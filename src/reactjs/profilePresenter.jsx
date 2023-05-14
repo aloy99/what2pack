@@ -20,7 +20,7 @@ function ProfilePresenter(props){
     function handleDeletePlanACB(plan){
         props.model.removePlan(plan);
         rerenderACB();
-        console.log("model",props.model);
+        // console.log("model",props.model);
     } 
     function handleUndoDeletePlanACB(plan){
         props.model.addPlan(plan);
