@@ -19,15 +19,20 @@ export default function NavbarView(props) {
       <ul>
         <CustomLinkView to="/">Home</CustomLinkView>
         
-        {props.currentUser ? <CustomLinkView to="/details">Details</CustomLinkView>  : ""}
+        {/* {props.currentUser ? <CustomLinkView to="/details">Details</CustomLinkView>  : ""} */}
         
         {props.currentUser ? <CustomLinkView to="/profile">All trips</CustomLinkView>  : ""}
-        
-        <CustomLinkView to="/login">
-        {props.currentUser ? "Signed In as: "+props.currentUser.email : "Login / SignUp"}
-        </CustomLinkView> 
 
-       {props.currentUser ? <p class="signout-button" onClick={handleuserSignOutACB} >Sign out</p>  : ""}
+        {props.currentUser ? <p className="signout-button">Signed In as: {props.currentUser.email} </p> : 
+         
+        <CustomLinkView to="/login">Login / SignUp</CustomLinkView>
+        }
+
+        {/* <CustomLinkView to="/login">
+        {props.currentUser ? "Signed In as: "+props.currentUser.email : "Login / SignUp"}
+        </CustomLinkView>  */}
+
+       {props.currentUser ? <p className="signout-button" onClick={handleuserSignOutACB} >Sign out</p>  : ""}
         
       </ul>
     </nav>
