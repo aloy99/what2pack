@@ -23,7 +23,7 @@ export default function NavbarView(props) {
         
         {props.currentUser ? <CustomLinkView to="/profile">All trips</CustomLinkView>  : ""}
 
-        {props.currentUser ? <p className="signout-button">Signed In as: {props.currentUser.email} </p> : 
+        {props.currentUser ? <p className="navUser-button">Signed In as: {props.currentUser.email} </p> : 
          
         <CustomLinkView to="/login">Login / SignUp</CustomLinkView>
         }

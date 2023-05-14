@@ -139,6 +139,20 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   font-family: 'Castoro Titling', cursive;
 }
 
+.navUser-button{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+}
+
 .nav ul, .signout-button {
   padding: 0;
   margin: 0;
