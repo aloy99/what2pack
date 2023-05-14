@@ -65,7 +65,7 @@ function StartPresenter(props){
         // }
         window.initMap = () => {};
         document.getElementById('googleMapsScript').src = url;
-        document.getElementById('googleMapsScript').onload = () => {props.model.gmapsLoaded = true; console.log('script loaded'); init()} 
+        document.getElementById('googleMapsScript').onload = () => {props.model.gmapsLoaded = true; init()} 
     }
 
     const {
@@ -93,7 +93,7 @@ function StartPresenter(props){
         getGeocode({address: dest_raw.description}).then((results) => {
             const { lat, lng } = getLatLng(results[0]);
             handleDestACB({'destination':dest_raw.description, 'latlng':{'latitude':lat, 'longitude':lng}});
-        }).catch((err) => console.log(err))
+        }).catch((err) => {})
     }
 
     return <StartView   

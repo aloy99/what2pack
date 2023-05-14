@@ -428,17 +428,18 @@ function SuggestionView(props){
                     </div>
 
                     <div className="news one">
-                       {props.currentPlan.news[0]?newsInfoCB(props.currentPlan.news[0]):{}}
+                       {props.currentPlan.news.length>0?newsInfoCB(props.currentPlan.news[0]):<div className="news-title">
+                        <p>"Book your accomodations early to get better prices!"</p></div>}
                     </div> 
 
                     <div className="news two">
-                       {props.currentPlan.news[1]?newsInfoCB(props.currentPlan.news[1]):{}}
-                        {/* {newsInfoCB(props.currentPlan.news[1])} */}
+                       {props.currentPlan.news.length>1?newsInfoCB(props.currentPlan.news[1]):<div className="news-title">
+                        <p>"Make sure you follow security rules and regulations for your transportion mode of choice."</p></div>}
                     </div>
 
                     <div className="news three">
-                       {props.currentPlan.news[2]?newsInfoCB(props.currentPlan.news[2]):{}}
-                        {/* {newsInfoCB(props.currentPlan.news[2])} */}
+                       {props.currentPlan.news.length>2?newsInfoCB(props.currentPlan.news[2]):<div className="news-title">
+                        <p>"Stay safe and happy travels!"</p></div>}
                     </div>     
                 </div>  
             </div>    
