@@ -45,14 +45,23 @@ const signOut2 = async() => {
 
 function modelToPersistence(model) {
   console.log("model to per:model", model);
-  // console.log("model to per TEST", getUidUser())
-  const result = {
-    plans: model.plans,
-  };
-  
-  console.log("model to per:per", result);
-  // console.log(result);
-  return result;
+  let persistedPlans = {plans:[]};
+  const modelPlans = model.plans;
+  for(let plan of modelPlans){ // for every plan
+    let persistedWeathers = [];
+    for(let weather of plan.weathers){ // for every day
+      for(let item in weather){ // for every type of weather forecast
+        if(weather[item] === undefined){
+          weather[item] = 'undefined';
+        }
+      }
+      persistedWeathers.push(weather);
+    }
+    plan.weathers = persistedWeathers;
+    persistedPlans.plans.push(plan);
+  }
+  console.log("model to per:per", persistedPlans);
+  return persistedPlans;
 }
 
 async function persistenceToModel(persistedData = {}, model) {

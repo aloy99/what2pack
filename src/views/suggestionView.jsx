@@ -287,7 +287,7 @@ function SuggestionView(props){
         else{
             iconPath = iconPaths['RAIN'];
         }
-        if(weather.temp_max){
+        if(weather.temp_max !== undefined && weather.temp_max !== 'undefined'){
             return (
                 <div key={weather.time} className="div-weather">
                     <div className="weather-date">
@@ -428,15 +428,17 @@ function SuggestionView(props){
                     </div>
 
                     <div className="news one">
-                       {newsInfoCB(props.currentPlan.news[0])}
+                       {props.currentPlan.news[0]?newsInfoCB(props.currentPlan.news[0]):{}}
                     </div> 
 
                     <div className="news two">
-                        {newsInfoCB(props.currentPlan.news[1])}
+                       {props.currentPlan.news[1]?newsInfoCB(props.currentPlan.news[1]):{}}
+                        {/* {newsInfoCB(props.currentPlan.news[1])} */}
                     </div>
 
                     <div className="news three">
-                        {newsInfoCB(props.currentPlan.news[2])}
+                       {props.currentPlan.news[2]?newsInfoCB(props.currentPlan.news[2]):{}}
+                        {/* {newsInfoCB(props.currentPlan.news[2])} */}
                     </div>     
                 </div>  
             </div>    
