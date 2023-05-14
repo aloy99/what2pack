@@ -34,7 +34,7 @@ function SearchBarView(props){
     }
     function destChangeACB(){
         let destination = document.querySelector(".input-destination").value;
-        console.log(destination);
+        // console.log(destination);
         props.onDestChanged(destination);
     }
     function rangeChangeACB(range){

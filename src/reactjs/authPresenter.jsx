@@ -23,7 +23,7 @@ function AuthPresenter(props){
     const handleUserSignOutACB = async () => {
       navigate('/profile')
       await signOut2();
-      console.log("sign out Presenter successful");
+      // console.log("sign out Presenter successful");
     };
 
     const handleUserSignUp = async (e) => {
@@ -37,7 +37,7 @@ function AuthPresenter(props){
         setPassword("");
         const res = await signUp(email, password);
       if (res.error) setErrorMsg(res.error);
-      console.log("res.error",res.error);
+      // console.log("res.error",res.error);
     };
 
     const handleUserSignIn = async (e) => {
@@ -51,7 +51,7 @@ function AuthPresenter(props){
       setPassword("");
       const res = await signIn(email, password);
       if (res.error) setErrorMsg(res.error);
-      console.log("res.error",res.error);
+      // console.log("res.error",res.error);
       }; 
 
     return (

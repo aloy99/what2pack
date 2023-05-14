@@ -39,7 +39,7 @@ function getHolidayDetails(searchTerms) {
         return json_response.filter(filterDatesCB);
     }
 
-    console.log({'year': 2023, 'country':searchTerms.destination.split(', ').slice(-1), ...holidayParams})
+    // console.log({'year': 2023, 'country':searchTerms.destination.split(', ').slice(-1), ...holidayParams})
     return fetch(HOLIDAYS_BASE_URL + new URLSearchParams({'year': 2023, 'country':searchTerms.destination.split(', ').slice(-1), ...holidayParams}),
         {
             method: 'GET',

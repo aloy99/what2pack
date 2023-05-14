@@ -17,7 +17,7 @@ function DetailsPresenter(props){
         setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
         rerenderACB();
     },[props.model.currentPlan]);
-    console.log(props.model.currentPlan)
+    // console.log(props.model.currentPlan)
     const [destMsg, setDestMsg] = useState(props.model.currentPlan?props.model.currentPlan.destination:props.model.searchParams.destination);
     const [dateMsg, setDateMsg] = useState(props.model.currentPlan?props.model.currentPlan.startDate + " ~ " + props.model.currentPlan.endDate:props.model.searchParams.startDate + " ~ " + props.model.searchParams.endDate);
     const [promiseState,] = useState({});

@@ -36,7 +36,7 @@ const signIn = async (email, password) => {
 const signOut2 = async() => {
   try {
     await signOut(auth);
-    console.log("sign out MODEL successful");
+    // console.log("sign out MODEL successful");
     return true;
   } catch (error) {
     return false;
@@ -44,7 +44,7 @@ const signOut2 = async() => {
 };   
 
 function modelToPersistence(model) {
-  console.log("model to per:model", model);
+  // console.log("model to per:model", model);
   let persistedPlans = {plans:[]};
   const modelPlans = model.plans;
   for(let plan of modelPlans){ // for every plan
@@ -60,12 +60,12 @@ function modelToPersistence(model) {
     plan.weathers = persistedWeathers;
     persistedPlans.plans.push(plan);
   }
-  console.log("model to per:per", persistedPlans);
+  // console.log("model to per:per", persistedPlans);
   return persistedPlans;
 }
 
 async function persistenceToModel(persistedData = {}, model) {
-  console.log("per to model:per",persistedData);
+  // console.log("per to model:per",persistedData);
   if(persistedData){
     if(persistedData.plans){
         model.plans = persistedData.plans;
@@ -77,7 +77,7 @@ async function persistenceToModel(persistedData = {}, model) {
   else{
     model.plans = [];
   }
-  console.log("per to model:model",model);
+  // console.log("per to model:model",model);
   return model; //  return a promise
 }
 

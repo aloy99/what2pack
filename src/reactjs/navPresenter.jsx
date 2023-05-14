@@ -14,7 +14,7 @@ function NavPresenter(props){
     const handleUserSignOutACB = async () => {
         await signOut2();
         rerenderACB();
-        console.log("sign out Presenter NAv successful");
+        // console.log("sign out Presenter NAv successful");
       };
 
       
