@@ -68,10 +68,10 @@ class What2PackModel{
     }
 
     removeItemFromCurrentItems(itemToRemove){
-        console.log(this.currentPlan.items)
+        // console.log(this.currentPlan.items)
         const oldItems = this.currentPlan.items;
         this.currentPlan.items = this.currentPlan.items.filter(it => it.name !== itemToRemove.name);
-        console.log(this.currentPlan.items)
+        // console.log(this.currentPlan.items)
         if (this.currentPlan.items.length !== oldItems.length){
             this.notifyObservers({itemToRemove: itemToRemove});
         }
@@ -91,7 +91,7 @@ class What2PackModel{
     }
 
     removePlan(planToRemove){
-        console.log("model remove plan", planToRemove)
+        // console.log("model remove plan", planToRemove)
         const oldPlans = this.plans;
         this.plans = this.plans.filter(p => !isPlanEqual(p, planToRemove));
         if (this.plans.length !== oldPlans.length){
@@ -111,7 +111,7 @@ class What2PackModel{
     }
 
     notifyObservers(payload){
-        console.log(payload);
+        // console.log(payload);
         function invokeObserverCB(obs){
             try{
                 obs(payload);
@@ -140,9 +140,24 @@ class What2PackModel{
                 getNewsDetails(searchParams),
                 getUnsplashImages(searchParams)
             ]).then(suggestACB), this.searchResultsPromiseState);
-            console.log(this.searchResultsPromiseState)
         }
     }
+
+    // doMiniSearch(){
+    //     getGeocode({address: dest_raw.description}).then((results) => {
+    //         const { lat, lng } = getLatLng(results[0]);
+    //         handleDestACB({'destination':dest_raw.description, 'latlng':{'latitude':lat, 'longitude':lng}});
+    //     }).catch((err) => console.log(err))
+    //     const searchParams = {
+    //         latlng:getLatLng(),
+    //         startDate: this.currentPlan.startDate,
+    //         endDate: this.currentPlan.endDate
+    //     };
+    //     resolvePromise(Promise.all([
+    //         getWeatherDetails(searchParams),
+    //         getNewsDetails(searchParams)
+    //     ]).then(suggestMiniACB), this.searchResultsPromiseState);
+    // }
 }
 
 export default What2PackModel;
