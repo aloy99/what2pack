@@ -8,9 +8,9 @@ import useModelProp from './useModelProp.jsx';
 
 function AuthPresenter(props){
     useModelProp(props.model, ["user"]); 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errMsg, setErrorMsg] = useState('');
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [errMsg, setErrorMsg] = useState(null);
 
     const navigate = useNavigate();
 
@@ -27,31 +27,34 @@ function AuthPresenter(props){
     };
 
     const handleUserSignUp = async (e) => {
-      if (props.model.currentPlan){
-        navigate('/details')
-      } else {
-        navigate('/profile')
-      }
       e.preventDefault();
-        setEmail("");
-        setPassword("");
         const res = await signUp(email, password);
-      if (res.error) setErrorMsg(res.error);
-      console.log("res.error",res.error);
+        if (res.error) {
+          setErrorMsg(res.error);
+        } else {
+          if (props.model.currentPlan){
+            navigate('/details');
+          } else {
+            navigate('/profile');
+          }
+        }
+      console.log("res.error SIGN UP",res.error);
     };
 
     const handleUserSignIn = async (e) => {
-      if (props.model.currentPlan){
-        navigate('/details')
-      } else {
-        navigate('/profile')
-      }
      e.preventDefault();
-      setEmail("");
-      setPassword("");
+
       const res = await signIn(email, password);
-      if (res.error) setErrorMsg(res.error);
-      console.log("res.error",res.error);
+      if (res.error) {
+        setErrorMsg(res.error);
+      } else {
+        if (props.model.currentPlan){
+          navigate('/details');
+        } else {
+          navigate('/profile');
+        }
+      }
+      console.log("res.error SIGN IN",res.error);
       }; 
 
     return (
