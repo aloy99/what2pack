@@ -9,12 +9,10 @@ const unsplashParams = {
 
 function getUnsplashImages(searchTerms) { 
     function processResponseACB(response) {
-        console.log(response)
         function throwErrorACB(data) {
             throw new Error("API returned error +" + response.status + " " + data);
         }
         if (response.status == 404) {
-            console.log('huh')
             return 'travel.png'
         }
         if (!response.ok) {
@@ -24,7 +22,7 @@ function getUnsplashImages(searchTerms) {
     }
 
     function getImageURLACB(json_response) {
-        console.log(json_response)
+
         if (json_response == 'travel.png'){
             return json_response
         }
