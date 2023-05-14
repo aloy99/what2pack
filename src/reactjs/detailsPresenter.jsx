@@ -32,13 +32,13 @@ function DetailsPresenter(props){
         return false;
     }
     function handleDestACB(dest){
-        console.log(dest)
+        // console.log(dest)
         props.model.setSearchDestination(dest);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleRangeACB(startDate, endDate){
         props.model.setSearchDateRange(startDate, endDate);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
@@ -59,7 +59,7 @@ function DetailsPresenter(props){
             }
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(props.model.currentPlan, props.model.plans));
-            console.log(props.model);
+            // console.log(props.model);
         }
         setDestMsg(destination);
         setDateMsg(startDate + ' ~ ' + endDate);
@@ -101,52 +101,45 @@ function DetailsPresenter(props){
         // handleSubmit();
         props.model.addPlan(props.model.currentPlan);
         setCurrentPlanAdded(true);
-        console.log(props.model);
+        // console.log(props.model);
     }
-    //add data to database
-    // const handleSubmit = async () => {
-    //     try {
-    //     await addTrip(currentUser?.uid, props.model.currentPlan.destination, props.model.currentPlan.startDate, props.model.currentPlan.endDate, props.model.currentPlan.items);
-    //     } catch (error) {
-    //     }
-    //   };
     function handleDeletePlanACB(){
         props.model.removePlan(props.model.currentPlan);
         setCurrentPlanAdded(false);
-        console.log(props.model);
+        // console.log(props.model);
     } 
     function handleClickedLogoACB(){
         props.model.setCurrentPlan(null);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleItemPackedACB(itemName, ifPacked){
         const itemToPack = props.model.currentPlan.items.find(item => item.name === itemName);
         props.model.setItemPacked(itemToPack, ifPacked);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleAllItemsPackedACB(ifCheckAll){
         for(const item of props.model.currentPlan.items){
             props.model.setItemPacked(item, ifCheckAll);
         }
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleDeleteItemACB(item){
         props.model.removeItemFromCurrentItems(item);
         rerenderACB();
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleAddItemACB(item){
         props.model.addItemToCurrentItems(item);
         rerenderACB();
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleAmountChangeACB(item, newAmount){
         props.model.setItemAmount(item, newAmount);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleRemarkChangeACB(item, newRemark){
         props.model.setItemRemark(item, newRemark);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleUndoDeleteItemACB(item){
         handleAddItemACB(item);

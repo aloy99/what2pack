@@ -29,7 +29,7 @@ function StartPresenter(props){
             }
             props.model.setCurrentPlan(plan);
             setCurrentPlanAdded(ifPlanAdded(plan, props.model.plans));
-            console.log(props.model);
+            // console.log(props.model);
         }
         props.model.doSearch(props.model.searchParams);
         resolvePromise(props.model.searchResultsPromiseState.promise, promiseState);
@@ -40,17 +40,17 @@ function StartPresenter(props){
         }
     }
     function handleDestACB(dest){
-        console.log(dest);
+        // console.log(dest);
         props.model.setSearchDestination(dest);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleRangeACB(startDate, endDate){
         props.model.setSearchDateRange(startDate, endDate);
-        console.log(props.model);
+        // console.log(props.model);
     }
     function handleClickedLogoACB(){
         props.model.setCurrentPlan(null);
-        console.log(props.model);
+        // console.log(props.model);
     }
     useEffect(() => {
         scriptLoader();

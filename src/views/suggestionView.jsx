@@ -76,6 +76,7 @@ function SuggestionView(props){
         });
     };
     const rerenderACB = useRerender();
+    console.log(props.currentPlan)
     const ifItemConfirmOpen = props.currentPlan.items.map(it => it.ifDeleteConfirmOpen);
     const [openItemConfirm, setOpenItemConfirm] = useState(ifItemConfirmOpen);
     const showItemPopconfirm = (item) => {
