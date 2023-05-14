@@ -122,6 +122,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   margin: 1rem;
   text-align: center;
 }
+
 .nav {
   background-color:  #ecd8b2;
   color: #47453f;
@@ -138,7 +139,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   font-family: 'Castoro Titling', cursive;
 }
 
-.nav ul {
+.nav ul, .signout-button {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -146,7 +147,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   gap: 1rem;
 }
 
-.nav a {
+.nav a, .signout-button {
   color: inherit;
   text-decoration: none;
   height: 100%;
@@ -155,13 +156,13 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   padding: .25rem;
 }
 
-.nav li.active {
+.nav li.active, .signout-button:active {
   /* background-color: #BB9B75; */
   color: #863A2C;
   text-decoration: underline;
 }
 
-.nav li:hover {
+.nav li:hover, .signout-button:hover {
   /* background-color: #BB9B75; */
   color: #863A2C;
 }
@@ -562,7 +563,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 
 .img-card-plan-profile{
   object-fit: cover;
-  height: calc(100vh / 4.2);
+  height: calc(100vh / 4.4);
   width: calc(100vh / 3.2);
   background-color: #ecd8b2;
 }
@@ -574,10 +575,8 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   align-items: center ;
   justify-content: center;
   margin-top: 3%;
-  margin-bottom: 3%;    
+  /* margin-bottom: 3%;     */
   height: 100%;
-  /* background-color: #989797; */
-  /* padding: 0 10% 0 10%; */
 }
 
 .weather-list-container{

@@ -25,9 +25,9 @@ export default function Navbar(props) {
         
         <CustomLinkView to="/login">
         {props.currentUser ? "Signed In as: "+props.currentUser.email : "Login / SignUp"}
-       </CustomLinkView> 
+        </CustomLinkView> 
 
-       {props.currentUser ? <Button onClick={handleuserSignOutACB} >Sign out</Button>  : ""}
+       {props.currentUser ? <p class="signout-button" onClick={handleuserSignOutACB} >Sign out</p>  : ""}
         
       </ul>
     </nav>
