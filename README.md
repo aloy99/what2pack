@@ -74,7 +74,6 @@ There is plenty of links and clickable components to take the user to other part
 - MVP
 - Framework - React + Vite
 - Hosting, Database and Authentication with Firebase
-And a router that can show corresponding presenters according to different URL.
 
 ## Third party components:
 Location finder: https://maps.googleapis.com/maps/api/js?key=
