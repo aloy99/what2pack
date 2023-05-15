@@ -3,12 +3,12 @@ Welcome to the What2Pack Website!
 The aim of this website is that you can find information and prepare yourself for your next planned trip. Based on your destination and travel dates. 
 
 The website gives you:
-Insights into the weather (API) on your planned dates* (* We only provide 14 days weather forecast.)
-Packing list suggestions based on the weather forecasts. You can modify your list by adding/deleting items, or change the amounts/remarks of the items. You can also tick on/off the items on the list for the ease of packing.
-The holidays (API) that are happening during your planned trip.
-Current news (API) on your planned destination, links to external websites included.
-You can also create an account on the website, so you can save all your planned trips to the database.  This allows you to save all your trip plans and view them again at a later date.
-When saving a trip, the website will add a matching photo from Unsplash (API) based on the destination.
+- Insights into the weather (API) on your planned dates* (* We only provide 14 days weather forecast.)
+- Packing list suggestions based on the weather forecasts. You can modify your list by adding/deleting items, or change the amounts/remarks of the items. - - You can also tick on/off the items on the list for the ease of packing.
+- The holidays (API) that are happening during your planned trip.
+- Current news (API) on your planned destination, links to external websites included.
+- You can also create an account on the website, so you can save all your planned trips to the database.  This allows you to save all your trip plans and view them again at a later date.
+- When saving a trip, the website will add a matching photo from Unsplash (API) based on the destination.
 
 We at the What2Pack team wish everyone so much ease in preparing and packing for your trip and wish everyone a safe journey!
 
@@ -52,29 +52,28 @@ react.svg (default file).
 ```
 
 ## Routes:
-Route "/":
-shows you the startpage. It is intended as the landing page.
-Route "/login":
-Is the login/sign Up page.
-Route "/details":
-shows the detailed information based on the given search on the startpage from the API's. However, it is not intended for users to direct to this URL directly.
-Route "/profile":
-shows the profile page where you can find your saved trips.
+- Route "/":
+	shows you the startpage. It is intended as the landing page.
+- Route "/login":
+	Is the login/sign Up page.
+- Route "/details":
+	shows the detailed information based on the given search on the startpage from the API's. However, it is not intended for users to direct to this URL directly.
+- Route "/profile":
+	shows the profile page where you can find your saved trips.
 
 There is plenty of links and clickable components to take the user to other parts of the website. There is also a navigation bar always at the top of the app, guiding the user to different routes.
 
 ## API's:
-Gmaps API: https://maps.googleapis.com/maps/api/js?key=?
-Weather API: https://api.open-meteo.com/v1/forecast?
-Holiday API: https://api.api-ninjas.com/v1/holidays
-News API: https://bing-news-search1.p.rapidapi.com/news?
-Pictures related to the chosen holiday: https://api.unsplash.com/photos/random?
+- Gmaps API: https://maps.googleapis.com/maps/api/js?key=?
+- Weather API: https://api.open-meteo.com/v1/forecast?
+- Holiday API: https://api.api-ninjas.com/v1/holidays
+- News API: https://bing-news-search1.p.rapidapi.com/news?
+- Pictures related to the chosen holiday: https://api.unsplash.com/photos/random?
 
 ## Technologies:
-MVP
-Framework - React + Vite
-Hosting, Database and Authentication with Firebase
-
+- MVP
+- Framework - React + Vite
+- Hosting, Database and Authentication with Firebase
 And a router that can show corresponding presenters according to different URL.
 
 ## Third party components:
@@ -83,4 +82,4 @@ Ant Design: https://ant.design/
 DatePicker, Button, Input, Icon, Popconfirm, Notification
 
 ## Comments
-Comment: Melissa Julsing accidentally did a lot of commits with the wrong username ‘xFleur’ ; those commits are visible in the commit history but not included in the contribution summary.
+Comment: Melissa Julsing accidentally did a lot of commits with the wrong username ‘xFleur’; those commits are visible in the commit history but not included in the contribution summary.
