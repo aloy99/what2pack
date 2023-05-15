@@ -65,7 +65,7 @@ function AuthView(props){
                                 <div className="loginR-column">  
                                     <form  className="" onSubmit={props.onUserSignIn}>
                                         <h1>Log In to account</h1>
-                                        <p >No account yet?<button className="sign-button" onClick={handleSignUpClick}>Sign Up here</button></p>
+                                        <p >No account yet?<button type="button" className="sign-button" onClick={handleSignUpClick}>Sign Up here</button></p>
                                         <label htmlFor="email">Email</label>
                                         <input type="email" placeholder="Enter your email" 
                                             value={props.email}
@@ -97,7 +97,7 @@ function AuthView(props){
                                 <div className="loginR-column">  
                                     <form  onSubmit={props.onUserSignUp}>
                                         <h1>Create account</h1>  
-                                        <p >All ready have an account? <button className="sign-button"  onClick={handleSignInClick}>Log In here</button></p> 
+                                        <p >All ready have an account? <button type="button" className="sign-button"  onClick={handleSignInClick}>Log In here</button></p> 
                                         <label htmlFor="email">Email</label>
                                         <input type="email" placeholder="Enter your email" 
                                             value={props.email}
