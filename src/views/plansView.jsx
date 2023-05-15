@@ -45,6 +45,7 @@ function PlansView(props){
             clickCardACB();
         }
         function clickDeleteCardACB(){
+            // console.log()
             showPlanPopconfirm(plan);
         }
         function showPlanPopconfirm(plan){

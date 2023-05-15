@@ -78,6 +78,7 @@ class What2PackModel{
     }
 
     addPlan(planToAdd){
+        // console.log("model add plan", planToAdd);
         function compareItemsCB(a,b){
             return a.index - b.index;
         }
@@ -87,14 +88,16 @@ class What2PackModel{
             }
         }
         this.plans = [...this.plans, planToAdd].sort(compareItemsCB);
+        // console.log(this.plans);
         this.notifyObservers({planToAdd: planToAdd});
     }
 
     removePlan(planToRemove){
-        // console.log("model remove plan", planToRemove)
+        // console.log("model remove plan", planToRemove);
         const oldPlans = this.plans;
         this.plans = this.plans.filter(p => !isPlanEqual(p, planToRemove));
         if (this.plans.length !== oldPlans.length){
+            // console.log(this.plans);
             this.notifyObservers({planToRemove: planToRemove});
         }
     }

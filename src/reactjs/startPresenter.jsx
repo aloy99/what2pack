@@ -13,7 +13,7 @@ function StartPresenter(props){
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
             const plan = {
-                index: props.model.plans.length,
+                index: props.model.plans.length>0?(Number(props.model.plans.slice(-1)[0].index+1)):0,
                 destination: destination, 
                 startDate: startDate, 
                 endDate: endDate, 

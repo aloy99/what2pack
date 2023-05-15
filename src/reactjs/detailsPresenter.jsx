@@ -47,8 +47,9 @@ function DetailsPresenter(props){
     }
     function handleSearchInputACB(destination, startDate, endDate){
         function updateCurrentPlanACB(){
+            // console.log(props.model.plans.slice(-1));
             const plan = {
-                index: props.model.plans.length,
+                index: props.model.plans.length>0?(Number(props.model.plans.slice(-1)[0].index)+1):0,
                 destination: destination, 
                 startDate: startDate, 
                 endDate: endDate, 
@@ -163,7 +164,7 @@ function DetailsPresenter(props){
         // }
         window.initMap = () => {};
         document.getElementById('googleMapsScript').src = url;
-        document.getElementById('googleMapsScript').onload = () => {props.model.gmapsLoaded = true; console.log('script loaded'); init()} 
+        document.getElementById('googleMapsScript').onload = () => {props.model.gmapsLoaded = true; init()} 
     }
 
     const {

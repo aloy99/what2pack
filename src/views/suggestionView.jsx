@@ -112,7 +112,7 @@ function SuggestionView(props){
             amount: inputAmount.value,
             remark: inputRemark.value,
             ifPacked: false,
-            index: props.currentPlan.items.length,
+            index: props.currentPlan.items.length>0?(props.currentPlan.items.slice(-1)[0].index+1):0,
             ifDeleteConfirmOpen: false
         }
         if(!item.name){
