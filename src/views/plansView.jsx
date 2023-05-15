@@ -75,7 +75,7 @@ function PlansView(props){
                 hoverable
                 cover={<img className='img-card-plan-profile' alt={plan.destination} src={plan.image} onClick={clickCardACB}/>}
                 actions={[
-                    <EditOutlined key="edit" onClick={clickEditCardACB}/>,
+                    <EditOutlined className='card-edit-icon' key="edit" onClick={clickEditCardACB}/>,
                     <Popconfirm
                         key="delete"
                         title="Are you sure to delete this plan?"
@@ -87,7 +87,7 @@ function PlansView(props){
                         // disabled={!props.currentPlanAdded}
                         open={openPlanConfirm[plan.index]}
                         >
-                        <CloseOutlined key="ellipsis" onClick={clickDeleteCardACB}/>
+                        <CloseOutlined className="card-delete-icon" key="ellipsis" onClick={clickDeleteCardACB}/>
                     </Popconfirm>
                 ]}
             >
