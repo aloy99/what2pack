@@ -15,12 +15,13 @@ We at the What2Pack team wish everyone so much ease in preparing and packing for
 
 # Setup instructions
 git clone the repository into your working directory of choice
-```npm install
+```
+npm install
 npm run dev 
 Open the website on you localhost
-
+```
 ## Our project file structure (short description/purpose of each file):
-
+```
 [src]
 	[What2PackModel.js]
 		Model file.
