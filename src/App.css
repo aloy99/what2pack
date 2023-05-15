@@ -573,6 +573,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   width: calc(100vh / 2.5);
   height: calc(100vh / 2.2);
   margin: 2%;
+  cursor:default;
 }
 
 .img-card-plan-profile{
@@ -580,6 +581,15 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
   height: calc(100vh / 4.4);
   width: calc(100vh / 3.2);
   background-color: #ecd8b2;
+  cursor:pointer;
+}
+
+.card-edit-icon{
+  cursor:pointer;
+}
+
+.card-delete-icon{
+  cursor:pointer;
 }
 
 .plans-profile{
