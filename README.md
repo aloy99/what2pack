@@ -1,64 +1,73 @@
 # What2Pack
-Welcome to What2Pack!
-The aim of this webapp is to enable you to information and prepare yourself for your next planned trip, based on your destination and travel dates. 
+Welcome to the What2Pack Website!
+The aim of this website is that you can find information and prepare yourself for your next planned trip. Based on your destination and travel dates. 
 
-The webapp gives you:
-Packing advice based on the weather (API)
-The local holidays that are happening during your planned trip (API)
-Current news on your planned destination (API)
+The website gives you:
+Insights into the weather (API) on your planned dates* (* We only provide 14 days weather forecast.)
+Packing list suggestions based on the weather forecasts. You can modify your list by adding/deleting items, or change the amounts/remarks of the items. You can also tick on/off the items on the list for the ease of packing.
+The holidays (API) that are happening during your planned trip.
+Current news (API) on your planned destination, links to external websites included.
+You can also create an account on the website, so you can save all your planned trips to the database.  This allows you to save all your trip plans and view them again at a later date.
+When saving a trip, the website will add a matching photo from Unsplash (API) based on the destination.
 
-# What we have done:
-On the landing page, you can fill in your destination and travel date, when you click on search you will see packing advice based on the weather API.
-If you click on the login icon, you can sign up or log in on What2Pack and sign out. 
-User testing : https://docs.google.com/document/d/1jlsax-P4guY3SXY7rLVAtGeZ12kV93LXTaiUh6joi3U/edit
+We at the What2Pack team wish everyone so much ease in preparing and packing for your trip and wish everyone a safe journey!
 
+
+# Setup instructions
+git clone the repository into your working directory of choice
+```npm install
+npm run dev ```
+Open the website on you localhost
 
 ## Our project file structure (short description/purpose of each file):
 ```
 [src]
-    [assets]
-        react.svg (default file)
-    [reactjs]
-        LoginPresenter.jsx (redirect Login View (will handle login props later))
-        detailsPresenter.jsx (trip details presenter, handles plan details and suggested item props)
-        profilePresenter.jsx (user profile presenter, handles saved trip props)
-        signUpPresenter.jsx (signuup presenter, redirect signup View (will handle signup props later))
-        startPresenter.jsx (start page presenter, handles search props)
-        useModelProp.jsx (hook for observer lifecycle)
-        useRerender.jsx (hook for rerender)
-    [views]
-        AuthDetails.jsx (checks login/logout state for header )
-        LoginView.jsx (Login page)
-        SignIn.jsx (Sign in component + firebase)
-        SignUp.jsx (Sign Up component + firebase)
-        addButtonView.jsx (handle the reaction of adding travel information into account)
-        detailsView.jsx (shows all your trip information and packing advice)
-        profileView.jsx (when you are logged in you can find your saved trips here)
-        searchBarView.jsx (creates search bar view, that uses autocomplete portion from searchCompleteView and adds date picker)
-        searchCompleteView.jsx (handle search autocomplete, use package to process Google places autocomplete API)
-        startView.jsx (Loading page)
-        userIconView.jsx (handle the clicked icon reaction)
-    App.css (set up the layout and UI for pages) 
-    App.jsx (to export App component)
-    What2PackModel.js (define model)
-    apiConfig.jsx (contains API urls)
-    firebaseConfig.js (firebase configuration details) 
-    firebaseModel.jsx (custom hook for firebase auth)
-    index.css (set up the layout and UI for pages)
-    main.jsx (display app)
-    resolvePromise.js (resolvePromise function)
-    weatherSource.jsx (work in progress, to call weather API to get weather data)
+	[What2PackModel.js]
+		Model file.
+	[views]
+		View files.
+[reactjs]
+Presenter files.
+	[main.jsx]
+	[App.jsx]
+		Root components.
+[api] 	
+API related files, for getting the data from the APIs including holiday info, news info, weather info, and the unsplash image.
+	[App.css]
+	[index.css]
+		Styling files.
+[firebaseConfig.js]
+[firebaseModel.js]
+	Firebase related files, to get data from and save data to the database.
+	[resolvePromise.js]
+		Function to resolve promise.
+[utils.jsx]
+		File for util functions such as giving suggested packing list based on weather info.
+	[examples.jsx]
+		Examples of objects for reference.
+[assets](useless)
+react.svg (default file).
+
 ```
 
 ## Routes:
-Route "/" or "/start" shows you the startpage
-Route "/login" and "/signup" are the login and sign Up pages
-Route "/details" shows the detailed information based on the given search on the startpage from the API's
-Route "/profile" shows the profile page where you can find your saved trips
+Route "/":
+shows you the startpage. It is intended as the landing page.
+Route "/login":
+Is the login/sign Up page.
+Route "/details":
+shows the detailed information based on the given search on the startpage from the API's. However, it is not intended for users to direct to this URL directly.
+Route "/profile":
+shows the profile page where you can find your saved trips.
+
+There is plenty of links and clickable components to take the user to other parts of the website. There is also a navigation bar always at the top of the app, guiding the user to different routes.
 
 ## API's:
+Gmaps API: https://maps.googleapis.com/maps/api/js?key=?
 Weather API: https://api.open-meteo.com/v1/forecast?
-Holiday API: 
+Holiday API: https://api.api-ninjas.com/v1/holidays
+News API: https://bing-news-search1.p.rapidapi.com/news?
+Pictures related to the chosen holiday: https://api.unsplash.com/photos/random?
 
 ## Technologies:
 MVP
@@ -67,14 +76,7 @@ Hosting, Database and Authentication with Firebase
 
 And a router that can show corresponding presenters according to different URL.
 
-
 ## Third party components:
 Location finder: https://maps.googleapis.com/maps/api/js?key=
 Ant Design: https://ant.design/ 
 DatePicker, Button, Input, Icon, Popconfirm, Notification
-
-## Note: 
-Because we are using Vite, 
-1. all the extensions for js files should be .jsx instead of .js.
-2. When using React you need a React import everywhere you use JSX (e.g. Views): import React from "react";
-
