@@ -80,3 +80,6 @@ And a router that can show corresponding presenters according to different URL.
 Location finder: https://maps.googleapis.com/maps/api/js?key=
 Ant Design: https://ant.design/ 
 DatePicker, Button, Input, Icon, Popconfirm, Notification
+
+## Comments
+Comment: Melissa Julsing accidentally did a lot of commits with the wrong username ‘xFleur’ ; those commits are visible in the commit history but not included in the contribution summary.
