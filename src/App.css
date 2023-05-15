@@ -179,6 +179,7 @@ input[type="search"].input-destination::-webkit-search-cancel-button {
 .nav li:hover, .signout-button:hover {
   /* background-color: #BB9B75; */
   color: #863A2C;
+  cursor: pointer;
 }
 
 /* navigation end */
